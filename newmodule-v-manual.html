@@ -1,0 +1,2005 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>คู่มือ HTML ของ mod/newmodule v_</title>
+  <style>
+    :root {
+      --bg: #f5f2ea;
+      --paper: #fffdf9;
+      --ink: #192233;
+      --muted: #5a6476;
+      --line: #d8d2c7;
+      --line-strong: #b8afa0;
+      --accent: #0f766e;
+      --accent-2: #b45309;
+      --accent-soft: #e6f5f3;
+      --accent-soft-2: #fff4e8;
+      --shadow: 0 18px 40px rgba(25, 34, 51, 0.08);
+      --radius: 18px;
+      --radius-sm: 12px;
+      --page-width: 1280px;
+      --toc-width: 290px;
+      --body-font: "Trebuchet MS", "Segoe UI", Tahoma, sans-serif;
+      --head-font: Georgia, "Times New Roman", serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--body-font);
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(15, 118, 110, 0.10), transparent 26%),
+        radial-gradient(circle at top right, rgba(180, 83, 9, 0.08), transparent 24%),
+        linear-gradient(180deg, #fcfaf6 0%, var(--bg) 100%);
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    code, pre, .mono {
+      font-family: Consolas, "Liberation Mono", Menlo, monospace;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: -999px;
+      top: 0;
+      padding: 0.75rem 1rem;
+      background: var(--ink);
+      color: #fff;
+      z-index: 1000;
+      border-radius: 0 0 10px 10px;
+    }
+
+    .skip-link:focus {
+      left: 1rem;
+    }
+
+    .wrap {
+      max-width: var(--page-width);
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .hero {
+      margin: 20px auto 18px;
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.92));
+      box-shadow: var(--shadow);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 0.5rem;
+      align-items: center;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin-bottom: 16px;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--head-font);
+      margin: 0;
+      line-height: 1.2;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      margin: 0 0 14px;
+      color: var(--muted);
+      max-width: 90ch;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 18px 0 0;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.5rem 0.8rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .chip strong {
+      color: var(--accent);
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .btn {
+      appearance: none;
+      border: 1px solid var(--line-strong);
+      background: #fff;
+      color: var(--ink);
+      padding: 0.72rem 1rem;
+      border-radius: 12px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 16px rgba(25, 34, 51, 0.08);
+      border-color: var(--accent);
+    }
+
+    .btn.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .btn.ghost {
+      background: var(--accent-soft-2);
+      border-color: #f0d7b8;
+      color: #7f4e1f;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(240px, var(--toc-width)) minmax(0, 1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .toc {
+      position: sticky;
+      top: 16px;
+      padding: 18px;
+    }
+
+    .toc h2 {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+    }
+
+    .toc p {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .toc ol {
+      margin: 0;
+      padding-left: 1.2rem;
+      display: grid;
+      gap: 7px;
+      color: var(--ink);
+    }
+
+    .toc li {
+      line-height: 1.4;
+    }
+
+    .toc small {
+      color: var(--muted);
+    }
+
+    main {
+      display: grid;
+      gap: 18px;
+    }
+
+    .page {
+      padding: 22px;
+    }
+
+    .page h2 {
+      font-size: 1.65rem;
+      margin-bottom: 8px;
+    }
+
+    .page .intro {
+      color: var(--muted);
+      margin: 0 0 14px;
+      max-width: 95ch;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .panel {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: #fff;
+    }
+
+    .panel h3,
+    .panel h4 {
+      font-family: var(--head-font);
+      margin-bottom: 10px;
+    }
+
+    .panel h4 {
+      font-size: 1.08rem;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .small {
+      font-size: 0.92rem;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin-right: 6px;
+      margin-bottom: 6px;
+    }
+
+    .tag.warn {
+      background: var(--accent-soft-2);
+      color: #9a5a18;
+    }
+
+    .mini-table,
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 6px;
+      overflow: hidden;
+    }
+
+    .mini-table th,
+    .mini-table td,
+    .data-table th,
+    .data-table td {
+      border-bottom: 1px solid var(--line);
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .mini-table th,
+    .data-table th {
+      background: #f8f7f3;
+      font-size: 0.9rem;
+    }
+
+    .mini-table td,
+    .data-table td {
+      font-size: 0.95rem;
+    }
+
+    .data-table tbody tr:nth-child(even) td {
+      background: #fcfbf8;
+    }
+
+    ul.compact,
+    ol.compact {
+      margin: 0;
+      padding-left: 1.2rem;
+      display: grid;
+      gap: 0.35rem;
+    }
+
+    .screen {
+      padding: 22px;
+      border-left: 6px solid var(--accent);
+    }
+
+    .screen + .screen {
+      margin-top: 2px;
+    }
+
+    .screen-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .screen-head h3 {
+      font-size: 1.4rem;
+      margin-bottom: 6px;
+    }
+
+    .screen-head .fileline {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .jump {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.5rem 0.75rem;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      border: 1px solid #c7e6e2;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .shot {
+      margin: 16px 0 0;
+      padding: 18px;
+      border-radius: var(--radius-sm);
+      border: 2px dashed var(--line-strong);
+      background:
+        linear-gradient(135deg, rgba(15,118,110,0.05), rgba(180,83,9,0.05)),
+        repeating-linear-gradient(45deg, rgba(25,34,51,0.02), rgba(25,34,51,0.02) 10px, rgba(255,255,255,0.02) 10px, rgba(255,255,255,0.02) 20px);
+      min-height: 150px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+    }
+
+    .shot img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .shot.has-image {
+      display: block;
+      min-height: 0;
+      padding: 12px;
+    }
+
+    .shot.has-image figcaption {
+      margin-top: 10px;
+    }
+
+    .shot[title],
+    .shot img[title],
+    .placeholder[title],
+    .diagram[title] {
+      cursor: help;
+    }
+
+    .shot .placeholder {
+      font-weight: 800;
+      color: var(--accent);
+      font-size: 1.05rem;
+    }
+
+    .shot figcaption {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: end;
+      margin-bottom: 10px;
+    }
+
+    .section-title h2 {
+      font-size: 1.75rem;
+    }
+
+    .section-title p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .checklist {
+      display: grid;
+      gap: 8px;
+      padding-left: 1.2rem;
+      margin: 0;
+    }
+
+    .note {
+      padding: 14px 16px;
+      border-left: 4px solid var(--accent-2);
+      background: #fff9f1;
+      border-radius: 10px;
+      color: #6b4520;
+    }
+
+    .diagram {
+      margin: 0;
+      padding: 14px 16px;
+      border-radius: 12px;
+      background: #111827;
+      color: #e5e7eb;
+      overflow: auto;
+      white-space: pre;
+      line-height: 1.45;
+      font-size: 0.88rem;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .footer {
+      padding: 18px 4px 42px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.92rem;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    body.presentation {
+      background: #f0ede5;
+      scroll-snap-type: y proximity;
+    }
+
+    body.presentation .layout {
+      grid-template-columns: 1fr;
+    }
+
+    body.presentation .toc,
+    body.presentation .no-present {
+      display: none !important;
+    }
+
+    body.presentation .hero {
+      margin-bottom: 12px;
+    }
+
+    body.presentation .screen {
+      min-height: calc(100vh - 40px);
+      display: grid;
+      align-content: start;
+      scroll-snap-align: start;
+    }
+
+    body.presentation .wrap {
+      max-width: 1100px;
+    }
+
+    .presentation-hint {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    @media (max-width: 1080px) {
+      .layout,
+      .grid-2,
+      .grid-3,
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+
+      .toc {
+        position: static;
+      }
+    }
+
+    @media print {
+      @page {
+        size: A4;
+        margin: 14mm 12mm 16mm;
+      }
+
+      html, body {
+        background: #fff !important;
+      }
+
+      body {
+        color: #000;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .no-print,
+      .toolbar,
+      .toc .presentation-hint,
+      .skip-link {
+        display: none !important;
+      }
+
+      .wrap {
+        max-width: none;
+        padding: 0;
+      }
+
+      .hero,
+      .card,
+      .panel {
+        box-shadow: none !important;
+        background: #fff !important;
+      }
+
+      .layout {
+        display: block;
+      }
+
+      .toc {
+        position: static;
+        margin-bottom: 16px;
+      }
+
+      .screen {
+        break-before: page;
+        page-break-before: always;
+      }
+
+      .screen:first-of-type {
+        break-before: auto;
+        page-break-before: auto;
+      }
+
+      .shot {
+        min-height: 70mm;
+        border-color: #555;
+        background: #fff;
+      }
+
+      a {
+        color: #000;
+        text-decoration: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#content">ข้ามไปเนื้อหา</a>
+
+  <div class="wrap">
+    <header class="hero card">
+      <div class="eyebrow">E-Portfolio / Moodle plugin manual</div>
+      <h1>คู่มือ HTML ของ `mod/newmodule` ส่วน `v_`</h1>
+      <p>
+        ไฟล์นี้ทำเป็นหน้าเดียวเพื่อใช้เป็นคู่มืออ้างอิงและคู่มือผู้ใช้พร้อมกัน
+        เปิดอ่านได้บนเบราว์เซอร์, กดพิมพ์เป็น A4/PDF ได้, และสลับเป็นโหมดพรีเซนต์ได้โดยไม่ต้องแยกไฟล์ CSS ออกไป.
+      </p>
+      <div class="chip-row">
+        <span class="chip"><strong>Scope</strong> `v_` screens + helper + report reference</span>
+        <span class="chip"><strong>Print</strong> A4 / PDF ready</span>
+        <span class="chip"><strong>Present</strong> slide-style mode</span>
+        <span class="chip"><strong>Portable</strong> ใช้ชื่อไฟล์ ไม่ผูก path</span>
+      </div>
+      <div class="toolbar no-print">
+        <button class="btn primary" id="btnPresentation" type="button">Presentation Mode</button>
+        <button class="btn" id="btnPrint" type="button">Print / Save PDF</button>
+        <a class="btn ghost" href="#content">Go to Content</a>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="toc card no-print" id="toc">
+        <h2>สารบัญ</h2>
+        <p>คลิกเพื่อข้ามไปยังแต่ละส่วน, โครงนี้ตั้งใจให้เอาไปใช้ต่อใน Word, PDF, หรือเว็บพรีเซนต์ได้</p>
+        <div class="presentation-hint">กดปุ่ม Presentation Mode เพื่อดูแบบฉายหน้าจอ</div>
+        <ol>
+          <li><a href="#overview">ภาพรวมและวิธีใช้</a></li>
+          <li><a href="#screen-map">แผนที่หน้าจอ</a></li>
+          <li><a href="#screens">คู่มือหน้าจอหลัก</a></li>
+          <li><a href="#technical-reference">Technical Reference</a></li>
+          <li><a href="#use-cases">Use case / DFD / ER</a></li>
+          <li><a href="#placeholders">Screenshot placeholders</a></li>
+          <li><a href="#troubleshooting">Troubleshooting / Logs</a></li>
+          <li><a href="#appendix">Appendix</a></li>
+        </ol>
+        <p class="small muted" style="margin-top:12px">
+          Related drafts:
+          <a href="newmodule-screen-manual-draft.md">screen-manual</a>,
+          <a href="newmodule-v-survey-draft.md">survey</a>,
+          <a href="newmodule-screenshot-placeholders.md">placeholders</a>,
+          <a href="eport-requirement.md">eport-requirement</a>
+        </p>
+      </aside>
+
+      <main id="content">
+        <section class="page card" id="overview">
+          <div class="section-title">
+            <div>
+              <h2>ภาพรวมและวิธีใช้เอกสารนี้</h2>
+              <p>สร้างเพื่ออธิบายระบบ `v_` ของ `mod/newmodule` แบบใช้จริง, อ่านง่าย, และแก้ต่อได้ง่าย</p>
+            </div>
+          </div>
+          <div class="grid-2">
+            <div class="panel">
+              <h4>ขอบเขต</h4>
+              <ul class="compact">
+                <li>หน้าจอหลักของ `v_` ทั้งกลุ่ม dashboard, management, report, detail view</li>
+                <li>ไฟล์ helper / API ที่ช่วยให้หน้าจอทำงาน</li>
+                <li>ตารางฐานข้อมูลที่เกี่ยวข้อง และความสัมพันธ์ที่ควรรู้</li>
+                <li>DFD, ER, และ use case สำหรับอ้างอิงต่อยอด</li>
+              </ul>
+            </div>
+            <div class="panel">
+              <h4>วิธีอ่านเอกสาร</h4>
+              <ol class="compact">
+                <li>เริ่มจากแผนที่หน้าจอ เพื่อรู้ว่าแต่ละไฟล์ทำอะไร</li>
+                <li>อ่านหน้าจอที่ใช้จริงก่อน แล้วค่อยไปส่วน technical reference</li>
+                <li>เวลาเพิ่มรูป, วางรูปใต้ placeholder ของหน้าจอนั้นเลย</li>
+                <li>ถ้าจะพิมพ์ PDF, ใช้ปุ่ม Print / Save PDF หรือ `Ctrl+P`</li>
+              </ol>
+            </div>
+          </div>
+          <div class="note" style="margin-top:14px">
+            เอกสารนี้ตั้งใจให้ <strong>portable</strong> คือใช้ชื่อไฟล์และหัวข้อเป็นหลัก, ไม่ผูกกับ path เครื่องใดเครื่องหนึ่ง.
+            ถ้าจะย้ายไป server อื่น, ให้ยกทั้งโฟลเดอร์คู่มือไปพร้อมกันได้เลย.
+          </div>
+        </section>
+
+        <section class="page card" id="screen-map">
+          <div class="section-title">
+            <div>
+              <h2>แผนที่หน้าจอหลัก</h2>
+              <p>14 หน้าหลักที่ควรอยู่ในคู่มือฉบับใช้งานจริง</p>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>ไฟล์</th>
+                  <th>ประเภท</th>
+                  <th>ผู้ใช้หลัก</th>
+                  <th>หน้าที่หลัก</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>S01</td><td><code>v_index.php</code></td><td>Dashboard</td><td>Admin / Staff</td><td>เลือก curriculum และดู summary</td></tr>
+                <tr><td>S02</td><td><code>v_curriculum_management.php</code></td><td>Hub</td><td>Admin / Staff</td><td>ศูนย์กลางงาน curriculum</td></tr>
+                <tr><td>S03</td><td><code>v_manage_cur_course.php</code></td><td>Edit</td><td>Admin / Staff</td><td>จัดการรายวิชาในหลักสูตร</td></tr>
+                <tr><td>S04</td><td><code>v_manage_cur_student.php</code></td><td>Edit</td><td>Admin / Staff</td><td>จัดการนักศึกษาในหลักสูตร</td></tr>
+                <tr><td>S05</td><td><code>v_manage_cur_student_detail.php</code></td><td>Edit</td><td>Admin / Staff</td><td>ดูและแก้รายละเอียดนักศึกษา</td></tr>
+                <tr><td>S06</td><td><code>v_softskills.php</code></td><td>Dashboard</td><td>Admin / Staff</td><td>SoftSkills + English summary</td></tr>
+                <tr><td>S07</td><td><code>v_manage_softskills.php</code></td><td>Edit</td><td>Admin / Staff</td><td>บันทึก Soft Skills และ English score</td></tr>
+                <tr><td>S08</td><td><code>v_nts.php</code></td><td>Dashboard</td><td>Admin / Staff</td><td>ภาพรวม Non-Technical Skills</td></tr>
+                <tr><td>S09</td><td><code>v_view_student_nts.php</code></td><td>Detail</td><td>Admin / Staff</td><td>ดู NTS รายคน</td></tr>
+                <tr><td>S10</td><td><code>v_research.php</code></td><td>Dashboard</td><td>Admin / Staff</td><td>ติดตาม research / task</td></tr>
+                <tr><td>S11</td><td><code>v_view_student_research.php</code></td><td>Detail</td><td>Admin / Staff</td><td>ดู task และ alert รายคน</td></tr>
+                <tr><td>S12</td><td><code>v_view_report.php</code></td><td>Report</td><td>Admin / Staff</td><td>สร้างรายงานและส่งออก CSV</td></tr>
+                <tr><td>S13</td><td><code>v_view_student_courses.php</code></td><td>Detail</td><td>Admin / Staff</td><td>ดูการลงทะเบียนรายวิชา</td></tr>
+                <tr><td>S14</td><td><code>v_view_student_knowledge.php</code></td><td>Detail</td><td>Admin / Staff</td><td>ดูคะแนน Knowledge และ CE</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="grid-2" style="margin-top:14px">
+            <div class="panel">
+              <h4>หน้าจอรองที่ควรเก็บไว้ในภาคผนวก</h4>
+              <ul class="compact">
+                <li><code>v_knowledge.php</code></li>
+                <li><code>v_list_englishskills.php</code></li>
+                <li><code>v_list_tasks_research.php</code></li>
+                <li><code>v_manage_ce_results.php</code></li>
+                <li><code>v_edit_student_nts.php</code></li>
+                <li><code>v_edit_task.php</code></li>
+                <li><code>v_edit_cur.php</code></li>
+                <li><code>v_sync_data_management.php</code></li>
+              </ul>
+            </div>
+            <div class="panel">
+              <h4>คำแนะนำในการทำคู่มือจริง</h4>
+              <ul class="compact">
+                <li>ถ้าหน้าจอเดียวมีหลาย state, ถ่ายภาพแยกเป็น state แทนการยัดทุกอย่างในภาพเดียว</li>
+                <li>ถ้าตารางยาวมาก, ใช้ภาพ top view 1 ภาพ และเพิ่มภาพ detail เฉพาะจุดสำคัญ</li>
+                <li>ใส่ชื่อปุ่มให้ตรงกับ label จริงของระบบ, ถ้าชื่อใน code สะกดต่างจากภาษา UI ให้บันทึกทั้งสองแบบ</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="page card" id="screens">
+          <div class="section-title">
+            <div>
+              <h2>คู่มือหน้าจอหลัก</h2>
+              <p>ใช้รูปแบบเดียวกันทุกหน้า เพื่อให้คนอ่านตาม flow ได้ง่าย</p>
+            </div>
+          </div>
+
+          <article class="screen card" id="s01">
+            <div class="screen-head">
+              <div>
+                <span class="tag">S01</span><span class="tag warn">Admin only</span>
+                <h3><code>v_index.php</code></h3>
+                <p class="fileline">หน้าเริ่มต้นของระบบ, เลือก curriculum และเข้าหน้าควบคุมหลัก</p>
+              </div>
+              <a class="jump" href="#toc">Back to TOC</a>
+            </div>
+            <div class="grid-2">
+              <section class="panel">
+                <h4>จุดประสงค์</h4>
+                <ul class="compact">
+                  <li>เป็นประตูเข้าแดชบอร์ดของระบบ</li>
+                  <li>เลือก curriculum ก่อนเข้าข้อมูลรายคน</li>
+                  <li>กระโดดไปยัง student, research, softskills, NTS และ summary อื่น ๆ</li>
+                </ul>
+              </section>
+              <section class="panel">
+                <h4>ปุ่ม / ตัวควบคุม</h4>
+                <table class="mini-table">
+                  <thead><tr><th>Control</th><th>ทำอะไร</th></tr></thead>
+                  <tbody>
+                    <tr><td>Curriculum dropdown</td><td>เลือก `setid`</td></tr>
+                    <tr><td>Student management link</td><td>ไป `v_manage_cur_student.php`</td></tr>
+                    <tr><td>Sync / course link</td><td>ไปหน้าจัดการข้อมูลหรือรายวิชา</td></tr>
+                    <tr><td>Dashboard links</td><td>เปิดหน้าสรุป domain ต่าง ๆ</td></tr>
+                  </tbody>
+                </table>
+              </section>
+            </div>
+            <section class="panel" style="margin-top:14px">
+              <h4>ขั้นตอนการใช้งาน</h4>
+              <ol class="compact">
+                <li>เปิดหน้า `v_index.php`</li>
+                <li>เลือก curriculum ที่ต้องการ</li>
+                <li>ตรวจ summary และผลรวม milepoint ของหลักสูตร</li>
+                <li>คลิกไปยังหน้ารายละเอียดหรือหน้าจัดการที่ต้องการ</li>
+              </ol>
+            </section>
+            <div class="two-col" style="margin-top:14px">
+              <section class="panel">
+                <h4>ตารางที่เกี่ยวข้อง</h4>
+                <ul class="compact">
+                  <li><code>mdl_a_curset</code></li>
+                  <li><code>mdl_user_student</code></li>
+                  <li><code>mdl_milepoint_view</code></li>
+                </ul>
+              </section>
+              <section class="panel">
+                <h4>หมายเหตุสำคัญ</h4>
+                <ul class="compact">
+                  <li>หน้าติดสิทธิ์ admin, ถ้าไม่ใช่ admin จะถูก redirect ออก</li>
+                  <li>เหมาะจะเป็นภาพหน้าแรกในคู่มือ เพราะสื่อ flow ทั้งระบบได้ดีที่สุด</li>
+                </ul>
+              </section>
+            </div>
+            <figure class="shot has-image" title="{{IMG: S01 | หน้าแรก / Dashboard หลัก}}">
+              <img src="manual_img/S01.png" alt="หน้าแรก / Dashboard หลัก ของ mod/newmodule แสดง header, dropdown หลักสำหรับเลือก curriculum และลิงก์ไปหน้าจัดการต่าง ๆ" title="{{IMG: S01 | หน้าแรก / Dashboard หลัก}}" loading="lazy">
+              <figcaption>ภาพหน้าแรกของระบบ ใช้อ้างอิงการเลือก curriculum, summary หลัก และทางลัดไปหน้าจัดการ</figcaption>
+            </figure>
+          </article>
+
+          <article class="screen card" id="s02">
+            <div class="screen-head">
+              <div>
+                <span class="tag">S02</span>
+                <h3><code>v_curriculum_management.php</code></h3>
+                <p class="fileline">ศูนย์กลางงานจัดการหลักสูตร</p>
+              </div>
+              <a class="jump" href="#toc">Back to TOC</a>
+            </div>
+            <div class="grid-2">
+              <section class="panel">
+                <h4>จุดประสงค์</h4>
+                <ul class="compact">
+                  <li>รวมเส้นทางไปงาน curriculum, student, sync และ course</li>
+                  <li>ใช้เป็น hub ของผู้ดูแลหลักสูตร</li>
+                  <li>ช่วยให้คนอ่านเห็น flow การจัดการแบบศูนย์กลาง</li>
+                </ul>
+              </section>
+              <section class="panel">
+                <h4>ปุ่ม / ตัวควบคุม</h4>
+                <table class="mini-table">
+                  <thead><tr><th>Control</th><th>ทำอะไร</th></tr></thead>
+                  <tbody>
+                    <tr><td>Student management</td><td>ไป `v_manage_cur_student.php`</td></tr>
+                    <tr><td>Sync management</td><td>ไป `v_sync_data_management.php`</td></tr>
+                    <tr><td>Course management</td><td>ไป `v_manage_cur_course.php`</td></tr>
+                    <tr><td>Edit icon / links</td><td>ไปหน้ารายละเอียดที่เกี่ยวข้อง</td></tr>
+                  </tbody>
+                </table>
+              </section>
+            </div>
+            <section class="panel" style="margin-top:14px">
+              <h4>ขั้นตอนการใช้งาน</h4>
+              <ol class="compact">
+                <li>เข้า hub ของ curriculum</li>
+                <li>เลือกงานที่ต้องการ เช่น course หรือ student</li>
+                <li>ไปยังหน้าที่เกี่ยวข้องเพื่อแก้ข้อมูล</li>
+                <li>กลับ hub ได้ตลอดเพื่อเปลี่ยนงาน</li>
+              </ol>
+            </section>
+            <div class="two-col" style="margin-top:14px">
+              <section class="panel">
+                <h4>ตารางที่เกี่ยวข้อง</h4>
+                <ul class="compact">
+                  <li><code>mdl_a_curset</code></li>
+                  <li><code>mdl_user_student</code></li>
+                  <li><code>mdl_milepoint_view</code></li>
+                </ul>
+              </section>
+              <section class="panel">
+                <h4>หมายเหตุสำคัญ</h4>
+                <ul class="compact">
+                  <li>หน้า hub เหมาะสำหรับอธิบายภาพรวมในการพรีเซนต์</li>
+                  <li>ถ่ายภาพให้เห็นปุ่มลัดไปแต่ละหน้าชัด ๆ</li>
+                </ul>
+              </section>
+            </div>
+            <figure class="shot has-image" title="{{IMG: S02 | หน้าจัดการหลักสูตร}}">
+              <img src="manual_img/S02.png" alt="หน้าจัดการหลักสูตรของ mod/newmodule แสดงเส้นทางไป student, sync และ course พร้อมกัน" title="{{IMG: S02 | หน้าจัดการหลักสูตร}}" loading="lazy">
+              <figcaption>ภาพนี้ควรเห็นเส้นทางไป student, sync และ course พร้อมกัน</figcaption>
+            </figure>
+          </article>
+
+          <article class="screen card" id="s03">
+            <div class="screen-head">
+              <div>
+                <span class="tag">S03</span>
+                <h3><code>v_manage_cur_course.php</code></h3>
+                <p class="fileline">จัดการรายวิชาในโครงสร้างหลักสูตร, รวม lock / unlock</p>
+              </div>
+              <a class="jump" href="#toc">Back to TOC</a>
+            </div>
+            <div class="grid-2">
+              <section class="panel">
+                <h4>จุดประสงค์</h4>
+                <ul class="compact">
+                  <li>เพิ่มหรือลบรายวิชาใน curriculum</li>
+                  <li>ควบคุมสถานะ lock ของหลักสูตร</li>
+                  <li>บันทึกรายวิชาที่ควรอยู่ในโครงสร้างหลักสูตร</li>
+                </ul>
+              </section>
+              <section class="panel">
+                <h4>ปุ่ม / ตัวควบคุม</h4>
+                <table class="mini-table">
+                  <thead><tr><th>Control</th><th>ทำอะไร</th></tr></thead>
+                  <tbody>
+                    <tr><td>ปลดล็อค / ล็อคหลักสูตร</td><td>เปลี่ยนสถานะ lock</td></tr>
+                    <tr><td>Checkbox รายวิชา</td><td>เลือกหรือยกเลิกรายวิชา</td></tr>
+                    <tr><td>บันทึกโครงสร้างหลักสูตร</td><td>save การเปลี่ยนแปลง</td></tr>
+                    <tr><td>Breadcrumb</td><td>ย้อนกลับไป hub</td></tr>
+                  </tbody>
+                </table>
+              </section>
+            </div>
+            <section class="panel" style="margin-top:14px">
+              <h4>ขั้นตอนการใช้งาน</h4>
+              <ol class="compact">
+                <li>เปิดหน้าจัดการรายวิชา</li>
+                <li>ตรวจว่าหลักสูตรถูก lock หรือไม่</li>
+                <li>ติ๊กรายวิชาที่ต้องการ</li>
+                <li>กดบันทึก, แล้วล็อคกลับถ้าต้องการปิดการแก้ไข</li>
+              </ol>
+            </section>
+            <div class="two-col" style="margin-top:14px">
+              <section class="panel">
+                <h4>ตารางที่เกี่ยวข้อง</h4>
+                <ul class="compact">
+                  <li><code>mdl_a_curset</code></li>
+                  <li><code>mdl_course_ep</code></li>
+                  <li><code>mdl_cur_course</code></li>
+                </ul>
+              </section>
+              <section class="panel">
+                <h4>หมายเหตุสำคัญ</h4>
+                <ul class="compact">
+                  <li>เมื่อ lock อยู่ บางปุ่มอาจถูก disable</li>
+                  <li>ควรอธิบายผลของ lock ในคู่มือเพื่อกันการแก้ไขโดยไม่ตั้งใจ</li>
+                </ul>
+              </section>
+            </div>
+            <figure class="shot has-image" title="{{IMG: S03 | จัดการรายวิชาในโครงสร้างหลักสูตร}}">
+              <img src="manual_img/S03.png" alt="หน้าจัดการรายวิชาในโครงสร้างหลักสูตร แสดงรายการรายวิชา สถานะ lock และปุ่มบันทึก" title="{{IMG: S03 | จัดการรายวิชาในโครงสร้างหลักสูตร}}" loading="lazy">
+              <figcaption>แคปให้เห็น lock status และปุ่มบันทึกพร้อมกัน</figcaption>
+            </figure>
+          </article>
+
+          <article class="screen card" id="s04">
+            <div class="screen-head">
+              <div>
+                <span class="tag">S04</span>
+                <h3><code>v_manage_cur_student.php</code></h3>
+                <p class="fileline">เลือกนักศึกษาเข้า curriculum</p>
+              </div>
+              <a class="jump" href="#toc">Back to TOC</a>
+            </div>
+            <div class="grid-2">
+              <section class="panel">
+                <h4>จุดประสงค์</h4>
+                <ul class="compact">
+                  <li>เลือกว่าใครอยู่ในหลักสูตร</li>
+                  <li>ใช้ checkbox เพื่อเปลี่ยน membership</li>
+                  <li>เป็นหน้าที่ช่วยจัดกลุ่มข้อมูลก่อนดูรายละเอียดรายคน</li>
+                </ul>
+              </section>
+              <section class="panel">
+                <h4>ปุ่ม / ตัวควบคุม</h4>
+                <table class="mini-table">
+                  <thead><tr><th>Control</th><th>ทำอะไร</th></tr></thead>
+                  <tbody>
+                    <tr><td>Checkbox รายชื่อ</td><td>เลือกคนที่จะอยู่ในหลักสูตร</td></tr>
+                    <tr><td>บันทึกการเปลี่ยนแปลง</td><td>บันทึกสมาชิกภาพใน curriculum</td></tr>
+                    <tr><td>ลิงก์รหัสนักศึกษา</td><td>เปิด detail ของนักศึกษา</td></tr>
+                  </tbody>
+                </table>
+              </section>
+            </div>
+            <section class="panel" style="margin-top:14px">
+              <h4>ขั้นตอนการใช้งาน</h4>
+              <ol class="compact">
+                <li>เข้าเมนูจัดการนักศึกษา</li>
+                <li>ตรวจรายชื่อ current / available / other</li>
+                <li>ติ๊ก checkbox เฉพาะคนที่ต้องการ</li>
+                <li>กดบันทึกการเปลี่ยนแปลง</li>
+              </ol>
+            </section>
+            <div class="two-col" style="margin-top:14px">
+              <section class="panel">
+                <h4>ตารางที่เกี่ยวข้อง</h4>
+                <ul class="compact">
+                  <li><code>mdl_user_student</code></li>
+                </ul>
+              </section>
+              <section class="panel">
+                <h4>หมายเหตุสำคัญ</h4>
+                <ul class="compact">
+                  <li>หน้าจอนี้ควรอธิบายสถานะ current, available และ other ให้คนอ่านเข้าใจ</li>
+                  <li>ใช้เป็นจุดอ้างอิงเวลาเปลี่ยนสมาชิกหลักสูตร</li>
+                </ul>
+              </section>
+            </div>
+            <figure class="shot has-image" title="{{IMG: S04 | จัดการนักศึกษาในหลักสูตร}}">
+              <img src="manual_img/S04.png" alt="หน้าจัดการนักศึกษาในหลักสูตร แสดงรายชื่อและ checkbox สำหรับเลือกนักศึกษาเข้า curriculum" title="{{IMG: S04 | จัดการนักศึกษาในหลักสูตร}}" loading="lazy">
+              <figcaption>ถ่ายให้เห็นรายชื่อและ checkbox ชัดเจน</figcaption>
+            </figure>
+          </article>
+
+          <article class="screen card" id="s05">
+            <div class="screen-head">
+              <div>
+                <span class="tag">S05</span>
+                <h3><code>v_manage_cur_student_detail.php</code></h3>
+                <p class="fileline">ดูและแก้รายละเอียดนักศึกษา, รวม registration summary</p>
+              </div>
+              <a class="jump" href="#toc">Back to TOC</a>
+            </div>
+            <div class="grid-2">
+              <section class="panel">
+                <h4>จุดประสงค์</h4>
+                <ul class="compact">
+                  <li>แก้ข้อมูลนักศึกษาในระดับ detail</li>
+                  <li>แสดงผลการลงทะเบียนและแผนการเรียน</li>
+                  <li>ใช้ตรวจข้อมูลก่อนบันทึกหลักสูตรหรือรายวิชา</li>
+                </ul>
+              </section>
+              <section class="panel">
+                <h4>ปุ่ม / ตัวควบคุม</h4>
+                <table class="mini-table">
+                  <thead><tr><th>Control</th><th>ทำอะไร</th></tr></thead>
+                  <tbody>
+                    <tr><td><code>studyplan</code></td><td>เลือกแผนการเรียน</td></tr>
+                    <tr><td><code>advisor</code></td><td>ใส่ชื่ออาจารย์ที่ปรึกษา</td></tr>
+                    <tr><td><code>cohort</code></td><td>กำหนดรุ่นนักศึกษา</td></tr>
+                    <tr><td>บันทึกข้อมูลนักศึกษา</td><td>เซฟข้อมูล detail</td></tr>
+                  </tbody>
+                </table>
+              </section>
+            </div>
+            <section class="panel" style="margin-top:14px">
+              <h4>ขั้นตอนการใช้งาน</h4>
+              <ol class="compact">
+                <li>เปิดหน้ารายละเอียดนักศึกษา</li>
+                <li>ตรวจข้อมูลปัจจุบัน</li>
+                <li>แก้ `studyplan`, `advisor`, และ `cohort` ถ้าจำเป็น</li>
+                <li>กดบันทึก แล้วตรวจผลใน summary ด้านล่าง</li>
+              </ol>
+            </section>
+            <div class="two-col" style="margin-top:14px">
+              <section class="panel">
+                <h4>ตารางที่เกี่ยวข้อง</h4>
+                <ul class="compact">
+                  <li><code>mdl_user_student</code></li>
+                  <li><code>mdl_student_registered_course</code></li>
+                  <li><code>mdl_student_registration_term</code></li>
+                  <li><code>mdl_course_ep</code></li>
+                </ul>
+              </section>
+              <section class="panel">
+                <h4>หมายเหตุสำคัญ</h4>
+                <ul class="compact">
+                  <li>ส่วนนำเสนอการลงทะเบียนด้านล่างควรอธิบายว่าเป็น read-only</li>
+                  <li>ถ้าไม่มีข้อมูล ให้ตรวจ `setid` และ `sid` ก่อนเสมอ</li>
+                </ul>
+              </section>
+            </div>
+            <figure class="shot has-image" title="{{IMG: S05 | แก้ไขข้อมูลนักศึกษา}}">
+              <img src="manual_img/S05.png" alt="หน้ารายละเอียดนักศึกษา ใช้แก้ข้อมูลและดูสรุปการลงทะเบียนด้านล่าง" title="{{IMG: S05 | แก้ไขข้อมูลนักศึกษา}}" loading="lazy">
+              <figcaption>ควรเห็นฟอร์มแก้ไขด้านบน และสรุป registration ด้านล่าง</figcaption>
+            </figure>
+          </article>
+
+          <article class="screen card" id="s06">
+            <div class="screen-head">
+              <div>
+                <span class="tag">S06</span>
+                <h3><code>v_softskills.php</code></h3>
+                <p class="fileline">SoftSkills dashboard, English summary และ spider chart</p>
+              </div>
+              <a class="jump" href="#toc">Back to TOC</a>
+            </div>
+            <div class="grid-2">
+              <section class="panel">
+                <h4>จุดประสงค์</h4>
+                <ul class="compact">
+                  <li>สรุปคะแนน Soft Skills และ English ที่อยู่ใน Mile Point</li>
+                  <li>แสดง spider chart ของนักศึกษาใน curriculum</li>
+                  <li>เป็นทางเข้าหน้าจัดการ Soft Skills รายคน</li>
+                </ul>
+              </section>
+              <section class="panel">
+                <h4>ปุ่ม / ตัวควบคุม</h4>
+                <table class="mini-table">
+                  <thead><tr><th>Control</th><th>ทำอะไร</th></tr></thead>
+                  <tbody>
+                    <tr><td>Curriculum dropdown</td><td>เลือกหลักสูตร</td></tr>
+                    <tr><td>จัดการ EnglihSkills</td><td>เปิดหน้าจัดการ English / Soft Skills</td></tr>
+                    <tr><td>ลิงก์รหัสนักศึกษา</td><td>เปิด `v_manage_softskills.php`</td></tr>
+                  </tbody>
+                </table>
+              </section>
+            </div>
+            <section class="panel" style="margin-top:14px">
+              <h4>ขั้นตอนการใช้งาน</h4>
+              <ol class="compact">
+                <li>เปิด softskills dashboard</li>
+                <li>เลือก curriculum ที่ต้องการ</li>
+                <li>ตรวจคะแนนรวมและ spider chart</li>
+                <li>คลิกนักศึกษาที่สนใจเพื่อไปหน้าจัดการรายคน</li>
+              </ol>
+            </section>
+            <div class="two-col" style="margin-top:14px">
+              <section class="panel">
+                <h4>ตารางที่เกี่ยวข้อง</h4>
+                <ul class="compact">
+                  <li><code>mdl_user_student</code></li>
+                  <li><code>mdl_student_softskill_result</code></li>
+                  <li><code>mdl_student_english_test_result</code></li>
+                  <li><code>mdl_student_english_test_score_details</code></li>
+                  <li><code>mdl_english_test_criteria</code></li>
+                  <li><code>mdl_milepoint_view</code></li>
+                </ul>
+              </section>
+              <section class="panel">
+                <h4>หมายเหตุสำคัญ</h4>
+                <ul class="compact">
+                  <li>หน้าจอนี้เป็นภาพรวมของ SoftSkills + English + Mile Point</li>
+                  <li>ควรใช้รูปที่เห็นกราฟและลิงก์ไปหน้ารายคนพร้อมกัน</li>
+                </ul>
+              </section>
+            </div>
+            <figure class="shot has-image" title="{{IMG: S06 | SoftSkills Dashboard}}">
+              <img src="manual_img/S06.png" alt="SoftSkills dashboard แสดง summary คะแนน Soft Skills, English และ spider chart ของนักศึกษา" title="{{IMG: S06 | SoftSkills Dashboard}}" loading="lazy">
+              <figcaption>ภาพนี้สำคัญเพราะช่วยอธิบายว่า softskills อยู่ตรงไหนใน flow ทั้งระบบ</figcaption>
+            </figure>
+          </article>
+
+          <article class="screen card" id="s07">
+            <div class="screen-head">
+              <div>
+                <span class="tag">S07</span>
+                <h3><code>v_manage_softskills.php</code></h3>
+                <p class="fileline">บันทึก Soft Skills และ English scores</p>
+              </div>
+              <a class="jump" href="#toc">Back to TOC</a>
+            </div>
+            <div class="grid-2">
+              <section class="panel">
+                <h4>จุดประสงค์</h4>
+                <ul class="compact">
+                  <li>บันทึกผล Soft Skills ของนักศึกษา</li>
+                  <li>บันทึก English test และรายละเอียดคะแนน</li>
+                  <li>เป็นหน้าจัดการข้อมูลจริง, ไม่ใช่แค่ dashboard</li>
+                </ul>
+              </section>
+              <section class="panel">
+                <h4>ปุ่ม / ตัวควบคุม</h4>
+                <table class="mini-table">
+                  <thead><tr><th>Control</th><th>ทำอะไร</th></tr></thead>
+                  <tbody>
+                    <tr><td>Search input</td><td>ค้นหานักศึกษา</td></tr>
+                    <tr><td>ค้นหา / ล้าง</td><td>กรองหรือเคลียร์เงื่อนไข</td></tr>
+                    <tr><td>Checkbox ของ soft skill</td><td>เลือกทักษะที่ผ่าน</td></tr>
+                    <tr><td>บันทึก Soft Skills</td><td>เซฟผล soft skills</td></tr>
+                    <tr><td>บันทึก English Scores</td><td>เซฟคะแนน English</td></tr>
+                  </tbody>
+                </table>
+              </section>
+            </div>
+            <section class="panel" style="margin-top:14px">
+              <h4>ขั้นตอนการใช้งาน</h4>
+              <ol class="compact">
+                <li>ค้นหาหรือตรวจสอบนักศึกษาที่ต้องการ</li>
+                <li>อ่านข้อมูลเดิมก่อนเปลี่ยน</li>
+                <li>ติ๊ก soft skill หรือปรับ English score ตามฟอร์ม</li>
+                <li>กดบันทึกส่วนที่แก้ไข</li>
+              </ol>
+            </section>
+            <div class="two-col" style="margin-top:14px">
+              <section class="panel">
+                <h4>ตารางที่เกี่ยวข้อง</h4>
+                <ul class="compact">
+                  <li><code>mdl_student_softskill_result</code></li>
+                  <li><code>mdl_student_english_test_result</code></li>
+                  <li><code>mdl_student_english_test_score_details</code></li>
+                  <li><code>mdl_english_test_criteria</code></li>
+                </ul>
+              </section>
+              <section class="panel">
+                <h4>หมายเหตุสำคัญ</h4>
+                <ul class="compact">
+                  <li>แนะนำให้ screenshot สองส่วน, Soft Skills และ English แยกกันถ้าฟอร์มยาว</li>
+                  <li>ควรตรวจ validation ของคะแนนและวันที่ก่อนบันทึก</li>
+                </ul>
+              </section>
+            </div>
+            <figure class="shot has-image" title="{{IMG: S07 | บันทึก Soft Skills และ English Scores}}">
+              <img src="manual_img/S07.png" alt="หน้าบันทึก Soft Skills และ English Scores สำหรับแก้ไขและบันทึกคะแนนของนักศึกษา" title="{{IMG: S07 | บันทึก Soft Skills และ English Scores}}" loading="lazy">
+              <figcaption>ควรเห็นทั้งส่วน Soft Skills และ English ในภาพเดียว ถ้าแยกภาพให้เก็บทั้งสอง state</figcaption>
+            </figure>
+          </article>
+
+          <article class="screen card" id="s08">
+            <div class="screen-head">
+              <div>
+                <span class="tag">S08</span>
+                <h3><code>v_nts.php</code></h3>
+                <p class="fileline">Non-Technical Skills dashboard</p>
+              </div>
+              <a class="jump" href="#toc">Back to TOC</a>
+            </div>
+            <div class="grid-2">
+              <section class="panel">
+                <h4>จุดประสงค์</h4>
+                <ul class="compact">
+                  <li>สรุปคะแนน NTS ของนักศึกษาใน curriculum</li>
+                  <li>ค้นหา student ได้จากรหัสหรือชื่อ</li>
+                  <li>เปิด detail ไปยัง `v_view_student_nts.php`</li>
+                </ul>
+              </section>
+              <section class="panel">
+                <h4>ปุ่ม / ตัวควบคุม</h4>
+                <table class="mini-table">
+                  <thead><tr><th>Control</th><th>ทำอะไร</th></tr></thead>
+                  <tbody>
+                    <tr><td>Search input</td><td>ค้นหานักศึกษา</td></tr>
+                    <tr><td>ค้นหา / ล้าง</td><td>รีเฟรช summary</td></tr>
+                    <tr><td>ลิงก์รหัสนักศึกษา</td><td>เปิด detail รายคน</td></tr>
+                  </tbody>
+                </table>
+              </section>
+            </div>
+            <section class="panel" style="margin-top:14px">
+              <h4>ขั้นตอนการใช้งาน</h4>
+              <ol class="compact">
+                <li>เปิด NTS dashboard</li>
+                <li>เลือก curriculum</li>
+                <li>ค้นหานักศึกษาถ้าต้องการกรอง</li>
+                <li>คลิกชื่อหรือรหัสเพื่อดู detail</li>
+              </ol>
+            </section>
+            <div class="two-col" style="margin-top:14px">
+              <section class="panel">
+                <h4>ตารางที่เกี่ยวข้อง</h4>
+                <ul class="compact">
+                  <li><code>mdl_user_student</code></li>
+                  <li><code>mdl_nts_scores</code></li>
+                  <li><code>mdl_student_registered_course</code></li>
+                  <li><code>mdl_student_registration_term</code></li>
+                  <li><code>mdl_course_ep</code></li>
+                </ul>
+              </section>
+              <section class="panel">
+                <h4>หมายเหตุสำคัญ</h4>
+                <ul class="compact">
+                  <li>ถ้าตารางไม่ขึ้น ควรตรวจว่ามีการเลือก curriculum แล้วหรือยัง</li>
+                  <li>หลายหน้าของ NTS โหลดข้อมูลผ่าน JS / API ดังนั้นต้องดู network / console เวลา debug ด้วย</li>
+                </ul>
+              </section>
+            </div>
+            <figure class="shot has-image" title="{{IMG: S08 | NTS Dashboard}}">
+              <img src="manual_img/S08.png" alt="NTS dashboard แสดงภาพรวม Non-Technical Skills พร้อมช่องค้นหาและตารางสรุป" title="{{IMG: S08 | NTS Dashboard}}" loading="lazy">
+              <figcaption>ให้เห็นช่องค้นหาและตารางสรุปพร้อมกัน</figcaption>
+            </figure>
+          </article>
+
+          <article class="screen card" id="s09">
+            <div class="screen-head">
+              <div>
+                <span class="tag">S09</span>
+                <h3><code>v_view_student_nts.php</code></h3>
+                <p class="fileline">รายละเอียด NTS รายคน</p>
+              </div>
+              <a class="jump" href="#toc">Back to TOC</a>
+            </div>
+            <div class="grid-2">
+              <section class="panel">
+                <h4>จุดประสงค์</h4>
+                <ul class="compact">
+                  <li>แสดงภาพรวม NTS ของนักศึกษารายคน</li>
+                  <li>ดูคะแนนรายวิชาและข้อมูล research progress</li>
+                  <li>เปิดทางไปหน้าแก้คะแนน NTS</li>
+                </ul>
+              </section>
+              <section class="panel">
+                <h4>ปุ่ม / ตัวควบคุม</h4>
+                <table class="mini-table">
+                  <thead><tr><th>Control</th><th>ทำอะไร</th></tr></thead>
+                  <tbody>
+                    <tr><td>แก้ไข / บันทึกคะแนน NTS</td><td>ไป `v_edit_student_nts.php`</td></tr>
+                    <tr><td>Breadcrumb</td><td>ย้อนกลับไป summary</td></tr>
+                  </tbody>
+                </table>
+              </section>
+            </div>
+            <section class="panel" style="margin-top:14px">
+              <h4>ขั้นตอนการใช้งาน</h4>
+              <ol class="compact">
+                <li>เปิดจาก dashboard</li>
+                <li>ตรวจโปรไฟล์นักศึกษา</li>
+                <li>อ่าน summary และตาราง detail</li>
+                <li>ถ้าจำเป็นค่อยไปหน้า edit</li>
+              </ol>
+            </section>
+            <div class="two-col" style="margin-top:14px">
+              <section class="panel">
+                <h4>ตารางที่เกี่ยวข้อง</h4>
+                <ul class="compact">
+                  <li><code>mdl_user_student</code></li>
+                  <li><code>mdl_nts_scores</code></li>
+                  <li><code>mdl_student_registered_course</code></li>
+                  <li><code>mdl_student_registration_term</code></li>
+                  <li><code>mdl_course_ep</code></li>
+                  <li><code>mdl_nts_research_progress</code></li>
+                </ul>
+              </section>
+              <section class="panel">
+                <h4>หมายเหตุสำคัญ</h4>
+                <ul class="compact">
+                  <li>หน้าจออ่านหนัก, เหมาะสำหรับแนบ screenshot เป็นหลักฐาน</li>
+                  <li>ควรอธิบายความหมายของผ่าน / ไม่ผ่าน และเปอร์เซ็นต์ในคู่มือ</li>
+                </ul>
+              </section>
+            </div>
+            <figure class="shot" title="{{IMG: S09 | รายละเอียด NTS รายคน}}">
+              <div class="placeholder" title="{{IMG: S09 | รายละเอียด NTS รายคน}}">{{IMG: S09 | รายละเอียด NTS รายคน}}</div>
+              <figcaption>ถ่ายให้เห็นทั้ง summary และ detail table ถ้าเป็นไปได้</figcaption>
+            </figure>
+          </article>
+
+          <article class="screen card" id="s10">
+            <div class="screen-head">
+              <div>
+                <span class="tag">S10</span>
+                <h3><code>v_research.php</code></h3>
+                <p class="fileline">Research dashboard / task tracking</p>
+              </div>
+              <a class="jump" href="#toc">Back to TOC</a>
+            </div>
+            <div class="grid-2">
+              <section class="panel">
+                <h4>จุดประสงค์</h4>
+                <ul class="compact">
+                  <li>ติดตาม research / task ของนักศึกษา</li>
+                  <li>เปิดทางไปหน้ารายการประเมิน และ detail รายคน</li>
+                  <li>แสดงสถานะโดยรวมของงานวิจัยใน curriculum</li>
+                </ul>
+              </section>
+              <section class="panel">
+                <h4>ปุ่ม / ตัวควบคุม</h4>
+                <table class="mini-table">
+                  <thead><tr><th>Control</th><th>ทำอะไร</th></tr></thead>
+                  <tbody>
+                    <tr><td>จัดการรายการประเมิน Research</td><td>ไป `v_list_tasks_research.php`</td></tr>
+                    <tr><td>ลิงก์รหัสนักศึกษา</td><td>เปิด `v_view_student_research.php`</td></tr>
+                    <tr><td>ปุ่มจัดการ</td><td>ไป `v_manage_student_research.php`</td></tr>
+                  </tbody>
+                </table>
+              </section>
+            </div>
+            <section class="panel" style="margin-top:14px">
+              <h4>ขั้นตอนการใช้งาน</h4>
+              <ol class="compact">
+                <li>เปิดหน้า research dashboard</li>
+                <li>เลือก curriculum</li>
+                <li>ตรวจ progress หรือ task ที่ค้าง</li>
+                <li>เปิด detail รายคนหรือไปจัดการรายการประเมิน</li>
+              </ol>
+            </section>
+            <div class="two-col" style="margin-top:14px">
+              <section class="panel">
+                <h4>ตารางที่เกี่ยวข้อง</h4>
+                <ul class="compact">
+                  <li><code>mdl_user_student</code></li>
+                  <li><code>mdl_student_tasks</code></li>
+                  <li><code>mdl_a_tasks</code></li>
+                </ul>
+              </section>
+              <section class="panel">
+                <h4>หมายเหตุสำคัญ</h4>
+                <ul class="compact">
+                  <li>สื่อให้ชัดว่าหน้านี้คือการติดตามงาน, ไม่ใช่แค่ list ธรรมดา</li>
+                  <li>ควรมีภาพแสดงเส้นทางจาก dashboard ไป task detail</li>
+                </ul>
+              </section>
+            </div>
+            <figure class="shot" title="{{IMG: S10 | Research Dashboard}}">
+              <div class="placeholder" title="{{IMG: S10 | Research Dashboard}}">{{IMG: S10 | Research Dashboard}}</div>
+              <figcaption>ภาพควรสื่อว่ามี task / status / link ไปหน้ารายคน</figcaption>
+            </figure>
+          </article>
+
+          <article class="screen card" id="s11">
+            <div class="screen-head">
+              <div>
+                <span class="tag">S11</span>
+                <h3><code>v_view_student_research.php</code></h3>
+                <p class="fileline">รายละเอียด task และ alert รายคน</p>
+              </div>
+              <a class="jump" href="#toc">Back to TOC</a>
+            </div>
+            <div class="grid-2">
+              <section class="panel">
+                <h4>จุดประสงค์</h4>
+                <ul class="compact">
+                  <li>แสดงงานที่ค้างและ alert ของนักศึกษา</li>
+                  <li>ดูรายละเอียด task แบบรายคน</li>
+                  <li>ใช้ตรวจสถานะก่อนแก้ไขหรือแจ้งเตือน</li>
+                </ul>
+              </section>
+              <section class="panel">
+                <h4>ปุ่ม / ตัวควบคุม</h4>
+                <table class="mini-table">
+                  <thead><tr><th>Control</th><th>ทำอะไร</th></tr></thead>
+                  <tbody>
+                    <tr><td>Dashboard</td><td>กลับหน้ารวม research</td></tr>
+                    <tr><td>Breadcrumb</td><td>ย้อนกลับไป parent page</td></tr>
+                  </tbody>
+                </table>
+              </section>
+            </div>
+            <section class="panel" style="margin-top:14px">
+              <h4>ขั้นตอนการใช้งาน</h4>
+              <ol class="compact">
+                <li>เปิดจาก research dashboard</li>
+                <li>ดูข้อมูลโปรไฟล์</li>
+                <li>ตรวจ task และ alert</li>
+                <li>กลับไปภาพรวมเมื่อทำงานเสร็จ</li>
+              </ol>
+            </section>
+            <div class="two-col" style="margin-top:14px">
+              <section class="panel">
+                <h4>ตารางที่เกี่ยวข้อง</h4>
+                <ul class="compact">
+                  <li><code>mdl_student_tasks</code></li>
+                  <li><code>mdl_a_tasks</code></li>
+                  <li><code>mdl_user_student</code></li>
+                </ul>
+              </section>
+              <section class="panel">
+                <h4>หมายเหตุสำคัญ</h4>
+                <ul class="compact">
+                  <li>เป็นหน้า read-only ที่ค่อนข้างเหมาะกับการแคปภาพไว้ในคู่มือ</li>
+                  <li>ถ้าตารางยาวมาก, ใช้ top view 1 ภาพพอ</li>
+                </ul>
+              </section>
+            </div>
+            <figure class="shot" title="{{IMG: S11 | รายละเอียด Task และ Alert รายคน}}">
+              <div class="placeholder" title="{{IMG: S11 | รายละเอียด Task และ Alert รายคน}}">{{IMG: S11 | รายละเอียด Task และ Alert รายคน}}</div>
+              <figcaption>ควรเห็นตาราง task และคำอธิบาย alert</figcaption>
+            </figure>
+          </article>
+
+          <article class="screen card" id="s12">
+            <div class="screen-head">
+              <div>
+                <span class="tag">S12</span>
+                <h3><code>v_view_report.php</code></h3>
+                <p class="fileline">สร้างรายงานและส่งออก CSV</p>
+              </div>
+              <a class="jump" href="#toc">Back to TOC</a>
+            </div>
+            <div class="grid-2">
+              <section class="panel">
+                <h4>จุดประสงค์</h4>
+                <ul class="compact">
+                  <li>ค้นหาและกรองรายงานตามเงื่อนไข</li>
+                  <li>แสดง summary รวม Knowledge / Research / Soft Skills / NTS</li>
+                  <li>ส่งออก CSV เพื่อเอาไปใช้ต่อภายนอกระบบ</li>
+                </ul>
+              </section>
+              <section class="panel">
+                <h4>ปุ่ม / ตัวควบคุม</h4>
+                <table class="mini-table">
+                  <thead><tr><th>Control</th><th>ทำอะไร</th></tr></thead>
+                  <tbody>
+                    <tr><td>Filter ปี</td><td>กรองตามปี</td></tr>
+                    <tr><td>Filter สถานะ</td><td>กรองตามสถานะนักศึกษา</td></tr>
+                    <tr><td>Filter cohort / study plan</td><td>เลือกชุดข้อมูลที่ต้องการ</td></tr>
+                    <tr><td>ค้นหา / รีเซ็ต</td><td>รันหรือเคลียร์ filter</td></tr>
+                    <tr><td>Export CSV</td><td>ดาวน์โหลดรายงาน</td></tr>
+                  </tbody>
+                </table>
+              </section>
+            </div>
+            <section class="panel" style="margin-top:14px">
+              <h4>ขั้นตอนการใช้งาน</h4>
+              <ol class="compact">
+                <li>เข้าเมนูรายงาน</li>
+                <li>เลือก filter ที่ต้องการ</li>
+                <li>กดค้นหาและตรวจผลในตาราง</li>
+                <li>ถ้าจะเอาไปใช้ภายนอก ให้ export CSV</li>
+              </ol>
+            </section>
+            <div class="two-col" style="margin-top:14px">
+              <section class="panel">
+                <h4>ตารางที่เกี่ยวข้อง</h4>
+                <ul class="compact">
+                  <li><code>mdl_user_student</code></li>
+                  <li><code>mdl_milepoint_view</code></li>
+                </ul>
+              </section>
+              <section class="panel">
+                <h4>หมายเหตุสำคัญ</h4>
+                <ul class="compact">
+                  <li>แนะนำให้คู่มืออธิบาย filter ก่อน เพราะมีผลกับข้อมูลที่เห็นทันที</li>
+                  <li>ถ้ารายงานว่าง ให้ตรวจปีและเงื่อนไขที่เลือกก่อน</li>
+                </ul>
+              </section>
+            </div>
+            <figure class="shot" title="{{IMG: S12 | หน้าสร้างรายงาน}}">
+              <div class="placeholder" title="{{IMG: S12 | หน้าสร้างรายงาน}}">{{IMG: S12 | หน้าสร้างรายงาน}}</div>
+              <figcaption>ภาพนี้ควรเห็น filter กับปุ่ม export ชัดเจน</figcaption>
+            </figure>
+          </article>
+
+          <article class="screen card" id="s13">
+            <div class="screen-head">
+              <div>
+                <span class="tag">S13</span>
+                <h3><code>v_view_student_courses.php</code></h3>
+                <p class="fileline">รายละเอียดการลงทะเบียนนักศึกษา</p>
+              </div>
+              <a class="jump" href="#toc">Back to TOC</a>
+            </div>
+            <div class="grid-2">
+              <section class="panel">
+                <h4>จุดประสงค์</h4>
+                <ul class="compact">
+                  <li>แสดงรายวิชาที่นักศึกษาลงทะเบียน</li>
+                  <li>แยก major / elective / thesis / อื่น ๆ</li>
+                  <li>ใช้เป็นหลักฐานประกอบการอธิบาย membership ใน curriculum</li>
+                </ul>
+              </section>
+              <section class="panel">
+                <h4>ปุ่ม / ตัวควบคุม</h4>
+                <table class="mini-table">
+                  <thead><tr><th>Control</th><th>ทำอะไร</th></tr></thead>
+                  <tbody>
+                    <tr><td>Column sorting / arrow</td><td>เรียงตารางตามลำดับ</td></tr>
+                    <tr><td>Breadcrumb</td><td>ย้อนกลับไปหน้าเดิม</td></tr>
+                  </tbody>
+                </table>
+              </section>
+            </div>
+            <section class="panel" style="margin-top:14px">
+              <h4>ขั้นตอนการใช้งาน</h4>
+              <ol class="compact">
+                <li>เปิดจาก curriculum หรือจากรหัสนักศึกษา</li>
+                <li>ตรวจข้อมูลนักศึกษา</li>
+                <li>อ่านตารางรายวิชาที่ลงทะเบียน</li>
+                <li>ถ้าต้องการดูโครงสร้างหลักสูตร ให้ย้อนกลับไปหน้าก่อนหน้า</li>
+              </ol>
+            </section>
+            <div class="two-col" style="margin-top:14px">
+              <section class="panel">
+                <h4>ตารางที่เกี่ยวข้อง</h4>
+                <ul class="compact">
+                  <li><code>mdl_user_student</code></li>
+                  <li><code>mdl_student_registered_course</code></li>
+                  <li><code>mdl_student_registration_term</code></li>
+                  <li><code>mdl_course_ep</code></li>
+                  <li><code>mdl_cur_course</code></li>
+                </ul>
+              </section>
+              <section class="panel">
+                <h4>หมายเหตุสำคัญ</h4>
+                <ul class="compact">
+                  <li>เป็นหน้า read-only</li>
+                  <li>เหมาะสำหรับอธิบายว่าทำไม student คนนี้ถึงอยู่ใน curriculum นี้</li>
+                </ul>
+              </section>
+            </div>
+            <figure class="shot" title="{{IMG: S13 | รายละเอียดการลงทะเบียนนักศึกษา}}">
+              <div class="placeholder" title="{{IMG: S13 | รายละเอียดการลงทะเบียนนักศึกษา}}">{{IMG: S13 | รายละเอียดการลงทะเบียนนักศึกษา}}</div>
+              <figcaption>ควรเห็นตารางแยกหมวดวิชาชัดเจน</figcaption>
+            </figure>
+          </article>
+
+          <article class="screen card" id="s14">
+            <div class="screen-head">
+              <div>
+                <span class="tag">S14</span>
+                <h3><code>v_view_student_knowledge.php</code></h3>
+                <p class="fileline">รายละเอียดคะแนน Knowledge และ CE</p>
+              </div>
+              <a class="jump" href="#toc">Back to TOC</a>
+            </div>
+            <div class="grid-2">
+              <section class="panel">
+                <h4>จุดประสงค์</h4>
+                <ul class="compact">
+                  <li>แสดงคะแนน Knowledge รายคน</li>
+                  <li>แสดง P1-P5 และสถานะผ่าน</li>
+                  <li>เปิดทางไปแก้ CE result เมื่อจำเป็น</li>
+                </ul>
+              </section>
+              <section class="panel">
+                <h4>ปุ่ม / ตัวควบคุม</h4>
+                <table class="mini-table">
+                  <thead><tr><th>Control</th><th>ทำอะไร</th></tr></thead>
+                  <tbody>
+                    <tr><td>แก้ไข CE / manage CE</td><td>ไป `v_manage_ce_results.php`</td></tr>
+                    <tr><td>Breadcrumb</td><td>ย้อนกลับไป Knowledge summary</td></tr>
+                  </tbody>
+                </table>
+              </section>
+            </div>
+            <section class="panel" style="margin-top:14px">
+              <h4>ขั้นตอนการใช้งาน</h4>
+              <ol class="compact">
+                <li>เปิด detail จากหน้าสรุป Knowledge</li>
+                <li>ตรวจโปรไฟล์นักศึกษา</li>
+                <li>อ่านคะแนน P1-P5 และสถานะผ่าน</li>
+                <li>ถ้าจำเป็นค่อยไปหน้า CE management</li>
+              </ol>
+            </section>
+            <div class="two-col" style="margin-top:14px">
+              <section class="panel">
+                <h4>ตารางที่เกี่ยวข้อง</h4>
+                <ul class="compact">
+                  <li><code>mdl_user_student</code></li>
+                  <li><code>mdl_student_registered_course</code></li>
+                  <li><code>mdl_comp_exam_results</code></li>
+                  <li><code>v_student_knowledge_scores_final</code></li>
+                </ul>
+              </section>
+              <section class="panel">
+                <h4>หมายเหตุสำคัญ</h4>
+                <ul class="compact">
+                  <li>เป็นหน้า detail สำคัญของฝั่ง Knowledge</li>
+                  <li>ควรใช้ตัวอย่างการอ่าน P1-P5 ประกอบในคู่มือจริง</li>
+                </ul>
+              </section>
+            </div>
+            <figure class="shot" title="{{IMG: S14 | รายละเอียดคะแนน Knowledge}}">
+              <div class="placeholder" title="{{IMG: S14 | รายละเอียดคะแนน Knowledge}}">{{IMG: S14 | รายละเอียดคะแนน Knowledge}}</div>
+              <figcaption>ควรเห็นคะแนน P1-P5, สถานะผ่าน, และปุ่มไป CE</figcaption>
+            </figure>
+          </article>
+        </section>
+
+        <section class="page card" id="technical-reference">
+          <div class="section-title">
+            <div>
+              <h2>Technical Reference</h2>
+              <p>ส่วนนี้สรุปตาราง, relation, helper files, และสิ่งที่ระบบพึ่งพา</p>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="panel">
+              <h4>ไฟล์ช่วยเหลือที่ควรอ้างในคู่มือ</h4>
+              <ul class="compact">
+                <li><code>includes/selectcur.php</code></li>
+                <li><code>includes/toper.php</code></li>
+                <li><code>includes/footer.php</code></li>
+                <li><code>includes/v_knowledge_functions.php</code></li>
+                <li><code>includes/v_nts_functions.php</code></li>
+                <li><code>api/*</code> สำหรับ AJAX / summary / sync / export</li>
+              </ul>
+            </div>
+            <div class="panel">
+              <h4>หมายเหตุด้านสถาปัตยกรรม</h4>
+              <ul class="compact">
+                <li>ระบบใช้ Moodle table อย่างน้อย 1 ตาราง คือ <code>newmodule</code></li>
+                <li>Business data ส่วนใหญ่ดึงจาก legacy learning DB</li>
+                <li>ไฟล์ config DB ภายนอกควรใช้แบบ shared, ไม่ hardcode กระจัดกระจาย</li>
+                <li>หลีกเลี่ยงการสร้าง DB / file เกินจำเป็นเมื่อทำคู่มือหรือแก้หน้าเอกสาร</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="panel" style="margin-top:14px">
+            <h4>Table inventory แบบย่อ</h4>
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>กลุ่ม</th>
+                  <th>ตัวอย่างตาราง</th>
+                  <th>หน้าที่</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Moodle module</td><td><code>newmodule</code></td><td>activity instance ของ plugin</td></tr>
+                <tr><td>Curriculum / master</td><td><code>mdl_a_curset</code>, <code>mdl_a_tasks</code>, <code>mdl_course_ep</code>, <code>mdl_cur_course</code></td><td>หลักสูตร, วิชา, งานวิจัย, mapping</td></tr>
+                <tr><td>Student / registration</td><td><code>mdl_user_student</code>, <code>mdl_student_registration_term</code>, <code>mdl_student_registered_course</code></td><td>ข้อมูลนักศึกษาและการลงทะเบียน</td></tr>
+                <tr><td>Scores</td><td><code>mdl_student_softskill_result</code>, <code>mdl_student_english_test_result</code>, <code>mdl_nts_scores</code>, <code>mdl_comp_exam_results</code></td><td>คะแนน Soft Skills, English, NTS, CE</td></tr>
+                <tr><td>Summary / sync</td><td><code>mdl_milepoint_view</code>, <code>mdl_master_student_sync</code></td><td>view สรุป และตาราง sync</td></tr>
+                <tr><td>Moodle core</td><td><code>mdl_user</code>, <code>mdl_course</code>, <code>mdl_context</code>, <code>mdl_enrol</code></td><td>ข้อมูล core ของ Moodle</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="two-col" style="margin-top:14px">
+            <div class="panel">
+              <h4>ความสัมพันธ์หลัก</h4>
+              <table class="mini-table">
+                <thead><tr><th>From</th><th>To</th><th>Meaning</th></tr></thead>
+                <tbody>
+                  <tr><td><code>mdl_user_student.curriculum_id</code></td><td><code>mdl_a_curset.csid</code></td><td>student อยู่ใน curriculum</td></tr>
+                  <tr><td><code>mdl_student_tasks.sid</code></td><td><code>mdl_user_student.sid</code></td><td>task belongs to student</td></tr>
+                  <tr><td><code>mdl_student_tasks.taskid</code></td><td><code>mdl_a_tasks.taskid</code></td><td>task map ไป master task</td></tr>
+                  <tr><td><code>mdl_cur_course.course_cid</code></td><td><code>mdl_course_ep.cid</code></td><td>mapping ไป course master</td></tr>
+                  <tr><td><code>mdl_cur_course.csid</code></td><td><code>mdl_a_curset.csid</code></td><td>mapping belongs to curriculum</td></tr>
+                  <tr><td><code>mdl_student_registered_course.regid</code></td><td><code>mdl_student_registration_term.regid</code></td><td>registered course belongs to term</td></tr>
+                  <tr><td><code>mdl_nts_scores.reg_course_id</code></td><td><code>mdl_student_registered_course.id</code></td><td>NTS score ติดกับ registered course</td></tr>
+                  <tr><td><code>mdl_master_student_sync.master_sid</code></td><td><code>mdl_user_student.sid</code></td><td>sync master / duplicate resolution</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="panel">
+              <h4>มุมมองที่ควรอธิบาย</h4>
+              <ul class="compact">
+                <li><code>v_student_course_effective_grade</code> ใช้หาคะแนนที่ผ่านจริง</li>
+                <li><code>v_student_passed_credits</code> ใช้สรุปเครดิตที่ผ่าน</li>
+                <li><code>v_student_knowledge_scores_final</code> เป็นตัวสรุปฝั่ง Knowledge</li>
+                <li><code>v_student_research_score</code> และ <code>v_student_nts_score</code> สรุป domain แยกกัน</li>
+                <li><code>mdl_milepoint_view</code> คือ view รวมผลสุดท้าย</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="page card" id="use-cases">
+          <div class="section-title">
+            <div>
+              <h2>Use case / DFD / ER</h2>
+              <p>สรุป flow ของระบบในแบบที่ใส่ลงคู่มืออ้างอิงได้ทันที</p>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h4>Use case summary</h4>
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Use case</th>
+                  <th>Actor</th>
+                  <th>Main outcome</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Select curriculum</td><td>Admin / Staff</td><td>เปิดบริบทสำหรับหน้าที่เกี่ยวกับ curriculum ทั้งหมด</td></tr>
+                <tr><td>View dashboard</td><td>Admin / Staff</td><td>เห็น summary และ distribution ของนักศึกษา</td></tr>
+                <tr><td>Manage curriculum</td><td>Admin / Staff</td><td>สร้างหรืออัปเดต master data ของหลักสูตร</td></tr>
+                <tr><td>Manage courses in curriculum</td><td>Admin / Staff</td><td>บันทึก course assignment และ lock state</td></tr>
+                <tr><td>Manage students in curriculum</td><td>Admin / Staff</td><td>เพิ่มหรือลบ student จาก curriculum</td></tr>
+                <tr><td>View student knowledge</td><td>Admin / Staff</td><td>ดูคะแนน Knowledge และ CE</td></tr>
+                <tr><td>View student research</td><td>Admin / Staff</td><td>ดู progress และ alert ของ task</td></tr>
+                <tr><td>View soft skills</td><td>Admin / Staff</td><td>ดู soft skill score และสถานะ</td></tr>
+                <tr><td>View NTS</td><td>Admin / Staff</td><td>ดูคะแนน NTS summary</td></tr>
+                <tr><td>Sync duplicate student data</td><td>Admin</td><td>จัดการ master / duplicate mapping</td></tr>
+                <tr><td>Export report CSV</td><td>Admin / Staff</td><td>สร้างไฟล์ CSV สำหรับใช้นอกระบบ</td></tr>
+                <tr><td>Recalculate derived scores</td><td>Admin / System job</td><td>refresh summary หลัง source เปลี่ยน</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="two-col" style="margin-top:14px">
+            <div class="panel">
+              <h4>DFD Level 0</h4>
+              <pre class="diagram">Admin / Staff
+Student
+Moodle Session
+        ↓
+mod/newmodule v_ system
+        ↙         ↘
+Moodle DB       Legacy learning DB
+        ↘         ↙
+           CSV export</pre>
+            </div>
+            <div class="panel">
+              <h4>DFD Level 1</h4>
+              <pre class="diagram">Curriculum Management  → Legacy DB + Moodle DB
+Student Result Views   → Legacy DB + Moodle DB
+Research / Task        → Legacy DB + Moodle DB
+Soft Skills / NTS      → Legacy DB + Moodle DB
+Sync / Maintenance     → Legacy DB + Moodle DB
+Report / Export        → Legacy DB + CSV</pre>
+            </div>
+          </div>
+
+          <div class="two-col" style="margin-top:14px">
+            <div class="panel">
+              <h4>ER sketch</h4>
+              <pre class="diagram">A_CURSET ||--o{ USER_STUDENT
+A_CURSET ||--o{ CUR_COURSE
+COURSE_EP ||--o{ CUR_COURSE
+USER_STUDENT ||--o{ STUDENT_TASKS
+A_TASKS ||--o{ STUDENT_TASKS
+USER_STUDENT ||--o{ STUDENT_REG_TERM
+STUDENT_REG_TERM ||--o{ STUDENT_REGISTERED_COURSE
+COURSE_EP ||--o{ STUDENT_REGISTERED_COURSE
+USER_STUDENT ||--o{ NTS_SCORES
+USER_STUDENT ||--o{ SOFTSKILL_RESULT
+USER_STUDENT ||--o{ ENGLISH_TEST_RESULT
+ENGLISH_TEST_RESULT ||--o{ ENGLISH_TEST_SCORE_DETAILS
+USER_STUDENT ||--o{ COMP_EXAM_RESULTS</pre>
+            </div>
+            <div class="panel">
+              <h4>View dependency chain</h4>
+              <ul class="compact">
+                <li><code>v_student_course_effective_grade</code> uses course + term views</li>
+                <li><code>v_student_passed_credits</code> uses effective grade</li>
+                <li><code>v_student_p_scores_base</code> uses student + passed credits</li>
+                <li><code>v_student_ce_status</code> uses CE results</li>
+                <li><code>v_student_knowledge_scores_final</code> combines base score + CE</li>
+                <li><code>mdl_milepoint_view</code> รวมทุก summary view ที่เกี่ยวข้อง</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="page card" id="placeholders">
+          <div class="section-title">
+            <div>
+              <h2>Screenshot placeholders</h2>
+              <p>เอาไว้แปะรูปจริงทีหลัง หรือใช้เป็น checklist ตอนแคปหน้าจอ</p>
+            </div>
+          </div>
+          <div class="grid-2">
+            <div class="panel">
+              <h4>รูปแบบที่ใช้ในเอกสาร</h4>
+              <pre class="diagram" title="{{IMG: S01 | หน้าแรก / Dashboard หลัก}}">{{IMG: S01 | หน้าแรก / Dashboard หลัก}}</pre>
+              <p class="small muted" style="margin-top:10px">
+                ถ้าจะวางรูปจริง ให้แทน placeholder นี้ด้วยภาพหน้าจอที่ครอบคลุม header, ปุ่มหลัก และ context ที่ต้องอธิบาย.
+              </p>
+            </div>
+            <div class="panel">
+              <h4>กติกาการแคป</h4>
+              <ol class="compact">
+                <li>แคปทั้ง visible browser area</li>
+                <li>ถ้า table ยาว, ขอภาพ top view อย่างเดียวก่อน</li>
+                <li>เก็บ breadcrumb และ page title ให้เห็นถ้าเป็นไปได้</li>
+                <li>ถ้าหน้ามี state ที่สำคัญ, แคป state นั้นแยกเป็นภาพ</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="panel" style="margin-top:14px">
+            <h4>ลำดับการแคปที่แนะนำ</h4>
+            <ol class="compact">
+              <li>S01</li>
+              <li>S02</li>
+              <li>S03</li>
+              <li>S04</li>
+              <li>S05</li>
+              <li>S06</li>
+              <li>S07</li>
+              <li>S08</li>
+              <li>S09</li>
+              <li>S10</li>
+              <li>S11</li>
+              <li>S12</li>
+              <li>S13</li>
+              <li>S14</li>
+            </ol>
+          </div>
+
+          <div class="two-col" style="margin-top:14px">
+            <div class="panel">
+              <h4>Optional extra screenshots</h4>
+              <ul class="compact">
+                <li><code>v_knowledge.php</code> - Knowledge Dashboard</li>
+                <li><code>v_list_englishskills.php</code> - English skills list</li>
+                <li><code>v_list_tasks_research.php</code> - Research task list</li>
+                <li><code>v_manage_ce_results.php</code> - Manage CE results</li>
+                <li><code>v_edit_student_nts.php</code> - Edit student NTS</li>
+                <li><code>v_edit_task.php</code> - Edit research task</li>
+                <li><code>v_edit_cur.php</code> - Edit curriculum</li>
+                <li><code>v_sync_data_management.php</code> - Sync management</li>
+              </ul>
+            </div>
+            <div class="panel">
+              <h4>Placeholder blocks แบบคัดลอกง่าย</h4>
+              <pre class="diagram" title="ชุดตัวอย่าง placeholder สำหรับแปะรูปจริง">[S01] {{IMG: S01 | หน้าแรก / Dashboard หลัก}}
+[S02] {{IMG: S02 | หน้าจัดการหลักสูตร}}
+[S03] {{IMG: S03 | จัดการรายวิชาในโครงสร้างหลักสูตร}}
+[S04] {{IMG: S04 | จัดการนักศึกษาในหลักสูตร}}
+[S05] {{IMG: S05 | แก้ไขข้อมูลนักศึกษา}}</pre>
+            </div>
+          </div>
+        </section>
+
+        <section class="page card" id="troubleshooting">
+          <div class="section-title">
+            <div>
+              <h2>Troubleshooting / Logs</h2>
+              <p>สิ่งที่ควรตรวจเมื่อหน้าเว็บเละ, ขึ้น error, หรือดึงข้อมูลไม่ได้</p>
+            </div>
+          </div>
+          <div class="panel">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>อาการ</th>
+                  <th>สาเหตุที่ควรเช็คก่อน</th>
+                  <th>สิ่งที่ควรดู</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Missing parameter เช่น `id` / `setid` / `sid`</td><td>เปิด page โดยไม่ส่ง query string ที่จำเป็น</td><td>URL, form action, redirect logic</td></tr>
+                <tr><td>Could not connect</td><td>DB connection external ผิด user / password / host / port</td><td>config DB, network, credentials</td></tr>
+                <tr><td>`dataroot is not configured properly`</td><td>Moodle config หรือ folder permission ผิด</td><td>config.php, dataroot path, permission</td></tr>
+                <tr><td>ONLY_FULL_GROUP_BY error</td><td>SQL legacy query ต้องปรับ grouping หรือ aggregate</td><td>query ที่ SELECT หลายคอลัมน์ร่วมกับ GROUP BY</td></tr>
+                <tr><td>Definer not found</td><td>view / routine ใช้ definer ที่ไม่มีอยู่ใน server นี้</td><td>definitions ของ view และ routine</td></tr>
+                <tr><td>หน้าขาว / blank page</td><td>PHP fatal error หรือ include หาย</td><td>Apache error log, PHP error log, debug output</td></tr>
+                <tr><td>CSS เละ / layout แตก</td><td>missing include, footer, หรือ stylesheet ไม่ถูกโหลด</td><td>browser devtools, page wrapper, footer call</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="grid-2" style="margin-top:14px">
+            <div class="panel">
+              <h4>Log ที่ควรเปิดดู</h4>
+              <ul class="compact">
+                <li>Apache error log</li>
+                <li>PHP error log</li>
+                <li>Moodle debug output ถ้าเปิดไว้</li>
+                <li>Browser console ถ้าหน้าใช้ JS / AJAX</li>
+              </ul>
+            </div>
+            <div class="panel">
+              <h4>กติกาเวลาทำงานกับหน้าจอจริง</h4>
+              <ul class="compact">
+                <li>อย่าพึ่งสร้าง table หรือไฟล์ใหม่ถ้า data เดิมยังใช้ได้</li>
+                <li>อย่าฝัง SQL ซ้ำหลายจุดถ้า helper reuse ได้</li>
+                <li>ถ้าเจอ error จาก query, แก้แบบไม่กระทบหน้าที่ไม่เกี่ยวข้อง</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="page card" id="appendix">
+          <div class="section-title">
+            <div>
+              <h2>Appendix</h2>
+              <p>สรุปสิ่งที่ควรแนบในฉบับจริง</p>
+            </div>
+          </div>
+          <div class="grid-2">
+            <div class="panel">
+              <h4>สิ่งที่ควรเพิ่มเมื่อทำฉบับ final</h4>
+              <ul class="compact">
+                <li>รูปหน้าจอจริงของทุกหน้า S01 - S14</li>
+                <li>ตัวอย่างค่าจริงของ `setid` และ `sid`</li>
+                <li>ตัวอย่าง error ที่เจอได้จริงพร้อมวิธีแก้</li>
+                <li>คำอธิบายสิทธิ์ผู้ใช้ เช่น admin / staff / student</li>
+                <li>คำอธิบาย field สำคัญของแต่ละฟอร์ม</li>
+              </ul>
+            </div>
+            <div class="panel">
+              <h4>แนวทางทำต่อให้เป็นระบบ</h4>
+              <ul class="compact">
+                <li>แยก user manual, technical reference, และ appendix ให้ชัด</li>
+                <li>ถ้าจะส่งต่อให้คนอื่น, ให้ใช้ไฟล์ HTML นี้เป็นตัวตั้ง แล้วค่อย export PDF</li>
+                <li>ถ้าจะเอาไปนำเสนอ, เปิด Presentation Mode แล้วใช้ scroll หรือ print-to-PDF เป็นสไลด์ชุดเดียว</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <div class="footer">
+          Last updated: 2026-07-27 · Generated as a single portable HTML manual for `mod/newmodule` `v_` screens
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const btnPresentation = document.getElementById('btnPresentation');
+      const btnPrint = document.getElementById('btnPrint');
+      const body = document.body;
+
+      function setPresentationMode(enabled) {
+        body.classList.toggle('presentation', enabled);
+        btnPresentation.textContent = enabled ? 'Exit Presentation Mode' : 'Presentation Mode';
+      }
+
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('mode') === 'present') {
+        setPresentationMode(true);
+      }
+
+      btnPresentation.addEventListener('click', () => {
+        setPresentationMode(!body.classList.contains('presentation'));
+      });
+
+      btnPrint.addEventListener('click', () => window.print());
+
+      window.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && body.classList.contains('presentation')) {
+          setPresentationMode(false);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
