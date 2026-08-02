@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Portfolio / newmodule Requirement</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f4f1ea;
+      --paper: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #d9d2c7;
+      --accent: #6b4e2e;
+      --accent-soft: #f3eadc;
+      --code-bg: #f7f4ef;
+      --shadow: 0 18px 45px rgba(76, 61, 41, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+      line-height: 1.7;
+    }
+
+    body {
+      padding: 24px 18px 48px;
+    }
+
+    .page {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .paper {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 28px 32px 34px;
+      box-shadow: var(--shadow);
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.78rem;
+      margin: 0 0 6px;
+    }
+
+    h1 {
+      margin: 0;
+      line-height: 1.2;
+      font-size: 2rem;
+    }
+
+    .meta {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .nav {
+      min-width: 220px;
+      text-align: right;
+      font-size: 0.92rem;
+    }
+
+    .nav a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .nav a:hover,
+    .nav a:focus-visible {
+      text-decoration: underline;
+    }
+
+    .toc {
+      margin: 18px 0 24px;
+      padding: 16px 18px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, #fff, #fbf8f3);
+    }
+
+    .toc h2 {
+      margin: 0 0 10px;
+      font-size: 1.05rem;
+    }
+
+    .toc ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .toc li {
+      margin: 4px 0;
+    }
+
+    .toc-level-3 { margin-left: 12px; }
+    .toc-level-4 { margin-left: 24px; }
+    .toc-level-5 { margin-left: 36px; }
+    .toc-level-6 { margin-left: 48px; }
+
+    h2, h3, h4, h5, h6 {
+      line-height: 1.25;
+      margin: 1.5em 0 0.5em;
+      scroll-margin-top: 24px;
+    }
+
+    h2 { font-size: 1.45rem; }
+    h3 { font-size: 1.2rem; }
+    h4 { font-size: 1.05rem; }
+    h5 { font-size: 0.98rem; }
+    h6 { font-size: 0.94rem; }
+
+    p {
+      margin: 0.6em 0;
+    }
+
+    ul, ol {
+      margin: 0.5em 0 1em 1.3em;
+      padding: 0;
+    }
+
+    li {
+      margin: 0.22em 0;
+    }
+
+    blockquote {
+      margin: 1em 0;
+      padding: 14px 16px;
+      border-left: 4px solid var(--accent);
+      background: #faf6ef;
+      color: #3f3f46;
+    }
+
+    hr {
+      border: 0;
+      border-top: 1px solid var(--line);
+      margin: 1.6em 0;
+    }
+
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.95em;
+      background: var(--code-bg);
+      padding: 0.12em 0.35em;
+      border-radius: 6px;
+    }
+
+    pre.code-block {
+      margin: 1em 0;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: #111827;
+      color: #e5e7eb;
+      overflow: auto;
+      line-height: 1.5;
+      font-size: 0.9rem;
+    }
+
+    pre.code-block code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+      border-radius: 0;
+      white-space: pre;
+    }
+
+    .md-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1em 0 1.2em;
+      font-size: 0.95rem;
+    }
+
+    .md-table th,
+    .md-table td {
+      border: 1px solid var(--line);
+      padding: 8px 10px;
+      vertical-align: top;
+    }
+
+    .md-table thead th {
+      background: #f5efe6;
+      text-align: left;
+    }
+
+    .md-table tbody tr:nth-child(even) td {
+      background: #fcfbf8;
+    }
+
+    a {
+      color: #1d4ed8;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .footnote {
+      margin-top: 24px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 720px) {
+      body {
+        padding: 0;
+      }
+
+      .paper {
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        padding: 20px 16px 28px;
+      }
+
+      .topbar {
+        flex-direction: column;
+      }
+
+      .nav {
+        text-align: left;
+      }
+    }
+
+    @media print {
+      @page {
+        size: A4;
+        margin: 14mm 12mm 16mm;
+      }
+
+      body {
+        background: #fff;
+        padding: 0;
+        color: #000;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .paper {
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        padding: 0;
+      }
+
+      .nav,
+      .toc a {
+        color: #000;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      .footnote {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <article class="paper">
+      <div class="topbar">
+        <div>
+          <div class="eyebrow">Generated HTML document</div>
+          <h1>E-Portfolio / newmodule Requirement</h1>
+          <p class="meta">eport-requirement.md</p>
+        </div>
+        <div class="nav">
+          <div><a href="index.html">Main index</a></div>
+          <div><a href="newmodule-v-manual.html">Main manual</a></div>
+        </div>
+      </div>
+      <nav class="toc"><h2>Contents</h2><ul><li class="toc-level-2"><a href="#1-target-environment">1. Target Environment</a></li><li class="toc-level-2"><a href="#2-core-design-goals">2. Core Design Goals</a></li><li class="toc-level-2"><a href="#3-portability-rules">3. Portability Rules</a></li><li class="toc-level-2"><a href="#4-file-structure-rules">4. File Structure Rules</a></li><li class="toc-level-2"><a href="#5-moodle-page-rules">5. Moodle Page Rules</a></li><li class="toc-level-2"><a href="#6-database-rules">6. Database Rules</a></li><li class="toc-level-2"><a href="#7-external-db-config-rules">7. External DB Config Rules</a></li><li class="toc-level-2"><a href="#8-html-css-rules">8. HTML / CSS Rules</a></li><li class="toc-level-2"><a href="#9-logging-rules">9. Logging Rules</a></li><li class="toc-level-2"><a href="#10-error-handling-rules">10. Error Handling Rules</a></li><li class="toc-level-2"><a href="#11-code-style-rules">11. Code Style Rules</a></li><li class="toc-level-2"><a href="#12-testing-rules">12. Testing Rules</a></li><li class="toc-level-2"><a href="#13-minimum-acceptance-checklist">13. Minimum Acceptance Checklist</a></li></ul></nav>
+      <p>This document defines the working rules for <code>mod_newmodule</code> so the plugin can be copied to another Moodle site and keep working with minimal edits.</p>
+<h2 id="1-target-environment">1. Target Environment</h2>
+<ul class="md-list"><li>Moodle 3.10 family</li><li>PHP 7.4.x</li><li>MySQL-compatible database accessed with <code>mysqli</code> or Moodle <code>$DB</code></li><li>Apache on Windows in this deployment, but code must stay portable</li></ul>
+<h2 id="2-core-design-goals">2. Core Design Goals</h2>
+<ul class="md-list"><li>Keep the plugin copyable to any Moodle site</li><li>Avoid hardcoded absolute paths, hostnames, and environment-specific values</li><li>Keep the code structured, reusable, and easy for humans to maintain</li><li>Use one clear responsibility per file</li><li>Prefer standard Moodle output and standard Moodle page lifecycle</li><li>Keep runtime side effects to a minimum</li><li>Log important events without spamming logs</li></ul>
+<h2 id="3-portability-rules">3. Portability Rules</h2>
+<ul class="md-list"><li>Use <code>__DIR__</code>, <code>$CFG-&amp;gt;dirroot</code>, <code>$CFG-&amp;gt;wwwroot</code>, and <code>moodle_url</code> instead of Windows paths or fixed URLs</li><li>If a site-specific connection file is needed, keep it in one place only</li><li>Do not spread database connection logic across many files</li><li>Do not assume the same database name, domain, or folder structure exists on another server</li><li>If a file is optional, the code must fail gracefully and explain what is missing</li><li>If code needs a file from outside the plugin root, ask the user before wiring it in so they can provide the exact file from the server</li><li>Do not invent fallback paths for external files unless the user has approved that behavior</li></ul>
+<h2 id="4-file-structure-rules">4. File Structure Rules</h2>
+<ul class="md-list"><li>Keep CSS in one shared file per plugin when possible, for example <code>css/newmodule.css</code></li><li>Keep page-specific JS in <code>js/</code> and avoid inline script blocks unless absolutely necessary</li><li>Keep shared UI fragments in <code>includes/</code></li><li>Keep reusable server-side helpers in <code>includes/</code> or <code>classes/</code></li><li>Avoid duplicated footer or header fragments in page files</li><li>Do not create temporary files at runtime unless the feature explicitly needs them and the location is documented</li></ul>
+<p>Suggested layout:</p>
+<pre class="code-block"><code class="language-text">mod/newmodule/
+  v_index.php
+  v_*.php
+  includes/
+    toper.php
+    selectcur.php
+    dbconn.php
+  css/
+    newmodule.css
+  js/
+  img/</code></pre>
+<h2 id="5-moodle-page-rules">5. Moodle Page Rules</h2>
+<ul class="md-list"><li>Use the normal Moodle bootstrap flow</li><li>Use <code>require_once(dirname(dirname(dirname(__FILE__))).&amp;#39;/config.php&amp;#39;);</code></li><li>Set <code>$PAGE-&amp;gt;set_url()</code>, <code>$PAGE-&amp;gt;set_title()</code>, and <code>$PAGE-&amp;gt;set_heading()</code></li><li>Render with <code>echo $OUTPUT-&amp;gt;header();</code></li><li>Finish with <code>echo $OUTPUT-&amp;gt;footer();</code></li><li>Do not use a custom footer include on pages that already use standard Moodle footer output</li><li>Do not leave output buffering wrappers in place unless there is a clear reason</li><li>Do not use raw <code>$_GET</code> or <code>$_POST</code> when Moodle parameter helpers can be used</li><li>Use <code>optional_param()</code> / <code>required_param()</code> with the correct parameter type</li></ul>
+<h2 id="6-database-rules">6. Database Rules</h2>
+<ul class="md-list"><li>Prefer Moodle <code>$DB</code> for Moodle data</li><li>If legacy <code>mysqli</code> access is required, isolate it in one helper file only</li><li>Use prepared statements for every dynamic query</li><li>Close statements and free result sets</li><li>Do not build SQL with string concatenation for user input</li><li>Do not create new database tables unless the change is planned and documented</li><li>Do not write schema changes silently during page load</li><li>If the plugin depends on an external or legacy database, keep the connection setup in one reusable file</li><li>If a required file or asset is missing from the plugin package, stop and ask for it instead of guessing a substitute path</li></ul>
+<h2 id="7-external-db-config-rules">7. External DB Config Rules</h2>
+<ul class="md-list"><li>A connection helper such as <code>config-condata-elearning.php</code> must only do one job: create the connection</li><li>It should read from <code>$CFG</code> when loaded inside Moodle</li><li>It should fall back to safe defaults only when needed</li><li>It must not echo debug output on success</li><li>On failure, it should log the error and show one clear user-facing message</li><li>It must not create tables, files, or other side effects</li></ul>
+<h2 id="8-html-css-rules">8. HTML / CSS Rules</h2>
+<ul class="md-list"><li>Use semantic HTML elements: <code>main</code>, <code>section</code>, <code>nav</code>, <code>table</code>, <code>thead</code>, <code>tbody</code></li><li>Avoid inline CSS</li><li>Put responsive layout rules in the shared stylesheet</li><li>Use wrapper classes for wide tables so mobile screens can scroll instead of breaking the layout</li><li>Keep spacing, colors, and typography in CSS, not in PHP</li><li>If an image or asset is missing, the page must still render cleanly</li><li>Use a standard footer from Moodle and do not duplicate footer markup inside page content</li></ul>
+<h2 id="9-logging-rules">9. Logging Rules</h2>
+<p>Log only things that matter for maintenance:</p>
+<ul class="md-list"><li>missing config file</li><li>database connection failure</li><li>SQL prepare/execute failure</li><li>missing expected record</li><li>unexpected empty dataset when data should exist</li><li>permission denied or access blocked</li><li>missing asset that affects the page</li></ul>
+<p>Logging format:</p>
+<ul class="md-list"><li>Prefix logs with the plugin name, for example <code>[newmodule]</code></li><li>Keep one log line short and specific</li><li>Include the page name and the failing action</li><li>Do not log passwords, tokens, raw session data, or full SQL dumps</li></ul>
+<p>Example:</p>
+<pre class="code-block"><code class="language-php">error_log(&#39;[newmodule][v_index] Failed to fetch curriculum list: &#39; . $e-&gt;getMessage());</code></pre>
+<h2 id="10-error-handling-rules">10. Error Handling Rules</h2>
+<ul class="md-list"><li>Show a short user-friendly message</li><li>Log the technical detail separately</li><li>Catch specific exceptions when possible</li><li>Do not swallow errors silently</li><li>Do not rely on <code>die()</code> unless the page cannot continue at all</li><li>If the page cannot render safely, stop cleanly and explain the missing dependency</li></ul>
+<h2 id="11-code-style-rules">11. Code Style Rules</h2>
+<ul class="md-list"><li>Keep functions small and focused</li><li>Use meaningful variable names</li><li>Add comments only where the reason is not obvious</li><li>Remove dead code before delivery</li><li>Remove old commented-out experiments before copying to another site</li><li>Keep translations and business rules readable</li><li>Use consistent indentation and brace style</li></ul>
+<h2 id="12-testing-rules">12. Testing Rules</h2>
+<p>Before copying a change to another site, verify:</p>
+<ul class="md-list"><li><code>php -l</code> passes on edited PHP files</li><li>the page returns HTTP 200</li><li>the page opens without PHP warnings or fatal errors</li><li>responsive layout works at desktop and mobile widths</li><li>no broken image or CSS resource appears in the page</li><li>the page still works after cache refresh</li></ul>
+<h2 id="13-minimum-acceptance-checklist">13. Minimum Acceptance Checklist</h2>
+<p>The plugin change is acceptable only if:</p>
+<ul class="md-list"><li>it can be copied to a new Moodle site without rewriting business logic</li><li>it uses one standard footer path</li><li>it keeps styles in one shared CSS file</li><li>it logs important failures</li><li>it does not create extra DB objects unnecessarily</li><li>it is readable and maintainable by a human after you leave it</li></ul>
+      <div class="footnote">Source markdown: eport-requirement.md</div>
+    </article>
+  </div>
+</body>
+</html>

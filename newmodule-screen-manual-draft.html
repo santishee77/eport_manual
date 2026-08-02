@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>คู่มือหน้าจอ `v_` ของ `mod/newmodule` ฉบับร่าง</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f4f1ea;
+      --paper: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #d9d2c7;
+      --accent: #6b4e2e;
+      --accent-soft: #f3eadc;
+      --code-bg: #f7f4ef;
+      --shadow: 0 18px 45px rgba(76, 61, 41, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+      line-height: 1.7;
+    }
+
+    body {
+      padding: 24px 18px 48px;
+    }
+
+    .page {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .paper {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 28px 32px 34px;
+      box-shadow: var(--shadow);
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.78rem;
+      margin: 0 0 6px;
+    }
+
+    h1 {
+      margin: 0;
+      line-height: 1.2;
+      font-size: 2rem;
+    }
+
+    .meta {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .nav {
+      min-width: 220px;
+      text-align: right;
+      font-size: 0.92rem;
+    }
+
+    .nav a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .nav a:hover,
+    .nav a:focus-visible {
+      text-decoration: underline;
+    }
+
+    .toc {
+      margin: 18px 0 24px;
+      padding: 16px 18px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, #fff, #fbf8f3);
+    }
+
+    .toc h2 {
+      margin: 0 0 10px;
+      font-size: 1.05rem;
+    }
+
+    .toc ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .toc li {
+      margin: 4px 0;
+    }
+
+    .toc-level-3 { margin-left: 12px; }
+    .toc-level-4 { margin-left: 24px; }
+    .toc-level-5 { margin-left: 36px; }
+    .toc-level-6 { margin-left: 48px; }
+
+    h2, h3, h4, h5, h6 {
+      line-height: 1.25;
+      margin: 1.5em 0 0.5em;
+      scroll-margin-top: 24px;
+    }
+
+    h2 { font-size: 1.45rem; }
+    h3 { font-size: 1.2rem; }
+    h4 { font-size: 1.05rem; }
+    h5 { font-size: 0.98rem; }
+    h6 { font-size: 0.94rem; }
+
+    p {
+      margin: 0.6em 0;
+    }
+
+    ul, ol {
+      margin: 0.5em 0 1em 1.3em;
+      padding: 0;
+    }
+
+    li {
+      margin: 0.22em 0;
+    }
+
+    blockquote {
+      margin: 1em 0;
+      padding: 14px 16px;
+      border-left: 4px solid var(--accent);
+      background: #faf6ef;
+      color: #3f3f46;
+    }
+
+    hr {
+      border: 0;
+      border-top: 1px solid var(--line);
+      margin: 1.6em 0;
+    }
+
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.95em;
+      background: var(--code-bg);
+      padding: 0.12em 0.35em;
+      border-radius: 6px;
+    }
+
+    pre.code-block {
+      margin: 1em 0;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: #111827;
+      color: #e5e7eb;
+      overflow: auto;
+      line-height: 1.5;
+      font-size: 0.9rem;
+    }
+
+    pre.code-block code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+      border-radius: 0;
+      white-space: pre;
+    }
+
+    .md-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1em 0 1.2em;
+      font-size: 0.95rem;
+    }
+
+    .md-table th,
+    .md-table td {
+      border: 1px solid var(--line);
+      padding: 8px 10px;
+      vertical-align: top;
+    }
+
+    .md-table thead th {
+      background: #f5efe6;
+      text-align: left;
+    }
+
+    .md-table tbody tr:nth-child(even) td {
+      background: #fcfbf8;
+    }
+
+    a {
+      color: #1d4ed8;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .footnote {
+      margin-top: 24px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 720px) {
+      body {
+        padding: 0;
+      }
+
+      .paper {
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        padding: 20px 16px 28px;
+      }
+
+      .topbar {
+        flex-direction: column;
+      }
+
+      .nav {
+        text-align: left;
+      }
+    }
+
+    @media print {
+      @page {
+        size: A4;
+        margin: 14mm 12mm 16mm;
+      }
+
+      body {
+        background: #fff;
+        padding: 0;
+        color: #000;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .paper {
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        padding: 0;
+      }
+
+      .nav,
+      .toc a {
+        color: #000;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      .footnote {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <article class="paper">
+      <div class="topbar">
+        <div>
+          <div class="eyebrow">Generated HTML document</div>
+          <h1>คู่มือหน้าจอ `v_` ของ `mod/newmodule` ฉบับร่าง</h1>
+          <p class="meta">newmodule-screen-manual-draft.md · <span>Last updated: 2026-07-27</span></p>
+        </div>
+        <div class="nav">
+          <div><a href="index.html">Main index</a></div>
+          <div><a href="newmodule-v-manual.html">Main manual</a></div>
+        </div>
+      </div>
+      <nav class="toc"><h2>Contents</h2><ul><li class="toc-level-2"><a href="#section-1">ขอบเขตเอกสาร</a></li><li class="toc-level-2"><a href="#section-2">วิธีใช้เอกสารนี้</a></li><li class="toc-level-2"><a href="#section-3">ภาพรวมหน้าจอหลัก</a></li><li class="toc-level-2"><a href="#s01-v-index-php">S01: <code>v_index.php</code></a></li><li class="toc-level-3"><a href="#section-5">จุดประสงค์</a></li><li class="toc-level-3"><a href="#section-6">ปุ่ม/ตัวควบคุมที่สำคัญ</a></li><li class="toc-level-3"><a href="#section-7">ขั้นตอนการใช้งาน</a></li><li class="toc-level-3"><a href="#section-8">ตารางที่เกี่ยวข้อง</a></li><li class="toc-level-3"><a href="#section-9">หมายเหตุสำคัญ</a></li><li class="toc-level-2"><a href="#s02-v-curriculum-management-php">S02: <code>v_curriculum_management.php</code></a></li><li class="toc-level-3"><a href="#section-11">จุดประสงค์</a></li><li class="toc-level-3"><a href="#section-12">ปุ่ม/ตัวควบคุมที่สำคัญ</a></li><li class="toc-level-3"><a href="#section-13">ขั้นตอนการใช้งาน</a></li><li class="toc-level-3"><a href="#section-14">ตารางที่เกี่ยวข้อง</a></li><li class="toc-level-3"><a href="#section-15">หมายเหตุสำคัญ</a></li><li class="toc-level-2"><a href="#s03-v-manage-cur-course-php">S03: <code>v_manage_cur_course.php</code></a></li><li class="toc-level-3"><a href="#section-17">จุดประสงค์</a></li><li class="toc-level-3"><a href="#section-18">ปุ่ม/ตัวควบคุมที่สำคัญ</a></li><li class="toc-level-3"><a href="#section-19">ขั้นตอนการใช้งาน</a></li><li class="toc-level-3"><a href="#section-20">ตารางที่เกี่ยวข้อง</a></li><li class="toc-level-3"><a href="#section-21">หมายเหตุสำคัญ</a></li><li class="toc-level-2"><a href="#s04-v-manage-cur-student-php">S04: <code>v_manage_cur_student.php</code></a></li><li class="toc-level-3"><a href="#section-23">จุดประสงค์</a></li><li class="toc-level-3"><a href="#section-24">ปุ่ม/ตัวควบคุมที่สำคัญ</a></li><li class="toc-level-3"><a href="#section-25">ขั้นตอนการใช้งาน</a></li><li class="toc-level-3"><a href="#section-26">ตารางที่เกี่ยวข้อง</a></li><li class="toc-level-3"><a href="#section-27">หมายเหตุสำคัญ</a></li><li class="toc-level-2"><a href="#s05-v-manage-cur-student-detail-php">S05: <code>v_manage_cur_student_detail.php</code></a></li><li class="toc-level-3"><a href="#section-29">จุดประสงค์</a></li><li class="toc-level-3"><a href="#section-30">ปุ่ม/ตัวควบคุมที่สำคัญ</a></li><li class="toc-level-3"><a href="#section-31">ขั้นตอนการใช้งาน</a></li><li class="toc-level-3"><a href="#section-32">ตารางที่เกี่ยวข้อง</a></li><li class="toc-level-3"><a href="#section-33">หมายเหตุสำคัญ</a></li><li class="toc-level-2"><a href="#s06-v-softskills-php">S06: <code>v_softskills.php</code></a></li><li class="toc-level-3"><a href="#section-35">จุดประสงค์</a></li><li class="toc-level-3"><a href="#section-36">ปุ่ม/ตัวควบคุมที่สำคัญ</a></li><li class="toc-level-3"><a href="#section-37">ขั้นตอนการใช้งาน</a></li><li class="toc-level-3"><a href="#section-38">ตารางที่เกี่ยวข้อง</a></li><li class="toc-level-3"><a href="#section-39">หมายเหตุสำคัญ</a></li><li class="toc-level-2"><a href="#s07-v-manage-softskills-php">S07: <code>v_manage_softskills.php</code></a></li><li class="toc-level-3"><a href="#section-41">จุดประสงค์</a></li><li class="toc-level-3"><a href="#section-42">ปุ่ม/ตัวควบคุมที่สำคัญ</a></li><li class="toc-level-3"><a href="#section-43">ขั้นตอนการใช้งาน</a></li><li class="toc-level-3"><a href="#section-44">ตารางที่เกี่ยวข้อง</a></li><li class="toc-level-3"><a href="#section-45">หมายเหตุสำคัญ</a></li><li class="toc-level-2"><a href="#s08-v-nts-php">S08: <code>v_nts.php</code></a></li><li class="toc-level-3"><a href="#section-47">จุดประสงค์</a></li><li class="toc-level-3"><a href="#section-48">ปุ่ม/ตัวควบคุมที่สำคัญ</a></li><li class="toc-level-3"><a href="#section-49">ขั้นตอนการใช้งาน</a></li><li class="toc-level-3"><a href="#section-50">ตารางที่เกี่ยวข้อง</a></li><li class="toc-level-3"><a href="#section-51">หมายเหตุสำคัญ</a></li><li class="toc-level-2"><a href="#s09-v-view-student-nts-php">S09: <code>v_view_student_nts.php</code></a></li><li class="toc-level-3"><a href="#section-53">จุดประสงค์</a></li><li class="toc-level-3"><a href="#section-54">ปุ่ม/ตัวควบคุมที่สำคัญ</a></li><li class="toc-level-3"><a href="#section-55">ขั้นตอนการใช้งาน</a></li><li class="toc-level-3"><a href="#section-56">ตารางที่เกี่ยวข้อง</a></li><li class="toc-level-3"><a href="#section-57">หมายเหตุสำคัญ</a></li><li class="toc-level-2"><a href="#s10-v-research-php">S10: <code>v_research.php</code></a></li><li class="toc-level-3"><a href="#section-59">จุดประสงค์</a></li><li class="toc-level-3"><a href="#section-60">ปุ่ม/ตัวควบคุมที่สำคัญ</a></li><li class="toc-level-3"><a href="#section-61">ขั้นตอนการใช้งาน</a></li><li class="toc-level-3"><a href="#section-62">ตารางที่เกี่ยวข้อง</a></li><li class="toc-level-3"><a href="#section-63">หมายเหตุสำคัญ</a></li><li class="toc-level-2"><a href="#s11-v-view-student-research-php">S11: <code>v_view_student_research.php</code></a></li><li class="toc-level-3"><a href="#section-65">จุดประสงค์</a></li><li class="toc-level-3"><a href="#section-66">ปุ่ม/ตัวควบคุมที่สำคัญ</a></li><li class="toc-level-3"><a href="#section-67">ขั้นตอนการใช้งาน</a></li><li class="toc-level-3"><a href="#section-68">ตารางที่เกี่ยวข้อง</a></li><li class="toc-level-3"><a href="#section-69">หมายเหตุสำคัญ</a></li><li class="toc-level-2"><a href="#s12-v-view-report-php">S12: <code>v_view_report.php</code></a></li><li class="toc-level-3"><a href="#section-71">จุดประสงค์</a></li><li class="toc-level-3"><a href="#section-72">ปุ่ม/ตัวควบคุมที่สำคัญ</a></li><li class="toc-level-3"><a href="#section-73">ขั้นตอนการใช้งาน</a></li><li class="toc-level-3"><a href="#section-74">ตารางที่เกี่ยวข้อง</a></li><li class="toc-level-3"><a href="#section-75">หมายเหตุสำคัญ</a></li><li class="toc-level-2"><a href="#s13-v-view-student-courses-php">S13: <code>v_view_student_courses.php</code></a></li><li class="toc-level-3"><a href="#section-77">จุดประสงค์</a></li><li class="toc-level-3"><a href="#section-78">ปุ่ม/ตัวควบคุมที่สำคัญ</a></li><li class="toc-level-3"><a href="#section-79">ขั้นตอนการใช้งาน</a></li><li class="toc-level-3"><a href="#section-80">ตารางที่เกี่ยวข้อง</a></li><li class="toc-level-3"><a href="#section-81">หมายเหตุสำคัญ</a></li><li class="toc-level-2"><a href="#s14-v-view-student-knowledge-php">S14: <code>v_view_student_knowledge.php</code></a></li><li class="toc-level-3"><a href="#section-83">จุดประสงค์</a></li><li class="toc-level-3"><a href="#section-84">ปุ่ม/ตัวควบคุมที่สำคัญ</a></li><li class="toc-level-3"><a href="#section-85">ขั้นตอนการใช้งาน</a></li><li class="toc-level-3"><a href="#section-86">ตารางที่เกี่ยวข้อง</a></li><li class="toc-level-3"><a href="#section-87">หมายเหตุสำคัญ</a></li><li class="toc-level-2"><a href="#section-88">หน้าจอรองที่ควรใส่ในภาคผนวก</a></li><li class="toc-level-2"><a href="#section-89">สิ่งที่ควรเพิ่มในฉบับจริง</a></li><li class="toc-level-2"><a href="#section-90">ลำดับถัดไปที่แนะนำ</a></li></ul></nav>
+      <h2 id="section-1">ขอบเขตเอกสาร</h2>
+<p>เอกสารนี้สรุปหน้าจอที่ใช้งานจริงของระบบ <code>v_</code> ใน <code>mod/newmodule</code> เพื่อใช้เป็นคู่มืออ้างอิงสำหรับผู้ใช้และผู้ดูแลระบบ</p>
+<p>ครอบคลุม:</p>
+<ul class="md-list"><li>หน้าจอหลักที่เปิดใช้งานจริง</li><li>ปุ่ม, ลิงก์, ฟอร์ม, และ flow การใช้งาน</li><li>ตารางฐานข้อมูลที่เกี่ยวข้องกับแต่ละหน้าจอ</li><li>หน้าจอรายละเอียดของนักศึกษา</li><li>หน้าจอจัดการ curriculum / course / student / research / soft skills / NTS / report</li></ul>
+<p>ไม่เน้น:</p>
+<ul class="md-list"><li>ไฟล์ backup หรือ dated copy เช่น <code>*250923.php</code>, <code>*260224.php</code>, <code>*260526*.php</code>, <code>*bk*.php</code></li><li>helper/API ที่ไม่ใช่หน้าจอหลัก ยกเว้นกรณีที่เกี่ยวกับปุ่มบนหน้าโดยตรง</li></ul>
+<h2 id="section-2">วิธีใช้เอกสารนี้</h2>
+<p>สำหรับแต่ละหน้าจอ จะมี 5 ส่วน:</p>
+<ul class="md-list"><li>จุดประสงค์</li><li>ปุ่ม/ตัวควบคุม</li><li>ขั้นตอนการใช้งาน</li><li>ตารางที่เกี่ยวข้อง</li><li>หมายเหตุสำคัญ</li></ul>
+<hr>
+<h2 id="section-3">ภาพรวมหน้าจอหลัก</h2>
+<table class="md-table"><thead><tr><th>ID</th><th>หน้าจอ</th><th>ไฟล์</th><th>ประเภท</th><th>ผู้ใช้หลัก</th><th>หน้าที่หลัก</th></tr></thead><tbody><tr><td>S01</td><td>หน้าแรก</td><td><code>v_index.php</code></td><td>Dashboard</td><td>Admin / Staff</td><td>เลือก curriculum และดู summary</td></tr><tr><td>S02</td><td>จัดการหลักสูตร</td><td><code>v_curriculum_management.php</code></td><td>Hub</td><td>Admin / Staff</td><td>รวมทางลัดไปยังงานจัดการหลักสูตร</td></tr><tr><td>S03</td><td>จัดการรายวิชาในหลักสูตร</td><td><code>v_manage_cur_course.php</code></td><td>Edit</td><td>Admin / Staff</td><td>เพิ่ม/ลบรายวิชาและ lock curriculum</td></tr><tr><td>S04</td><td>จัดการนักศึกษาในหลักสูตร</td><td><code>v_manage_cur_student.php</code></td><td>Edit</td><td>Admin / Staff</td><td>เลือกนักศึกษาเข้าหลักสูตร</td></tr><tr><td>S05</td><td>จัดการข้อมูลนักศึกษาและการลงทะเบียน</td><td><code>v_manage_cur_student_detail.php</code></td><td>Edit</td><td>Admin / Staff</td><td>แก้ข้อมูลนักศึกษาและดู registration</td></tr><tr><td>S06</td><td>SoftSkills dashboard</td><td><code>v_softskills.php</code></td><td>Dashboard</td><td>Admin / Staff</td><td>สรุป Soft Skills / English / Spider chart</td></tr><tr><td>S07</td><td>จัดการ Soft Skills &amp; English Scores</td><td><code>v_manage_softskills.php</code></td><td>Edit</td><td>Admin / Staff</td><td>บันทึกคะแนน Soft Skills และ English</td></tr><tr><td>S08</td><td>Non-Technical Skills dashboard</td><td><code>v_nts.php</code></td><td>Dashboard</td><td>Admin / Staff</td><td>สรุป NTS ของนักศึกษา</td></tr><tr><td>S09</td><td>ดูข้อมูล NTS ของนักศึกษา</td><td><code>v_view_student_nts.php</code></td><td>Detail</td><td>Admin / Staff</td><td>ดูรายละเอียด NTS รายคน</td></tr><tr><td>S10</td><td>Research dashboard</td><td><code>v_research.php</code></td><td>Dashboard</td><td>Admin / Staff</td><td>ติดตามงาน research / task</td></tr><tr><td>S11</td><td>ดูข้อมูล Task และ Alert ของนักศึกษา</td><td><code>v_view_student_research.php</code></td><td>Detail</td><td>Admin / Staff</td><td>ดู task และแจ้งเตือนรายคน</td></tr><tr><td>S12</td><td>สร้างรายงาน</td><td><code>v_view_report.php</code></td><td>Report</td><td>Admin / Staff</td><td>ค้นหา/กรอง/ส่งออก CSV</td></tr><tr><td>S13</td><td>ดูข้อมูลการลงทะเบียนนักศึกษา</td><td><code>v_view_student_courses.php</code></td><td>Detail</td><td>Admin / Staff</td><td>ดูทะเบียนเรียนรายคน</td></tr><tr><td>S14</td><td>ดูรายละเอียดคะแนน Knowledge</td><td><code>v_view_student_knowledge.php</code></td><td>Detail</td><td>Admin / Staff</td><td>ดูคะแนน Knowledge และ CE</td></tr></tbody></table>
+<hr>
+<h2 id="s01-v-index-php">S01: <code>v_index.php</code></h2>
+<h3 id="section-5">จุดประสงค์</h3>
+<ul class="md-list"><li>เป็นหน้าเริ่มต้นของระบบ</li><li>เลือกหลักสูตรผ่าน dropdown</li><li>แสดง dashboard คะแนน Mile Point ของหลักสูตรที่เลือก</li><li>เป็นจุดกระโดดไปหน้าจัดการหลักสูตร, student, research, softskills, nts และ summary อื่น ๆ</li></ul>
+<h3 id="section-6">ปุ่ม/ตัวควบคุมที่สำคัญ</h3>
+<table class="md-table"><thead><tr><th>Control</th><th>ทำอะไร</th></tr></thead><tbody><tr><td>Curriculum dropdown</td><td>เลือก <code>setid</code> เพื่อเปลี่ยนบริบทของหลักสูตร</td></tr><tr><td>ลิงก์ใน dashboard</td><td>เปิดหน้าสรุปหรือรายละเอียดตามหัวข้อ เช่น Knowledge / Research / SoftSkills / NTS</td></tr><tr><td>ลิงก์จัดการนักศึกษา</td><td>ไป <code>v_manage_cur_student.php</code></td></tr><tr><td>ลิงก์จัดการข้อมูลลงทะเบียน</td><td>ไป <code>v_sync_data_management.php</code></td></tr><tr><td>ลิงก์จัดการโครงสร้างหลักสูตร</td><td>ไป <code>v_manage_cur_course.php</code></td></tr></tbody></table>
+<h3 id="section-7">ขั้นตอนการใช้งาน</h3>
+<ol class="md-list"><li>เปิดหน้า <code>v_index.php</code></li><li>เลือกหลักสูตรจาก dropdown</li><li>ตรวจดู dashboard คะแนนรวมของหลักสูตร</li><li>คลิกหัวข้อย่อยเพื่อเข้าไปดู detail ของแต่ละด้าน</li><li>ถ้าต้องจัดการหลักสูตร ให้ใช้ลิงก์ทางลัดด้านบน</li></ol>
+<h3 id="section-8">ตารางที่เกี่ยวข้อง</h3>
+<ul class="md-list"><li>อ่าน <code>mdl_a_curset</code></li><li>อ่าน <code>mdl_user_student</code></li><li>อ่าน <code>mdl_milepoint_view</code></li><li>อ่าน view ที่แตกจาก <code>sql/create_milepoint_views.sql</code></li></ul>
+<h3 id="section-9">หมายเหตุสำคัญ</h3>
+<ul class="md-list"><li>หน้า นี้ถูกป้องกันด้วยสิทธิ์ admin ในโค้ดปัจจุบัน</li><li>ถ้าไม่ใช่ admin จะถูก redirect ออก</li><li>หน้านี้เป็นจุดสำคัญของ flow ทั้งระบบ ดังนั้น manual ควรใส่ภาพหน้าจอหน้าแรกไว้เป็นหน้าเปิดเล่ม</li></ul>
+<hr>
+<h2 id="s02-v-curriculum-management-php">S02: <code>v_curriculum_management.php</code></h2>
+<h3 id="section-11">จุดประสงค์</h3>
+<ul class="md-list"><li>เป็นหน้ารวมงานจัดการ curriculum</li><li>แสดง summary ของนักศึกษาในหลักสูตร</li><li>มีทางลัดไปงานจัดการ student, sync, และ course</li></ul>
+<h3 id="section-12">ปุ่ม/ตัวควบคุมที่สำคัญ</h3>
+<table class="md-table"><thead><tr><th>Control</th><th>ทำอะไร</th></tr></thead><tbody><tr><td><code>จัดการนักศึกษาในหลักสูตร</code></td><td>เปิด <code>v_manage_cur_student.php</code></td></tr><tr><td><code>จัดการข้อมูลลงทะเบียน</code></td><td>เปิด <code>v_sync_data_management.php</code></td></tr><tr><td><code>จัดการโครงสร้างหลักสูตร</code></td><td>เปิด <code>v_manage_cur_course.php</code></td></tr><tr><td>ลิงก์รหัสนักศึกษาในตาราง</td><td>เปิด <code>v_view_student_courses.php</code></td></tr><tr><td>ไอคอนแก้ไข</td><td>เปิด <code>v_manage_cur_student_detail.php</code></td></tr></tbody></table>
+<h3 id="section-13">ขั้นตอนการใช้งาน</h3>
+<ol class="md-list"><li>เข้า <code>v_curriculum_management.php</code></li><li>เลือก curriculum ที่ต้องการ</li><li>ตรวจดูข้อมูลสรุปใน dashboard</li><li>ใช้ทางลัดเพื่อไปยังหน้าจัดการที่ต้องการ</li><li>คลิกรหัสนักศึกษาเพื่อดูรายละเอียดลงทะเบียนรายคน</li></ol>
+<h3 id="section-14">ตารางที่เกี่ยวข้อง</h3>
+<ul class="md-list"><li>อ่าน <code>mdl_a_curset</code></li><li>อ่าน <code>mdl_user_student</code></li><li>อ่าน <code>mdl_milepoint_view</code></li></ul>
+<h3 id="section-15">หมายเหตุสำคัญ</h3>
+<ul class="md-list"><li>หน้านี้เป็น hub ที่เหมาะสำหรับใส่ใน manual เป็น “จุดศูนย์กลาง”</li><li>ถ้าคนอ่านใหม่ ให้เริ่มจากหน้านี้จะเข้าใจ flow ทั้งระบบเร็วที่สุด</li></ul>
+<hr>
+<h2 id="s03-v-manage-cur-course-php">S03: <code>v_manage_cur_course.php</code></h2>
+<h3 id="section-17">จุดประสงค์</h3>
+<ul class="md-list"><li>จัดการรายวิชาที่อยู่ในโครงสร้างหลักสูตร</li><li>เปิด/ปิด lock ของหลักสูตร</li><li>บันทึกรายวิชาที่ควรอยู่ใน curriculum</li></ul>
+<h3 id="section-18">ปุ่ม/ตัวควบคุมที่สำคัญ</h3>
+<table class="md-table"><thead><tr><th>Control</th><th>ทำอะไร</th></tr></thead><tbody><tr><td><code>ปลดล็อคหลักสูตร</code> / <code>ล็อคหลักสูตร</code></td><td>เปลี่ยนสถานะ lock ของ curriculum</td></tr><tr><td>Checkbox ของรายวิชา</td><td>เลือกหรือยกเลิกรายวิชาในหลักสูตร</td></tr><tr><td><code>บันทึกโครงสร้างหลักสูตร</code></td><td>บันทึกการเปลี่ยนแปลงรายวิชา</td></tr><tr><td>Breadcrumb กลับหน้าเดิม</td><td>ย้อนกลับไป <code>v_curriculum_management.php</code> หรือ <code>v_index.php</code></td></tr></tbody></table>
+<h3 id="section-19">ขั้นตอนการใช้งาน</h3>
+<ol class="md-list"><li>เปิดหน้าจัดการรายวิชา</li><li>ตรวจดูว่าหลักสูตรถูก lock อยู่หรือไม่</li><li>ถ้ายังเปิดอยู่ ให้ติ๊กเลือกวิชาที่ต้องการ</li><li>กดบันทึก</li><li>ถ้าต้องการปิดการแก้ไข ให้กด lock หลักสูตร</li></ol>
+<h3 id="section-20">ตารางที่เกี่ยวข้อง</h3>
+<ul class="md-list"><li>อ่าน <code>mdl_a_curset</code></li><li>อ่าน <code>mdl_course_ep</code></li><li>อ่าน <code>mdl_cur_course</code></li></ul>
+<h3 id="section-21">หมายเหตุสำคัญ</h3>
+<ul class="md-list"><li>ถ้าหลักสูตรถูก lock ปุ่มบางส่วนจะซ่อนหรือ disabled</li><li>คู่มือควรอธิบายให้ชัดว่า lock มีผลกับการแก้ไขต่อจากหน้านี้</li></ul>
+<hr>
+<h2 id="s04-v-manage-cur-student-php">S04: <code>v_manage_cur_student.php</code></h2>
+<h3 id="section-23">จุดประสงค์</h3>
+<ul class="md-list"><li>เลือกนักศึกษาที่อยู่ในหลักสูตร</li><li>แสดงรายชื่อนักศึกษาแบบเลือกได้</li><li>บันทึกการเปลี่ยนแปลง membership ของ curriculum</li></ul>
+<h3 id="section-24">ปุ่ม/ตัวควบคุมที่สำคัญ</h3>
+<table class="md-table"><thead><tr><th>Control</th><th>ทำอะไร</th></tr></thead><tbody><tr><td>Checkbox รายชื่อนักศึกษา</td><td>เลือกนักศึกษาที่จะอยู่ในหลักสูตร</td></tr><tr><td><code>บันทึกการเปลี่ยนแปลง</code></td><td>บันทึกการเลือกนักศึกษา</td></tr><tr><td>ลิงก์รหัสนักศึกษา</td><td>เปิด <code>v_manage_cur_student_detail.php</code></td></tr></tbody></table>
+<h3 id="section-25">ขั้นตอนการใช้งาน</h3>
+<ol class="md-list"><li>เปิดหน้าจัดการนักศึกษาในหลักสูตร</li><li>ตรวจดูรายชื่อนักศึกษาที่มีสถานะ current / available / other</li><li>ติ๊ก checkbox เฉพาะคนที่ต้องการ</li><li>กดบันทึกการเปลี่ยนแปลง</li><li>ถ้าต้องการแก้ข้อมูลรายคน ให้กดรหัสนักศึกษาเพื่อไปหน้ารายละเอียด</li></ol>
+<h3 id="section-26">ตารางที่เกี่ยวข้อง</h3>
+<ul class="md-list"><li>อ่านและอัปเดต <code>mdl_user_student</code></li></ul>
+<h3 id="section-27">หมายเหตุสำคัญ</h3>
+<ul class="md-list"><li>หน้านี้เป็นจุดที่ใช้ยืนยันว่าใครอยู่ใน curriculum</li><li>คู่มือควรอธิบายสถานะ <code>current</code>, <code>available</code>, <code>other</code> ให้ผู้ใช้เข้าใจว่าแต่ละสีหมายถึงอะไร</li></ul>
+<hr>
+<h2 id="s05-v-manage-cur-student-detail-php">S05: <code>v_manage_cur_student_detail.php</code></h2>
+<h3 id="section-29">จุดประสงค์</h3>
+<ul class="md-list"><li>แก้ไขข้อมูลนักศึกษา</li><li>ดูสรุปการลงทะเบียนของนักศึกษาคนนั้น</li></ul>
+<h3 id="section-30">ปุ่ม/ตัวควบคุมที่สำคัญ</h3>
+<table class="md-table"><thead><tr><th>Control</th><th>ทำอะไร</th></tr></thead><tbody><tr><td><code>studyplan</code> dropdown</td><td>เลือกแผนการเรียน</td></tr><tr><td><code>advisor</code> textbox</td><td>กรอกชื่ออาจารย์ที่ปรึกษา</td></tr><tr><td><code>cohort</code> number input</td><td>ระบุรุ่นของนักศึกษา</td></tr><tr><td><code>บันทึกข้อมูลนักศึกษา</code></td><td>บันทึกข้อมูลที่แก้ไข</td></tr></tbody></table>
+<h3 id="section-31">ขั้นตอนการใช้งาน</h3>
+<ol class="md-list"><li>เปิดหน้ารายละเอียดจากรายชื่อนักศึกษา</li><li>ตรวจข้อมูลปัจจุบันของนักศึกษา</li><li>แก้ <code>studyplan</code>, <code>advisor</code>, และ <code>cohort</code> ตามต้องการ</li><li>กดบันทึกข้อมูลนักศึกษา</li><li>เลื่อนดูสรุปการลงทะเบียนด้านล่างเพื่อยืนยันข้อมูลประกอบ</li></ol>
+<h3 id="section-32">ตารางที่เกี่ยวข้อง</h3>
+<ul class="md-list"><li>อ่าน/เขียน <code>mdl_user_student</code></li><li>อ่าน <code>mdl_student_registered_course</code></li><li>อ่าน <code>mdl_student_registration_term</code></li><li>อ่าน <code>mdl_course_ep</code></li></ul>
+<h3 id="section-33">หมายเหตุสำคัญ</h3>
+<ul class="md-list"><li>ส่วนสรุปการลงทะเบียนด้านล่างเป็น read-only</li><li>หากข้อมูลส่วนนี้ไม่ขึ้น ควรตรวจ <code>setid</code> และ <code>sid</code> ก่อน</li></ul>
+<hr>
+<h2 id="s06-v-softskills-php">S06: <code>v_softskills.php</code></h2>
+<h3 id="section-35">จุดประสงค์</h3>
+<ul class="md-list"><li>แสดง dashboard คะแนน Soft Skills และ English ที่รวมอยู่ใน Mile Point</li><li>แสดง spider chart สำหรับภาพรวมของนักศึกษาในหลักสูตร</li><li>เป็นทางเข้าหน้าแก้ไข SoftSkills ของแต่ละคน</li></ul>
+<h3 id="section-36">ปุ่ม/ตัวควบคุมที่สำคัญ</h3>
+<table class="md-table"><thead><tr><th>Control</th><th>ทำอะไร</th></tr></thead><tbody><tr><td>Curriculum dropdown</td><td>เลือกหลักสูตร</td></tr><tr><td><code>จัดการ EnglihSkills</code></td><td>เปิดหน้าจัดการ English/Soft Skills</td></tr><tr><td>ลิงก์รหัสนักศึกษา</td><td>เปิด <code>v_manage_softskills.php</code> ของคนนั้น</td></tr></tbody></table>
+<h3 id="section-37">ขั้นตอนการใช้งาน</h3>
+<ol class="md-list"><li>เปิดหน้า softskills dashboard</li><li>เลือก curriculum</li><li>ตรวจดูคะแนนรวมและกราฟ</li><li>คลิกนักศึกษาที่ต้องการเพื่อไปหน้าจัดการรายคน</li></ol>
+<h3 id="section-38">ตารางที่เกี่ยวข้อง</h3>
+<ul class="md-list"><li>อ่าน <code>mdl_user_student</code></li><li>อ่าน <code>mdl_student_softskill_result</code></li><li>อ่าน <code>mdl_student_english_test_result</code></li><li>อ่าน <code>mdl_student_english_test_score_details</code></li><li>อ่าน <code>mdl_english_test_criteria</code></li><li>อ่าน <code>mdl_milepoint_view</code></li></ul>
+<h3 id="section-39">หมายเหตุสำคัญ</h3>
+<ul class="md-list"><li>หน้านี้ควรอธิบายแนวคิด “Softskills + English = ส่วนหนึ่งของ Mile Point”</li><li>หน้าใช้ทั้ง read-only dashboard และ link ไปหน้าจัดการ</li></ul>
+<hr>
+<h2 id="s07-v-manage-softskills-php">S07: <code>v_manage_softskills.php</code></h2>
+<h3 id="section-41">จุดประสงค์</h3>
+<ul class="md-list"><li>บันทึกผล Soft Skills ของนักศึกษา</li><li>บันทึกผล English test / score details</li><li>เป็นหน้าจัดการข้อมูลจริง ไม่ใช่แค่แสดงผล</li></ul>
+<h3 id="section-42">ปุ่ม/ตัวควบคุมที่สำคัญ</h3>
+<table class="md-table"><thead><tr><th>Control</th><th>ทำอะไร</th></tr></thead><tbody><tr><td>Search input</td><td>ค้นหานักศึกษา</td></tr><tr><td><code>ค้นหา</code></td><td>เริ่มค้นหา</td></tr><tr><td><code>ล้าง</code></td><td>เคลียร์เงื่อนไขค้นหา</td></tr><tr><td>Checkbox ของ soft skill</td><td>เลือกสกิลที่ผ่าน</td></tr><tr><td><code>บันทึก Soft Skills</code></td><td>บันทึกผล soft skill</td></tr><tr><td><code>บันทึก English Scores</code></td><td>บันทึกคะแนน English</td></tr></tbody></table>
+<h3 id="section-43">ขั้นตอนการใช้งาน</h3>
+<ol class="md-list"><li>เลือกหรือค้นหานักศึกษา</li><li>ตรวจข้อมูลเดิมที่ระบบโหลดมาให้</li><li>ติ๊ก soft skill ที่ผ่าน</li><li>กรอกหรือปรับ English score ตามฟอร์ม</li><li>กดบันทึก Soft Skills หรือบันทึก English Scores ตามส่วนที่แก้</li></ol>
+<h3 id="section-44">ตารางที่เกี่ยวข้อง</h3>
+<ul class="md-list"><li>อ่าน/เขียน <code>mdl_student_softskill_result</code></li><li>อ่าน/เขียน <code>mdl_student_english_test_result</code></li><li>อ่าน/เขียน <code>mdl_student_english_test_score_details</code></li><li>อ่าน <code>mdl_english_test_criteria</code></li></ul>
+<h3 id="section-45">หมายเหตุสำคัญ</h3>
+<ul class="md-list"><li>หน้านี้ควรระวังเรื่อง validation ของคะแนนและวันที่</li><li>ถ้าจะใส่คู่มือจริง ควรมีภาพตัวอย่างสองส่วน: Soft Skills และ English Scores</li></ul>
+<hr>
+<h2 id="s08-v-nts-php">S08: <code>v_nts.php</code></h2>
+<h3 id="section-47">จุดประสงค์</h3>
+<ul class="md-list"><li>แสดงภาพรวมคะแนน Non-Technical Skills ของนักศึกษาในหลักสูตร</li><li>ค้นหานักศึกษาตามรหัสหรือชื่อ</li><li>เปิด detail ของนักศึกษารายคน</li></ul>
+<h3 id="section-48">ปุ่ม/ตัวควบคุมที่สำคัญ</h3>
+<table class="md-table"><thead><tr><th>Control</th><th>ทำอะไร</th></tr></thead><tbody><tr><td>Search input</td><td>ค้นหานักศึกษา</td></tr><tr><td><code>ค้นหา</code></td><td>โหลด summary ใหม่</td></tr><tr><td><code>ล้าง</code></td><td>เคลียร์คำค้น</td></tr><tr><td>ลิงก์รหัสนักศึกษาในตาราง</td><td>เปิด <code>v_view_student_nts.php</code></td></tr></tbody></table>
+<h3 id="section-49">ขั้นตอนการใช้งาน</h3>
+<ol class="md-list"><li>เข้า dashboard NTS</li><li>เลือก curriculum</li><li>พิมพ์คำค้นหาถ้าต้องการกรอง</li><li>กดค้นหาหรือกด Enter</li><li>คลิกนักศึกษาที่สนใจเพื่อดู detail</li></ol>
+<h3 id="section-50">ตารางที่เกี่ยวข้อง</h3>
+<ul class="md-list"><li>อ่าน <code>mdl_user_student</code></li><li>อ่าน <code>mdl_nts_scores</code></li><li>อ่าน <code>mdl_student_registered_course</code></li><li>อ่าน <code>mdl_student_registration_term</code></li><li>อ่าน <code>mdl_course_ep</code></li></ul>
+<h3 id="section-51">หมายเหตุสำคัญ</h3>
+<ul class="md-list"><li>ตารางสรุปนี้มักโหลดผ่าน JavaScript / API</li><li>คู่มือควรบอกให้ชัดว่าผู้ใช้ต้องเลือก curriculum ก่อนจึงจะเห็นผลลัพธ์ที่ถูกต้อง</li></ul>
+<hr>
+<h2 id="s09-v-view-student-nts-php">S09: <code>v_view_student_nts.php</code></h2>
+<h3 id="section-53">จุดประสงค์</h3>
+<ul class="md-list"><li>แสดง NTS รายคนแบบละเอียด</li><li>แสดงทั้งภาพรวม, รายวิชา, และกิจกรรม Research Progress Meeting</li><li>เปิดทางไปแก้ไขคะแนน NTS</li></ul>
+<h3 id="section-54">ปุ่ม/ตัวควบคุมที่สำคัญ</h3>
+<table class="md-table"><thead><tr><th>Control</th><th>ทำอะไร</th></tr></thead><tbody><tr><td><code>แก้ไข/บันทึกคะแนน NTS</code></td><td>เปิด <code>v_edit_student_nts.php</code></td></tr><tr><td>Breadcrumb back</td><td>กลับหน้ารวม NTS</td></tr></tbody></table>
+<h3 id="section-55">ขั้นตอนการใช้งาน</h3>
+<ol class="md-list"><li>เปิดจาก dashboard NTS ของนักศึกษารายคน</li><li>ตรวจข้อมูลโปรไฟล์นักศึกษา</li><li>ตรวจ summary คะแนนและตารางรายละเอียด</li><li>ถ้าต้องแก้ไข ให้กดปุ่ม edit</li></ol>
+<h3 id="section-56">ตารางที่เกี่ยวข้อง</h3>
+<ul class="md-list"><li>อ่าน <code>mdl_user_student</code></li><li>อ่าน <code>mdl_nts_scores</code></li><li>อ่าน <code>mdl_student_registered_course</code></li><li>อ่าน <code>mdl_student_registration_term</code></li><li>อ่าน <code>mdl_course_ep</code></li><li>อ่าน <code>mdl_nts_research_progress</code></li></ul>
+<h3 id="section-57">หมายเหตุสำคัญ</h3>
+<ul class="md-list"><li>หน้านี้เป็น read-heavy page</li><li>คู่มือควรเน้นวิธีอ่านค่า “ผ่าน/ไม่ผ่าน” และการตีความเปอร์เซ็นต์</li></ul>
+<hr>
+<h2 id="s10-v-research-php">S10: <code>v_research.php</code></h2>
+<h3 id="section-59">จุดประสงค์</h3>
+<ul class="md-list"><li>แสดง dashboard ติดตาม research / task ของนักศึกษา</li><li>เปิดทางไปจัดการรายการประเมินและดูรายละเอียดนักศึกษา</li></ul>
+<h3 id="section-60">ปุ่ม/ตัวควบคุมที่สำคัญ</h3>
+<table class="md-table"><thead><tr><th>Control</th><th>ทำอะไร</th></tr></thead><tbody><tr><td><code>จัดการรายการประเมิน Research</code></td><td>เปิด <code>v_list_tasks_research.php</code></td></tr><tr><td>ลิงก์รหัสนักศึกษา</td><td>เปิด <code>v_view_student_research.php</code></td></tr><tr><td>ปุ่ม <code>จัดการ</code></td><td>เปิด <code>v_manage_student_research.php</code></td></tr></tbody></table>
+<h3 id="section-61">ขั้นตอนการใช้งาน</h3>
+<ol class="md-list"><li>เปิดหน้า research dashboard</li><li>เลือก curriculum</li><li>ตรวจสรุปความคืบหน้าของนักศึกษา</li><li>เปิดรายละเอียดรายคนหรือไปหน้าจัดการรายการประเมิน</li></ol>
+<h3 id="section-62">ตารางที่เกี่ยวข้อง</h3>
+<ul class="md-list"><li>อ่าน <code>mdl_user_student</code></li><li>อ่าน <code>mdl_student_tasks</code></li><li>อ่าน <code>mdl_a_tasks</code></li><li>อ่าน summary view ที่เกี่ยวข้องกับ research / milepoint</li></ul>
+<h3 id="section-63">หมายเหตุสำคัญ</h3>
+<ul class="md-list"><li>หน้านี้ควรสื่อให้ชัดว่าเป็น “ติดตามงาน” ไม่ใช่แค่ list task เฉย ๆ</li></ul>
+<hr>
+<h2 id="s11-v-view-student-research-php">S11: <code>v_view_student_research.php</code></h2>
+<h3 id="section-65">จุดประสงค์</h3>
+<ul class="md-list"><li>แสดง task และ alert ของนักศึกษาแบบรายคน</li><li>ใช้ดูว่ามีงานอะไร ค้างอะไร และแจ้งเตือนเมื่อไร</li></ul>
+<h3 id="section-66">ปุ่ม/ตัวควบคุมที่สำคัญ</h3>
+<table class="md-table"><thead><tr><th>Control</th><th>ทำอะไร</th></tr></thead><tbody><tr><td><code>Dashboard</code></td><td>กลับหน้ารวม research</td></tr><tr><td>Breadcrumb</td><td>กลับหน้า parent ได้รวดเร็ว</td></tr></tbody></table>
+<h3 id="section-67">ขั้นตอนการใช้งาน</h3>
+<ol class="md-list"><li>เปิดจาก research dashboard</li><li>ดูข้อมูลโปรไฟล์นักศึกษา</li><li>ตรวจตาราง task และ alert</li><li>ถ้าต้องกลับภาพรวม ให้กด Dashboard</li></ol>
+<h3 id="section-68">ตารางที่เกี่ยวข้อง</h3>
+<ul class="md-list"><li>อ่าน <code>mdl_student_tasks</code></li><li>อ่าน <code>mdl_a_tasks</code></li><li>อ่าน <code>mdl_user_student</code></li></ul>
+<h3 id="section-69">หมายเหตุสำคัญ</h3>
+<ul class="md-list"><li>เป็นหน้า detail แบบ read-only</li><li>เหมาะสำหรับใช้แนบภาพตัวอย่างในคู่มือเพราะตารางมีคอลัมน์เยอะ</li></ul>
+<hr>
+<h2 id="s12-v-view-report-php">S12: <code>v_view_report.php</code></h2>
+<h3 id="section-71">จุดประสงค์</h3>
+<ul class="md-list"><li>สร้างรายงานแบบกรองเงื่อนไข</li><li>แสดงข้อมูล student summary พร้อม Knowledge / Research / Soft skills / NTS</li><li>ส่งออก CSV เพื่อใช้ภายนอกระบบ</li></ul>
+<h3 id="section-72">ปุ่ม/ตัวควบคุมที่สำคัญ</h3>
+<table class="md-table"><thead><tr><th>Control</th><th>ทำอะไร</th></tr></thead><tbody><tr><td>Filter ปี</td><td>กรองรายงานตามปี</td></tr><tr><td>Filter สถานะนักศึกษา</td><td>กรองตามสถานะ</td></tr><tr><td>Filter ปีที่เริ่มเรียน</td><td>กรองตาม cohort ปีเริ่ม</td></tr><tr><td>Filter แผนการเรียน</td><td>กรองตาม <code>ก</code> / <code>ข</code></td></tr><tr><td><code>ค้นหา</code></td><td>รัน filter</td></tr><tr><td><code>รีเซ็ต</code></td><td>ล้าง filter ทั้งหมด</td></tr><tr><td><code>Export Data as Excel (CSV)</code></td><td>ดาวน์โหลดรายงานเป็น CSV</td></tr></tbody></table>
+<h3 id="section-73">ขั้นตอนการใช้งาน</h3>
+<ol class="md-list"><li>เข้าเมนูรายงาน</li><li>เลือกเงื่อนไขที่ต้องการ</li><li>กดค้นหา</li><li>ตรวจผลลัพธ์ในตาราง</li><li>ถ้าต้องเอาไปใช้ภายนอก ให้กด export CSV</li></ol>
+<h3 id="section-74">ตารางที่เกี่ยวข้อง</h3>
+<ul class="md-list"><li>อ่าน <code>mdl_user_student</code></li><li>อ่าน summary views จาก <code>mdl_milepoint_view</code></li></ul>
+<h3 id="section-75">หมายเหตุสำคัญ</h3>
+<ul class="md-list"><li>หน้านี้เหมาะสำหรับอธิบายเรื่อง filter ก่อน เพราะเป็นหน้าที่มีผลต่อข้อมูลที่ผู้ใช้เห็นทันที</li><li>ถ้ารายงานว่าง ควรบอกวิธีปรับเงื่อนไขและปีที่เลือก</li></ul>
+<hr>
+<h2 id="s13-v-view-student-courses-php">S13: <code>v_view_student_courses.php</code></h2>
+<h3 id="section-77">จุดประสงค์</h3>
+<ul class="md-list"><li>แสดงข้อมูลการลงทะเบียนของนักศึกษา</li><li>แยกวิชาเป็นหมวดหลัก/เลือก/วิทยานิพนธ์/อื่น ๆ</li><li>แสดงรายละเอียด course แบบอ่านอย่างเดียว</li></ul>
+<h3 id="section-78">ปุ่ม/ตัวควบคุมที่สำคัญ</h3>
+<table class="md-table"><thead><tr><th>Control</th><th>ทำอะไร</th></tr></thead><tbody><tr><td>Column sorting / arrow</td><td>ใช้เรียงตารางตามลำดับที่กำหนด</td></tr><tr><td>Breadcrumb</td><td>ย้อนกลับไป curriculum หรือหน้าแรก</td></tr></tbody></table>
+<h3 id="section-79">ขั้นตอนการใช้งาน</h3>
+<ol class="md-list"><li>เปิดจาก curriculum หรือจากชื่อ student code ใน dashboard</li><li>ตรวจข้อมูลนักศึกษา</li><li>ดูตารางรายวิชาที่ลงทะเบียน</li><li>ถ้าต้องการดูรายละเอียดเพิ่มเติม ให้กลับไปหน้าก่อนหน้า</li></ol>
+<h3 id="section-80">ตารางที่เกี่ยวข้อง</h3>
+<ul class="md-list"><li>อ่าน <code>mdl_user_student</code></li><li>อ่าน <code>mdl_student_registered_course</code></li><li>อ่าน <code>mdl_student_registration_term</code></li><li>อ่าน <code>mdl_course_ep</code></li><li>อ่าน <code>mdl_cur_course</code></li></ul>
+<h3 id="section-81">หมายเหตุสำคัญ</h3>
+<ul class="md-list"><li>หน้านี้เป็น read-only</li><li>เหมาะใช้เป็นหลักฐานประกอบว่าทำไม student คนนี้ถึงถูกจัดอยู่ใน curriculum นี้</li></ul>
+<hr>
+<h2 id="s14-v-view-student-knowledge-php">S14: <code>v_view_student_knowledge.php</code></h2>
+<h3 id="section-83">จุดประสงค์</h3>
+<ul class="md-list"><li>แสดงคะแนน Knowledge แบบรายคน</li><li>แสดง P1-P5 และสถานะการผ่าน</li><li>เปิดทางไปแก้ CE results</li></ul>
+<h3 id="section-84">ปุ่ม/ตัวควบคุมที่สำคัญ</h3>
+<table class="md-table"><thead><tr><th>Control</th><th>ทำอะไร</th></tr></thead><tbody><tr><td><code>แก้ไข CE</code> / link ไป manage CE</td><td>เปิด <code>v_manage_ce_results.php</code></td></tr><tr><td>Breadcrumb</td><td>ย้อนกลับไป Knowledge summary</td></tr></tbody></table>
+<h3 id="section-85">ขั้นตอนการใช้งาน</h3>
+<ol class="md-list"><li>เปิดจากหน้าสรุป Knowledge</li><li>ตรวจโปรไฟล์นักศึกษา</li><li>ดูคะแนนรวม P1-P5</li><li>ตรวจรายละเอียดรายวิชาที่ผ่าน</li><li>ถ้าต้องแก้ CE ให้ไปหน้าจัดการ CE</li></ol>
+<h3 id="section-86">ตารางที่เกี่ยวข้อง</h3>
+<ul class="md-list"><li>อ่าน <code>mdl_user_student</code></li><li>อ่าน <code>mdl_student_registered_course</code></li><li>อ่าน <code>mdl_comp_exam_results</code></li><li>อ่าน view <code>v_student_knowledge_scores_final</code></li><li>อ่าน view ที่เกี่ยวข้องกับ grade / passed credits</li></ul>
+<h3 id="section-87">หมายเหตุสำคัญ</h3>
+<ul class="md-list"><li>เป็นหน้า detail สำคัญที่สุดของฝั่ง Knowledge</li><li>ถ้าต้องทำคู่มือเชิงปฏิบัติ ให้ใส่ตัวอย่างการอ่าน P1-P5 ด้วย</li></ul>
+<hr>
+<h2 id="section-88">หน้าจอรองที่ควรใส่ในภาคผนวก</h2>
+<p>หน้าต่อไปนี้ยังใช้จริง แต่เหมาะจะอธิบายในภาคผนวกหรือคู่มือเทคนิคมากกว่าคู่มือผู้ใช้หน้าแรก:</p>
+<ul class="md-list"><li><code>v_knowledge.php</code></li><li><code>v_list_englishskills.php</code></li><li><code>v_list_tasks_research.php</code></li><li><code>v_manage_ce_results.php</code></li><li><code>v_edit_student_nts.php</code></li><li><code>v_edit_task.php</code></li><li><code>v_edit_tasks_research.php</code></li><li><code>v_edit_cur.php</code></li><li><code>v_edit_cur250923.php</code></li><li><code>v_edit_student_nts_250922S.php</code></li><li><code>v_sync_data_management.php</code></li><li><code>v_sync_student_dup_management.php</code></li><li><code>v_student_sync_controller.php</code></li><li><code>v_ajax_process_sync.php</code></li><li><code>api/*</code></li></ul>
+<h2 id="section-89">สิ่งที่ควรเพิ่มในฉบับจริง</h2>
+<ul class="md-list"><li>ภาพหน้าจอทุกหน้าหลัก</li><li>ตัวอย่างค่าจริงของ <code>setid</code> และ <code>sid</code></li><li>ตัวอย่าง error message ที่ผู้ใช้เจอได้จริง</li><li>section วิธีแก้ปัญหาเบื้องต้น</li><li>section สิทธิ์ผู้ใช้และหน้าที่เปิดได้</li></ul>
+<h2 id="section-90">ลำดับถัดไปที่แนะนำ</h2>
+<ol class="md-list"><li>เติมข้อมูลระดับ field ของแต่ละหน้าจอ</li><li>ทำตาราง relation/database dictionary แบบละเอียด</li><li>จัดหน้า ER / DFD final</li><li>แยกภาคผนวกของไฟล์ backup และ legacy copy</li></ol>
+      <div class="footnote">Source markdown: newmodule-screen-manual-draft.md</div>
+    </article>
+  </div>
+</body>
+</html>

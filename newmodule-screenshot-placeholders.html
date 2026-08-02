@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Newmodule Screenshot Placeholders</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f4f1ea;
+      --paper: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #d9d2c7;
+      --accent: #6b4e2e;
+      --accent-soft: #f3eadc;
+      --code-bg: #f7f4ef;
+      --shadow: 0 18px 45px rgba(76, 61, 41, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+      line-height: 1.7;
+    }
+
+    body {
+      padding: 24px 18px 48px;
+    }
+
+    .page {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .paper {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 28px 32px 34px;
+      box-shadow: var(--shadow);
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.78rem;
+      margin: 0 0 6px;
+    }
+
+    h1 {
+      margin: 0;
+      line-height: 1.2;
+      font-size: 2rem;
+    }
+
+    .meta {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .nav {
+      min-width: 220px;
+      text-align: right;
+      font-size: 0.92rem;
+    }
+
+    .nav a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .nav a:hover,
+    .nav a:focus-visible {
+      text-decoration: underline;
+    }
+
+    .toc {
+      margin: 18px 0 24px;
+      padding: 16px 18px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, #fff, #fbf8f3);
+    }
+
+    .toc h2 {
+      margin: 0 0 10px;
+      font-size: 1.05rem;
+    }
+
+    .toc ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .toc li {
+      margin: 4px 0;
+    }
+
+    .toc-level-3 { margin-left: 12px; }
+    .toc-level-4 { margin-left: 24px; }
+    .toc-level-5 { margin-left: 36px; }
+    .toc-level-6 { margin-left: 48px; }
+
+    h2, h3, h4, h5, h6 {
+      line-height: 1.25;
+      margin: 1.5em 0 0.5em;
+      scroll-margin-top: 24px;
+    }
+
+    h2 { font-size: 1.45rem; }
+    h3 { font-size: 1.2rem; }
+    h4 { font-size: 1.05rem; }
+    h5 { font-size: 0.98rem; }
+    h6 { font-size: 0.94rem; }
+
+    p {
+      margin: 0.6em 0;
+    }
+
+    ul, ol {
+      margin: 0.5em 0 1em 1.3em;
+      padding: 0;
+    }
+
+    li {
+      margin: 0.22em 0;
+    }
+
+    blockquote {
+      margin: 1em 0;
+      padding: 14px 16px;
+      border-left: 4px solid var(--accent);
+      background: #faf6ef;
+      color: #3f3f46;
+    }
+
+    hr {
+      border: 0;
+      border-top: 1px solid var(--line);
+      margin: 1.6em 0;
+    }
+
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.95em;
+      background: var(--code-bg);
+      padding: 0.12em 0.35em;
+      border-radius: 6px;
+    }
+
+    pre.code-block {
+      margin: 1em 0;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: #111827;
+      color: #e5e7eb;
+      overflow: auto;
+      line-height: 1.5;
+      font-size: 0.9rem;
+    }
+
+    pre.code-block code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+      border-radius: 0;
+      white-space: pre;
+    }
+
+    .md-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1em 0 1.2em;
+      font-size: 0.95rem;
+    }
+
+    .md-table th,
+    .md-table td {
+      border: 1px solid var(--line);
+      padding: 8px 10px;
+      vertical-align: top;
+    }
+
+    .md-table thead th {
+      background: #f5efe6;
+      text-align: left;
+    }
+
+    .md-table tbody tr:nth-child(even) td {
+      background: #fcfbf8;
+    }
+
+    a {
+      color: #1d4ed8;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .footnote {
+      margin-top: 24px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 720px) {
+      body {
+        padding: 0;
+      }
+
+      .paper {
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        padding: 20px 16px 28px;
+      }
+
+      .topbar {
+        flex-direction: column;
+      }
+
+      .nav {
+        text-align: left;
+      }
+    }
+
+    @media print {
+      @page {
+        size: A4;
+        margin: 14mm 12mm 16mm;
+      }
+
+      body {
+        background: #fff;
+        padding: 0;
+        color: #000;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .paper {
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        padding: 0;
+      }
+
+      .nav,
+      .toc a {
+        color: #000;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      .footnote {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <article class="paper">
+      <div class="topbar">
+        <div>
+          <div class="eyebrow">Generated HTML document</div>
+          <h1>Newmodule Screenshot Placeholders</h1>
+          <p class="meta">newmodule-screenshot-placeholders.md · <span>Last updated: 2026-07-27</span></p>
+        </div>
+        <div class="nav">
+          <div><a href="index.html">Main index</a></div>
+          <div><a href="newmodule-v-manual.html">Main manual</a></div>
+        </div>
+      </div>
+      <nav class="toc"><h2>Contents</h2><ul><li class="toc-level-2"><a href="#placeholder-format">Placeholder Format</a></li><li class="toc-level-2"><a href="#screenshot-checklist">Screenshot Checklist</a></li><li class="toc-level-2"><a href="#optional-extra-screens">Optional Extra Screens</a></li><li class="toc-level-2"><a href="#copy-paste-placeholder-blocks">Copy-Paste Placeholder Blocks</a></li><li class="toc-level-3"><a href="#home">Home</a></li><li class="toc-level-3"><a href="#curriculum-hub">Curriculum Hub</a></li><li class="toc-level-3"><a href="#course-setup">Course Setup</a></li><li class="toc-level-3"><a href="#student-setup">Student Setup</a></li><li class="toc-level-3"><a href="#student-detail">Student Detail</a></li><li class="toc-level-3"><a href="#softskills">SoftSkills</a></li><li class="toc-level-3"><a href="#nts">NTS</a></li><li class="toc-level-3"><a href="#research">Research</a></li><li class="toc-level-3"><a href="#report">Report</a></li><li class="toc-level-3"><a href="#student-detail-views">Student Detail Views</a></li><li class="toc-level-2"><a href="#suggested-capture-order">Suggested Capture Order</a></li><li class="toc-level-2"><a href="#quick-rules-for-capture">Quick Rules for Capture</a></li></ul></nav>
+      <p>Use these placeholders when you paste screenshots into the final manual.</p>
+<h2 id="placeholder-format">Placeholder Format</h2>
+<p>Recommended text to insert in the manual:</p>
+<pre class="code-block"><code class="language-md">{{IMG: SCREEN_ID | short caption}}</code></pre>
+<p>Example:</p>
+<pre class="code-block"><code class="language-md">{{IMG: S01 | หน้าแรก / Dashboard หลัก}}</code></pre>
+<h2 id="screenshot-checklist">Screenshot Checklist</h2>
+<table class="md-table"><thead><tr><th>ID</th><th>File</th><th>Suggested caption</th><th>Where to place in manual</th><th>Screenshot notes</th></tr></thead><tbody><tr><td>S01</td><td><code>v_index.php</code></td><td>หน้าแรก / Dashboard หลัก</td><td>ก่อน section หน้าแรก</td><td>แคปให้เห็น dropdown หลักสูตรและทางลัดหลัก</td></tr><tr><td>S02</td><td><code>v_curriculum_management.php</code></td><td>หน้าจัดการหลักสูตร</td><td>ก่อน section จัดการหลักสูตร</td><td>ให้เห็นปุ่มไป student, sync, course</td></tr><tr><td>S03</td><td><code>v_manage_cur_course.php</code></td><td>จัดการรายวิชาในโครงสร้างหลักสูตร</td><td>ก่อน section รายวิชาในหลักสูตร</td><td>ให้เห็น lock status และปุ่มบันทึก</td></tr><tr><td>S04</td><td><code>v_manage_cur_student.php</code></td><td>จัดการนักศึกษาในหลักสูตร</td><td>ก่อน section จัดการนักศึกษา</td><td>ให้เห็นตารางรายชื่อนักศึกษาและ checkbox</td></tr><tr><td>S05</td><td><code>v_manage_cur_student_detail.php</code></td><td>แก้ไขข้อมูลนักศึกษา</td><td>ก่อน section รายละเอียดนักศึกษา</td><td>ให้เห็นฟอร์มแก้ข้อมูลและส่วน registration summary</td></tr><tr><td>S06</td><td><code>v_softskills.php</code></td><td>SoftSkills Dashboard</td><td>ก่อน section SoftSkills dashboard</td><td>ให้เห็นกราฟ/summary และลิงก์จัดการรายคน</td></tr><tr><td>S07</td><td><code>v_manage_softskills.php</code></td><td>บันทึก Soft Skills และ English Scores</td><td>ก่อน section บันทึกคะแนน</td><td>ให้เห็นฟอร์ม soft skills และฟอร์ม English แยกกันชัดเจน</td></tr><tr><td>S08</td><td><code>v_nts.php</code></td><td>NTS Dashboard</td><td>ก่อน section NTS dashboard</td><td>ให้เห็นช่องค้นหาและตาราง summary</td></tr><tr><td>S09</td><td><code>v_view_student_nts.php</code></td><td>รายละเอียด NTS รายคน</td><td>ก่อน section detail NTS</td><td>ให้เห็นข้อมูลโปรไฟล์และตาราง NTS รายวิชา/กิจกรรม</td></tr><tr><td>S10</td><td><code>v_research.php</code></td><td>Research Dashboard</td><td>ก่อน section Research dashboard</td><td>ให้เห็นรายการนักศึกษาและทางไปจัดการ task</td></tr><tr><td>S11</td><td><code>v_view_student_research.php</code></td><td>รายละเอียด Task และ Alert รายคน</td><td>ก่อน section detail Research</td><td>ให้เห็นตาราง task และ alert</td></tr><tr><td>S12</td><td><code>v_view_report.php</code></td><td>หน้าสร้างรายงาน</td><td>ก่อน section report</td><td>ให้เห็น filter และปุ่ม export CSV</td></tr><tr><td>S13</td><td><code>v_view_student_courses.php</code></td><td>รายละเอียดการลงทะเบียนนักศึกษา</td><td>ก่อน section student courses</td><td>ให้เห็น breadcrumb และตารางวิชาแบ่งหมวด</td></tr><tr><td>S14</td><td><code>v_view_student_knowledge.php</code></td><td>รายละเอียดคะแนน Knowledge</td><td>ก่อน section knowledge detail</td><td>ให้เห็น P1-P5 และสถานะผ่าน/ไม่ผ่าน</td></tr></tbody></table>
+<h2 id="optional-extra-screens">Optional Extra Screens</h2>
+<p>If you want a more complete manual, add these too:</p>
+<table class="md-table"><thead><tr><th>ID</th><th>File</th><th>Suggested caption</th><th>Why include it</th></tr></thead><tbody><tr><td>O01</td><td><code>v_knowledge.php</code></td><td>Knowledge Dashboard</td><td>Helps explain the route to student knowledge details</td></tr><tr><td>O02</td><td><code>v_list_englishskills.php</code></td><td>English skills list</td><td>Shows the English setup entry point</td></tr><tr><td>O03</td><td><code>v_list_tasks_research.php</code></td><td>Research task list</td><td>Shows task master maintenance</td></tr><tr><td>O04</td><td><code>v_manage_ce_results.php</code></td><td>Manage CE results</td><td>Useful for Knowledge flow and CE explanation</td></tr><tr><td>O05</td><td><code>v_edit_student_nts.php</code></td><td>Edit student NTS</td><td>Useful for the NTS edit workflow</td></tr><tr><td>O06</td><td><code>v_edit_task.php</code></td><td>Edit research task</td><td>Useful for task master workflow</td></tr><tr><td>O07</td><td><code>v_edit_cur.php</code></td><td>Edit curriculum</td><td>Useful for curriculum master workflow</td></tr><tr><td>O08</td><td><code>v_sync_data_management.php</code></td><td>Sync management</td><td>Useful for duplicate / sync procedures</td></tr></tbody></table>
+<h2 id="copy-paste-placeholder-blocks">Copy-Paste Placeholder Blocks</h2>
+<p>You can paste these blocks into the manual:</p>
+<h3 id="home">Home</h3>
+<pre class="code-block"><code class="language-md">{{IMG: S01 | หน้าแรก / Dashboard หลัก}}</code></pre>
+<h3 id="curriculum-hub">Curriculum Hub</h3>
+<pre class="code-block"><code class="language-md">{{IMG: S02 | หน้าจัดการหลักสูตร}}</code></pre>
+<h3 id="course-setup">Course Setup</h3>
+<pre class="code-block"><code class="language-md">{{IMG: S03 | จัดการรายวิชาในโครงสร้างหลักสูตร}}</code></pre>
+<h3 id="student-setup">Student Setup</h3>
+<pre class="code-block"><code class="language-md">{{IMG: S04 | จัดการนักศึกษาในหลักสูตร}}</code></pre>
+<h3 id="student-detail">Student Detail</h3>
+<pre class="code-block"><code class="language-md">{{IMG: S05 | แก้ไขข้อมูลนักศึกษา}}</code></pre>
+<h3 id="softskills">SoftSkills</h3>
+<pre class="code-block"><code class="language-md">{{IMG: S06 | SoftSkills Dashboard}}</code></pre>
+<pre class="code-block"><code class="language-md">{{IMG: S07 | บันทึก Soft Skills และ English Scores}}</code></pre>
+<h3 id="nts">NTS</h3>
+<pre class="code-block"><code class="language-md">{{IMG: S08 | NTS Dashboard}}</code></pre>
+<pre class="code-block"><code class="language-md">{{IMG: S09 | รายละเอียด NTS รายคน}}</code></pre>
+<h3 id="research">Research</h3>
+<pre class="code-block"><code class="language-md">{{IMG: S10 | Research Dashboard}}</code></pre>
+<pre class="code-block"><code class="language-md">{{IMG: S11 | รายละเอียด Task และ Alert รายคน}}</code></pre>
+<h3 id="report">Report</h3>
+<pre class="code-block"><code class="language-md">{{IMG: S12 | หน้าสร้างรายงาน}}</code></pre>
+<h3 id="student-detail-views">Student Detail Views</h3>
+<pre class="code-block"><code class="language-md">{{IMG: S13 | รายละเอียดการลงทะเบียนนักศึกษา}}</code></pre>
+<pre class="code-block"><code class="language-md">{{IMG: S14 | รายละเอียดคะแนน Knowledge}}</code></pre>
+<h2 id="suggested-capture-order">Suggested Capture Order</h2>
+<ol class="md-list"><li>S01</li><li>S02</li><li>S03</li><li>S04</li><li>S05</li><li>S06</li><li>S07</li><li>S08</li><li>S09</li><li>S10</li><li>S11</li><li>S12</li><li>S13</li><li>S14</li></ol>
+<h2 id="quick-rules-for-capture">Quick Rules for Capture</h2>
+<ul class="md-list"><li>Capture the full visible browser area, not only the table.</li><li>Keep the breadcrumb and page title visible when possible.</li><li>If a page has a long table, one top screenshot is enough unless the table structure needs explanation.</li><li>If the page has an important button or lock state, make sure the button is visible in the shot.</li><li>Use one screenshot per screen unless the workflow is split into clearly different states.</li></ul>
+      <div class="footnote">Source markdown: newmodule-screenshot-placeholders.md</div>
+    </article>
+  </div>
+</body>
+</html>

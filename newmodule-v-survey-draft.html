@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Newmodule v_ Survey Draft</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f4f1ea;
+      --paper: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #d9d2c7;
+      --accent: #6b4e2e;
+      --accent-soft: #f3eadc;
+      --code-bg: #f7f4ef;
+      --shadow: 0 18px 45px rgba(76, 61, 41, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+      line-height: 1.7;
+    }
+
+    body {
+      padding: 24px 18px 48px;
+    }
+
+    .page {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .paper {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 28px 32px 34px;
+      box-shadow: var(--shadow);
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.78rem;
+      margin: 0 0 6px;
+    }
+
+    h1 {
+      margin: 0;
+      line-height: 1.2;
+      font-size: 2rem;
+    }
+
+    .meta {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .nav {
+      min-width: 220px;
+      text-align: right;
+      font-size: 0.92rem;
+    }
+
+    .nav a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .nav a:hover,
+    .nav a:focus-visible {
+      text-decoration: underline;
+    }
+
+    .toc {
+      margin: 18px 0 24px;
+      padding: 16px 18px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, #fff, #fbf8f3);
+    }
+
+    .toc h2 {
+      margin: 0 0 10px;
+      font-size: 1.05rem;
+    }
+
+    .toc ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .toc li {
+      margin: 4px 0;
+    }
+
+    .toc-level-3 { margin-left: 12px; }
+    .toc-level-4 { margin-left: 24px; }
+    .toc-level-5 { margin-left: 36px; }
+    .toc-level-6 { margin-left: 48px; }
+
+    h2, h3, h4, h5, h6 {
+      line-height: 1.25;
+      margin: 1.5em 0 0.5em;
+      scroll-margin-top: 24px;
+    }
+
+    h2 { font-size: 1.45rem; }
+    h3 { font-size: 1.2rem; }
+    h4 { font-size: 1.05rem; }
+    h5 { font-size: 0.98rem; }
+    h6 { font-size: 0.94rem; }
+
+    p {
+      margin: 0.6em 0;
+    }
+
+    ul, ol {
+      margin: 0.5em 0 1em 1.3em;
+      padding: 0;
+    }
+
+    li {
+      margin: 0.22em 0;
+    }
+
+    blockquote {
+      margin: 1em 0;
+      padding: 14px 16px;
+      border-left: 4px solid var(--accent);
+      background: #faf6ef;
+      color: #3f3f46;
+    }
+
+    hr {
+      border: 0;
+      border-top: 1px solid var(--line);
+      margin: 1.6em 0;
+    }
+
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.95em;
+      background: var(--code-bg);
+      padding: 0.12em 0.35em;
+      border-radius: 6px;
+    }
+
+    pre.code-block {
+      margin: 1em 0;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: #111827;
+      color: #e5e7eb;
+      overflow: auto;
+      line-height: 1.5;
+      font-size: 0.9rem;
+    }
+
+    pre.code-block code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+      border-radius: 0;
+      white-space: pre;
+    }
+
+    .md-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1em 0 1.2em;
+      font-size: 0.95rem;
+    }
+
+    .md-table th,
+    .md-table td {
+      border: 1px solid var(--line);
+      padding: 8px 10px;
+      vertical-align: top;
+    }
+
+    .md-table thead th {
+      background: #f5efe6;
+      text-align: left;
+    }
+
+    .md-table tbody tr:nth-child(even) td {
+      background: #fcfbf8;
+    }
+
+    a {
+      color: #1d4ed8;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .footnote {
+      margin-top: 24px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 720px) {
+      body {
+        padding: 0;
+      }
+
+      .paper {
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        padding: 20px 16px 28px;
+      }
+
+      .topbar {
+        flex-direction: column;
+      }
+
+      .nav {
+        text-align: left;
+      }
+    }
+
+    @media print {
+      @page {
+        size: A4;
+        margin: 14mm 12mm 16mm;
+      }
+
+      body {
+        background: #fff;
+        padding: 0;
+        color: #000;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .paper {
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        padding: 0;
+      }
+
+      .nav,
+      .toc a {
+        color: #000;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      .footnote {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <article class="paper">
+      <div class="topbar">
+        <div>
+          <div class="eyebrow">Generated HTML document</div>
+          <h1>Newmodule v_ Survey Draft</h1>
+          <p class="meta">newmodule-v-survey-draft.md · <span>Last updated: 2026-07-27</span></p>
+        </div>
+        <div class="nav">
+          <div><a href="index.html">Main index</a></div>
+          <div><a href="newmodule-v-manual.html">Main manual</a></div>
+        </div>
+      </div>
+      <nav class="toc"><h2>Contents</h2><ul><li class="toc-level-2"><a href="#scope">Scope</a></li><li class="toc-level-2"><a href="#recommended-manual-structure">Recommended Manual Structure</a></li><li class="toc-level-2"><a href="#system-model-summary">System Model Summary</a></li><li class="toc-level-2"><a href="#active-screen-groups">Active Screen Groups</a></li><li class="toc-level-3"><a href="#1-entry-dashboard">1. Entry / Dashboard</a></li><li class="toc-level-3"><a href="#2-curriculum-management">2. Curriculum Management</a></li><li class="toc-level-3"><a href="#3-student-result-views">3. Student Result Views</a></li><li class="toc-level-3"><a href="#4-sync-maintenance">4. Sync / Maintenance</a></li><li class="toc-level-3"><a href="#5-api-helper-layer">5. API / Helper Layer</a></li><li class="toc-level-2"><a href="#button-action-inventory-draft">Button / Action Inventory Draft</a></li><li class="toc-level-3"><a href="#v-index-php"><code>v_index.php</code></a></li><li class="toc-level-3"><a href="#v-curriculum-management-php"><code>v_curriculum_management.php</code></a></li><li class="toc-level-3"><a href="#v-manage-cur-course-php"><code>v_manage_cur_course.php</code></a></li><li class="toc-level-3"><a href="#v-manage-cur-student-php"><code>v_manage_cur_student.php</code></a></li><li class="toc-level-3"><a href="#v-manage-cur-student-detail-php"><code>v_manage_cur_student_detail.php</code></a></li><li class="toc-level-3"><a href="#v-softskills-php"><code>v_softskills.php</code></a></li><li class="toc-level-3"><a href="#v-manage-softskills-php"><code>v_manage_softskills.php</code></a></li><li class="toc-level-3"><a href="#v-nts-php"><code>v_nts.php</code></a></li><li class="toc-level-3"><a href="#v-view-report-php"><code>v_view_report.php</code></a></li><li class="toc-level-3"><a href="#v-research-php"><code>v_research.php</code></a></li><li class="toc-level-3"><a href="#v-view-student-courses-php-v-view-student-knowledge-php-v-view-student-nts-php-v-view-student-research-php"><code>v_view_student_courses.php</code>, <code>v_view_student_knowledge.php</code>, <code>v_view_student_nts.php</code>, <code>v_view_student_research.php</code></a></li><li class="toc-level-2"><a href="#table-inventory-draft">Table Inventory Draft</a></li><li class="toc-level-3"><a href="#moodle-module-table">Moodle module table</a></li><li class="toc-level-3"><a href="#core-learning-database-tables">Core learning database tables</a></li><li class="toc-level-2"><a href="#important-relations">Important Relations</a></li><li class="toc-level-3"><a href="#direct-relations">Direct relations</a></li><li class="toc-level-3"><a href="#derived-relation-chain-for-milepoint">Derived relation chain for milepoint</a></li><li class="toc-level-3"><a href="#view-dependency-chain">View dependency chain</a></li><li class="toc-level-2"><a href="#dfd-draft">DFD Draft</a></li><li class="toc-level-3"><a href="#dfd-level-0">DFD Level 0</a></li><li class="toc-level-3"><a href="#dfd-level-1">DFD Level 1</a></li><li class="toc-level-2"><a href="#er-draft">ER Draft</a></li><li class="toc-level-2"><a href="#use-case-draft">Use Case Draft</a></li><li class="toc-level-2"><a href="#screen-documentation-template">Screen Documentation Template</a></li><li class="toc-level-2"><a href="#table-documentation-template">Table Documentation Template</a></li><li class="toc-level-2"><a href="#notes-worth-carrying-into-the-final-manual">Notes Worth Carrying into the Final Manual</a></li><li class="toc-level-2"><a href="#suggested-next-step">Suggested Next Step</a></li></ul></nav>
+      <h2 id="scope">Scope</h2>
+<p>This draft covers the <code>v_</code>-prefixed part of <code>mod/newmodule</code> and the related helper/API files that support those screens.</p>
+<p>Included:</p>
+<ul class="md-list"><li>Active screen pages such as <code>v_index.php</code>, <code>v_softskills.php</code>, <code>v_nts.php</code>, <code>v_research.php</code>, curriculum management pages, student detail pages, and report pages</li><li>Helper files in <code>includes/</code></li><li>Backend actions and API files in <code>api/</code></li><li>Database views defined in <code>sql/create_milepoint_views.sql</code></li><li>The Moodle module table defined in <code>db/install.xml</code></li></ul>
+<p>Excluded from the main user manual:</p>
+<ul class="md-list"><li>Backup copies and dated variants such as <code>*250923.php</code>, <code>*260224.php</code>, <code>*260526*.php</code>, and <code>*bk*.php</code></li><li>Experimental or historical copies, unless they are still the active entry point</li></ul>
+<h2 id="recommended-manual-structure">Recommended Manual Structure</h2>
+<p>Use three layers instead of one huge document:</p>
+<ol class="md-list"><li>User Manual</li></ol>
+<ul class="md-list"><li>Screen-by-screen behavior</li><li>Buttons and actions</li><li>Step-by-step procedures</li></ul>
+<ol class="md-list"><li>Technical Reference</li></ol>
+<ul class="md-list"><li>Table dictionary</li><li>Relation map</li><li>Views</li><li>API/helper dependencies</li></ul>
+<ol class="md-list"><li>Appendix</li></ol>
+<ul class="md-list"><li>Old/backup files</li><li>SQL deployment notes</li><li>Environment notes</li><li>Troubleshooting and logs</li></ul>
+<h2 id="system-model-summary">System Model Summary</h2>
+<p>The plugin is split into two data layers:</p>
+<ul class="md-list"><li>Moodle activity layer</li></ul>
+<ul class="md-list"><li>Minimal module table: <code>newmodule</code></li><li>Defined in <code>db/install.xml</code></li></ul>
+<ul class="md-list"><li>Legacy learning database layer</li></ul>
+<ul class="md-list"><li>Most business data lives in external <code>mdl_*</code> tables</li><li>Connected through <code>config-condata-elearning.php</code></li><li>Used by page files, helper files, API files, and SQL views</li></ul>
+<p>This is important for documentation because the plugin is not self-contained in Moodle DB only.</p>
+<h2 id="active-screen-groups">Active Screen Groups</h2>
+<h3 id="1-entry-dashboard">1. Entry / Dashboard</h3>
+<p>Primary files:</p>
+<ul class="md-list"><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\v_index.php">v_index.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\v_spider.php">v_spider.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\v_knowledge.php">v_knowledge.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\v_nts.php">v_nts.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\v_research.php">v_research.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\v_softskills.php">v_softskills.php</a></li></ul>
+<p>Main purpose:</p>
+<ul class="md-list"><li>Select curriculum</li><li>View overall milepoint dashboard</li><li>Jump into the major score domains</li></ul>
+<p>Common actions:</p>
+<ul class="md-list"><li>Choose <code>setid</code></li><li>Open each score domain</li><li>Navigate back to home or curriculum context</li></ul>
+<h3 id="2-curriculum-management">2. Curriculum Management</h3>
+<p>Primary files:</p>
+<ul class="md-list"><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\v_curriculum_management.php">v_curriculum_management.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\v_manage_cur_course.php">v_manage_cur_course.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\v_manage_cur_student.php">v_manage_cur_student.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\v_manage_cur_student_detail.php">v_manage_cur_student_detail.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\v_edit_cur.php">v_edit_cur.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\v_edit_task.php">v_edit_task.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\v_edit_tasks_research.php">v_edit_tasks_research.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\v_edit_tasks_research_list.php">v_edit_tasks_research_list.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\v_manage_student_research.php">v_manage_student_research.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\v_manage_softskills.php">v_manage_softskills.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\v_manage_ce_results.php">v_manage_ce_results.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\v_edit_student_nts.php">v_edit_student_nts.php</a></li></ul>
+<p>Main purpose:</p>
+<ul class="md-list"><li>Configure curriculum master data</li><li>Assign courses and students to a curriculum</li><li>Lock/unlock curriculum setup</li><li>Maintain task, research, soft skill, and CE result configurations</li></ul>
+<p>Common actions:</p>
+<ul class="md-list"><li>Open the curriculum selector</li><li>Add or remove courses</li><li>Add or remove students</li><li>Save changes</li><li>Lock/unlock the curriculum</li></ul>
+<h3 id="3-student-result-views">3. Student Result Views</h3>
+<p>Primary files:</p>
+<ul class="md-list"><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\v_view_student_courses.php">v_view_student_courses.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\v_view_student_knowledge.php">v_view_student_knowledge.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\v_view_student_nts.php">v_view_student_nts.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\v_view_student_research.php">v_view_student_research.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\v_view_report.php">v_view_report.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\v_list_englishskills.php">v_list_englishskills.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\v_list_tasks_research.php">v_list_tasks_research.php</a></li></ul>
+<p>Main purpose:</p>
+<ul class="md-list"><li>Show per-student outcomes</li><li>Filter by curriculum, study plan, year, or other criteria</li><li>Export summaries</li></ul>
+<p>Common actions:</p>
+<ul class="md-list"><li>Search/filter</li><li>Reset filters</li><li>Open student detail pages</li><li>Export CSV/report</li></ul>
+<h3 id="4-sync-maintenance">4. Sync / Maintenance</h3>
+<p>Primary files:</p>
+<ul class="md-list"><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\v_sync_data_management.php">v_sync_data_management.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\v_student_sync_controller.php">v_student_sync_controller.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\v_sync_student_dup_management.php">v_sync_student_dup_management.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\v_sync_registration_term.php">v_sync_registration_term.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\v_sync_registered_course.php">v_sync_registered_course.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\v_sync_couse_master_script.php">v_sync_couse_master_script.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\v_recalculate_all_grades.php">v_recalculate_all_grades.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\v_sort_student_courses.php">v_sort_student_courses.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\v_update_task_order.php">v_update_task_order.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\v_ajax_process_sync.php">v_ajax_process_sync.php</a></li></ul>
+<p>Main purpose:</p>
+<ul class="md-list"><li>Sync student data</li><li>Resolve duplicate student records</li><li>Recalculate derived grades</li><li>Maintain ordering and consistency of records</li></ul>
+<h3 id="5-api-helper-layer">5. API / Helper Layer</h3>
+<p>Primary files:</p>
+<ul class="md-list"><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\api\v_course_actions.php">api/v_course_actions.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\api\v_fetch_english_test_data.php">api/v_fetch_english_test_data.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\api\v_get_all_nts_summaries.php">api/v_get_all_nts_summaries.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\api\v_get_knowledge_summaries.php">api/v_get_knowledge_summaries.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\api\v_get_nts_data.php">api/v_get_nts_data.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\api\v_get_template_tasks.php">api/v_get_template_tasks.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\api\v_recalculate_all_grades.php">api/v_recalculate_all_grades.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\api\v_save_nts_scores.php">api/v_save_nts_scores.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\api\v_sort_student_courses.php">api/v_sort_student_courses.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\api\v_sync_registered_course.php">api/v_sync_registered_course.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\api\v_sync_registration_term.php">api/v_sync_registration_term.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\api\v_update_task_order.php">api/v_update_task_order.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\includes\v_knowledge_functions.php">includes/v_knowledge_functions.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\includes\v_nts_functions.php">includes/v_nts_functions.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\includes\selectcur.php">includes/selectcur.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\includes\toper.php">includes/toper.php</a></li><li><a href="C:\Apache24\htdocs\moodle310_dev\mod\newmodule\includes\footer.php">includes/footer.php</a></li></ul>
+<p>Main purpose:</p>
+<ul class="md-list"><li>Serve AJAX actions</li><li>Return summarized data</li><li>Keep query logic reusable</li><li>Avoid duplicated SQL inside page files</li></ul>
+<h2 id="button-action-inventory-draft">Button / Action Inventory Draft</h2>
+<p>Use this section as the base for the user manual. Each page should be documented with:</p>
+<ul class="md-list"><li>button label</li><li>location</li><li>action</li><li>precondition</li><li>table impact</li><li>result</li></ul>
+<h3 id="v-index-php"><code>v_index.php</code></h3>
+<p>Known actions:</p>
+<ul class="md-list"><li>Curriculum selection dropdown</li><li><code>จัดการนักศึกษาในหลักสูตร</code></li><li><code>จัดการข้อมูลลงทะเบียน</code></li><li><code>จัดการโครงสร้างหลักสูตร</code></li><li>Dashboard navigation to score domains</li></ul>
+<h3 id="v-curriculum-management-php"><code>v_curriculum_management.php</code></h3>
+<p>Known actions:</p>
+<ul class="md-list"><li>Go to student management</li><li>Go to sync management</li><li>Go to course management</li><li>Lock / unlock curriculum</li></ul>
+<h3 id="v-manage-cur-course-php"><code>v_manage_cur_course.php</code></h3>
+<p>Known actions:</p>
+<ul class="md-list"><li>Toggle curriculum lock</li><li>Save selected courses</li><li>Navigate back to home or curriculum management</li></ul>
+<h3 id="v-manage-cur-student-php"><code>v_manage_cur_student.php</code></h3>
+<p>Known actions:</p>
+<ul class="md-list"><li>Select students by checkbox</li><li>Save student curriculum assignment</li><li>Open student detail page</li></ul>
+<h3 id="v-manage-cur-student-detail-php"><code>v_manage_cur_student_detail.php</code></h3>
+<p>Known actions:</p>
+<ul class="md-list"><li>View student profile details</li><li>Edit or submit changes</li><li>Navigate back to curriculum or home</li></ul>
+<h3 id="v-softskills-php"><code>v_softskills.php</code></h3>
+<p>Known actions:</p>
+<ul class="md-list"><li>Search student</li><li>Clear search</li><li>Open soft skill management page</li><li>Open student detail / spider chart related view</li></ul>
+<h3 id="v-manage-softskills-php"><code>v_manage_softskills.php</code></h3>
+<p>Known actions:</p>
+<ul class="md-list"><li>Search and filter students</li><li>Save soft skill status</li><li>Return to softskills dashboard</li></ul>
+<h3 id="v-nts-php"><code>v_nts.php</code></h3>
+<p>Known actions:</p>
+<ul class="md-list"><li>Search student</li><li>Clear search</li><li>Load NTS summary table</li></ul>
+<h3 id="v-view-report-php"><code>v_view_report.php</code></h3>
+<p>Known actions:</p>
+<ul class="md-list"><li>Search / filter report</li><li>Reset filter</li><li>Export data as CSV</li></ul>
+<h3 id="v-research-php"><code>v_research.php</code></h3>
+<p>Known actions:</p>
+<ul class="md-list"><li>Open task list</li><li>Navigate to research detail pages</li><li>View alerts or task-related status</li></ul>
+<h3 id="v-view-student-courses-php-v-view-student-knowledge-php-v-view-student-nts-php-v-view-student-research-php"><code>v_view_student_courses.php</code>, <code>v_view_student_knowledge.php</code>, <code>v_view_student_nts.php</code>, <code>v_view_student_research.php</code></h3>
+<p>Known actions:</p>
+<ul class="md-list"><li>Open detail pages</li><li>Return to parent dashboard</li><li>Jump to edit pages where allowed</li></ul>
+<h2 id="table-inventory-draft">Table Inventory Draft</h2>
+<h3 id="moodle-module-table">Moodle module table</h3>
+<ul class="md-list"><li><code>newmodule</code></li></ul>
+<ul class="md-list"><li>The activity-instance table defined in <code>db/install.xml</code></li><li>Stores the module record, intro, grade, timestamps, and course linkage</li></ul>
+<h3 id="core-learning-database-tables">Core learning database tables</h3>
+<p>Curriculum and course master:</p>
+<ul class="md-list"><li><code>mdl_a_curset</code></li></ul>
+<ul class="md-list"><li>Curriculum master table</li><li>Used for curriculum code, year, type, and lock state</li></ul>
+<ul class="md-list"><li><code>mdl_a_curset_log</code></li></ul>
+<ul class="md-list"><li>Log table for curriculum changes</li></ul>
+<ul class="md-list"><li><code>mdl_a_tasks</code></li></ul>
+<ul class="md-list"><li>Task master table</li><li>Used for research/task setup</li></ul>
+<ul class="md-list"><li><code>mdl_course_ep</code></li></ul>
+<ul class="md-list"><li>Course master table</li><li>Used as the course catalog</li></ul>
+<ul class="md-list"><li><code>mdl_cur_course</code></li></ul>
+<ul class="md-list"><li>Mapping table between curriculum and course</li><li>Stores required/optional course placement</li></ul>
+<p>Student master and academic structure:</p>
+<ul class="md-list"><li><code>mdl_user_student</code></li></ul>
+<ul class="md-list"><li>Student master table</li><li>Central table for almost every <code>v_</code> screen</li></ul>
+<ul class="md-list"><li><code>mdl_student_tasks</code></li></ul>
+<ul class="md-list"><li>Student-to-task table</li><li>Used by research/task scoring</li></ul>
+<ul class="md-list"><li><code>mdl_student_registration_term</code></li></ul>
+<ul class="md-list"><li>Student registration header by term</li></ul>
+<ul class="md-list"><li><code>mdl_student_registered_course</code></li></ul>
+<ul class="md-list"><li>Registered course line items</li></ul>
+<ul class="md-list"><li><code>mdl_u_student_in_course</code></li></ul>
+<ul class="md-list"><li>Legacy student-course-status table used by report pages</li></ul>
+<ul class="md-list"><li><code>mdl_u_student_in_course_for_registered_course</code></li></ul>
+<ul class="md-list"><li>Legacy support table for course registration related processing</li></ul>
+<ul class="md-list"><li><code>mdl_u_education_year</code></li></ul>
+<ul class="md-list"><li>Academic year master</li></ul>
+<ul class="md-list"><li><code>mdl_u_education_semester_course</code></li></ul>
+<ul class="md-list"><li>Semester/course mapping table</li></ul>
+<ul class="md-list"><li><code>mdl_u_education_year_semester</code></li></ul>
+<ul class="md-list"><li>Academic year / semester master</li></ul>
+<p>Skill and score tables:</p>
+<ul class="md-list"><li><code>mdl_student_softskill_result</code></li></ul>
+<ul class="md-list"><li>Soft skill result by student</li></ul>
+<ul class="md-list"><li><code>mdl_student_english_test_result</code></li></ul>
+<ul class="md-list"><li>English test result header</li></ul>
+<ul class="md-list"><li><code>mdl_student_english_test_score_details</code></li></ul>
+<ul class="md-list"><li>English sub-scores / skill detail table</li></ul>
+<ul class="md-list"><li><code>mdl_english_test_criteria</code></li></ul>
+<ul class="md-list"><li>English passing criteria by curriculum and test type</li></ul>
+<ul class="md-list"><li><code>mdl_english_test_types</code></li></ul>
+<ul class="md-list"><li>English test type master</li></ul>
+<ul class="md-list"><li><code>mdl_nts_scores</code></li></ul>
+<ul class="md-list"><li>NTS score table per registered course</li></ul>
+<ul class="md-list"><li><code>mdl_nts_research_progress</code></li></ul>
+<ul class="md-list"><li>Research-progress scoring table</li></ul>
+<ul class="md-list"><li><code>mdl_comp_exam_results</code></li></ul>
+<ul class="md-list"><li>Comprehensive examination / CE result table</li></ul>
+<p>Milepoint and summary:</p>
+<ul class="md-list"><li><code>mdl_milepoint</code></li></ul>
+<ul class="md-list"><li>Target storage table for milepoint-style summary</li></ul>
+<ul class="md-list"><li><code>mdl_milepoint_view</code></li></ul>
+<ul class="md-list"><li>Final consolidated view for knowledge, research, soft skills, and NTS</li></ul>
+<p>Sync / duplicate management:</p>
+<ul class="md-list"><li><code>mdl_master_student_sync</code></li></ul>
+<ul class="md-list"><li>Mapping table for duplicate / master student records</li></ul>
+<p>Moodle core tables seen in the scan:</p>
+<ul class="md-list"><li><code>mdl_user</code></li><li><code>mdl_course</code></li><li><code>mdl_course_categories</code></li><li><code>mdl_context</code></li><li><code>mdl_enrol</code></li><li><code>mdl_user_enrolments</code></li><li><code>mdl_role_assignments</code></li></ul>
+<p>Legacy / uncertain tables that should be verified before final publication:</p>
+<ul class="md-list"><li><code>mdl_userstatus</code></li><li><code>mdl_userstatu</code></li><li><code>mdl_userstatus_cer_img</code></li></ul>
+<h2 id="important-relations">Important Relations</h2>
+<h3 id="direct-relations">Direct relations</h3>
+<table class="md-table"><thead><tr><th>From</th><th>To</th><th>Type</th><th>Meaning</th></tr></thead><tbody><tr><td><code>mdl_user_student.curriculum_id</code></td><td><code>mdl_a_curset.csid</code></td><td>logical FK</td><td>Student belongs to a curriculum</td></tr><tr><td><code>mdl_student_tasks.sid</code></td><td><code>mdl_user_student.sid</code></td><td>logical FK</td><td>Student has task records</td></tr><tr><td><code>mdl_student_tasks.taskid</code></td><td><code>mdl_a_tasks.taskid</code></td><td>logical FK</td><td>Task assignment points to task master</td></tr><tr><td><code>mdl_cur_course.course_cid</code></td><td><code>mdl_course_ep.cid</code></td><td>logical FK</td><td>Curriculum-course mapping points to course master</td></tr><tr><td><code>mdl_cur_course.csid</code></td><td><code>mdl_a_curset.csid</code></td><td>logical FK</td><td>Curriculum-course mapping belongs to curriculum</td></tr><tr><td><code>mdl_student_registration_term.student_sid</code></td><td><code>mdl_user_student.sid</code></td><td>logical FK</td><td>Student registration header belongs to student</td></tr><tr><td><code>mdl_student_registered_course.regid</code></td><td><code>mdl_student_registration_term.regid</code></td><td>logical FK</td><td>Registered course belongs to term registration</td></tr><tr><td><code>mdl_student_registered_course.course_cid</code></td><td><code>mdl_course_ep.cid</code></td><td>logical FK</td><td>Registered course points to course master</td></tr><tr><td><code>mdl_nts_scores.reg_course_id</code></td><td><code>mdl_student_registered_course.id</code></td><td>logical FK</td><td>NTS score belongs to registered course</td></tr><tr><td><code>mdl_nts_research_progress.student_sid</code></td><td><code>mdl_user_student.sid</code></td><td>logical FK</td><td>Research progress belongs to student</td></tr><tr><td><code>mdl_student_softskill_result.student_sid</code></td><td><code>mdl_user_student.sid</code></td><td>logical FK</td><td>Soft skill result belongs to student</td></tr><tr><td><code>mdl_student_english_test_result.student_sid</code></td><td><code>mdl_user_student.sid</code></td><td>logical FK</td><td>English test result belongs to student</td></tr><tr><td><code>mdl_student_english_test_score_details.test_result_id</code></td><td><code>mdl_student_english_test_result.id</code></td><td>logical FK</td><td>Score detail belongs to test header</td></tr><tr><td><code>mdl_comp_exam_results.student_sid</code></td><td><code>mdl_user_student.sid</code></td><td>logical FK</td><td>CE result belongs to student</td></tr><tr><td><code>mdl_master_student_sync.master_sid</code></td><td><code>mdl_user_student.sid</code></td><td>logical FK</td><td>Sync table points to master student</td></tr></tbody></table>
+<h3 id="derived-relation-chain-for-milepoint">Derived relation chain for milepoint</h3>
+<ol class="md-list"><li><code>v_student_knowledge_scores_final</code></li><li><code>v_student_research_score</code></li><li><code>v_student_nts_score</code></li><li><code>v_student_softskill_score</code></li><li><code>v_student_english_skill_score</code></li><li><code>mdl_milepoint_view</code></li></ol>
+<h3 id="view-dependency-chain">View dependency chain</h3>
+<ul class="md-list"><li><code>v_student_course_effective_grade</code></li></ul>
+<ul class="md-list"><li>Uses <code>mdl_student_registered_course</code>, <code>mdl_student_registration_term</code>, <code>mdl_course_ep</code>, <code>v_grade_values</code></li></ul>
+<ul class="md-list"><li><code>v_student_passed_credits</code></li></ul>
+<ul class="md-list"><li>Uses <code>v_student_course_effective_grade</code></li></ul>
+<ul class="md-list"><li><code>v_student_p_scores_base</code></li></ul>
+<ul class="md-list"><li>Uses <code>mdl_user_student</code>, <code>v_student_passed_credits</code></li></ul>
+<ul class="md-list"><li><code>v_student_ce_status</code></li></ul>
+<ul class="md-list"><li>Uses <code>mdl_comp_exam_results</code></li></ul>
+<ul class="md-list"><li><code>v_student_knowledge_scores_final</code></li></ul>
+<ul class="md-list"><li>Uses <code>v_student_p_scores_base</code>, <code>v_student_ce_status</code></li></ul>
+<ul class="md-list"><li><code>v_student_research_score</code></li></ul>
+<ul class="md-list"><li>Uses <code>mdl_student_tasks</code>, <code>mdl_a_tasks</code></li></ul>
+<ul class="md-list"><li><code>v_student_nts_score</code></li></ul>
+<ul class="md-list"><li>Uses <code>mdl_student_registered_course</code>, <code>mdl_student_registration_term</code>, <code>mdl_course_ep</code>, <code>mdl_nts_scores</code></li></ul>
+<ul class="md-list"><li><code>v_student_softskill_score</code></li></ul>
+<ul class="md-list"><li>Uses <code>mdl_student_softskill_result</code></li></ul>
+<ul class="md-list"><li><code>v_student_english_skill_score</code></li></ul>
+<ul class="md-list"><li>Uses <code>mdl_student_english_test_result</code></li></ul>
+<ul class="md-list"><li><code>mdl_milepoint_view</code></li></ul>
+<ul class="md-list"><li>Uses all of the above summary views</li></ul>
+<h2 id="dfd-draft">DFD Draft</h2>
+<h3 id="dfd-level-0">DFD Level 0</h3>
+<pre class="code-block"><code class="language-mermaid">flowchart LR
+    Admin[Admin / Staff]
+    Student[Student]
+    Moodle[Moodle Session]
+    Newmodule[mod/newmodule v_ system]
+    LegacyDB[(Legacy learning DB)]
+    MoodleDB[(Moodle DB)]
+    CSV[CSV Export]
+
+    Admin --&gt; Newmodule
+    Student --&gt; Newmodule
+    Moodle --&gt; Newmodule
+    Newmodule --&gt; MoodleDB
+    Newmodule --&gt; LegacyDB
+    Newmodule --&gt; CSV</code></pre>
+<h3 id="dfd-level-1">DFD Level 1</h3>
+<pre class="code-block"><code class="language-mermaid">flowchart LR
+    A[Curriculum Management]
+    B[Student Result Views]
+    C[Research / Task]
+    D[Soft Skills / NTS]
+    E[Sync / Maintenance]
+    F[Report / Export]
+    DB[(Legacy learning DB)]
+    M[(Moodle DB)]
+
+    A --&gt; DB
+    B --&gt; DB
+    C --&gt; DB
+    D --&gt; DB
+    E --&gt; DB
+    F --&gt; DB
+    A --&gt; M
+    B --&gt; M
+    C --&gt; M
+    D --&gt; M
+    E --&gt; M
+    F --&gt; M</code></pre>
+<h2 id="er-draft">ER Draft</h2>
+<pre class="code-block"><code class="language-mermaid">erDiagram
+    A_CURSET ||--o{ USER_STUDENT : curriculum_id
+    A_CURSET ||--o{ CUR_COURSE : csid
+    COURSE_EP ||--o{ CUR_COURSE : course_cid
+    USER_STUDENT ||--o{ STUDENT_TASKS : sid
+    A_TASKS ||--o{ STUDENT_TASKS : taskid
+    USER_STUDENT ||--o{ STUDENT_REG_TERM : student_sid
+    STUDENT_REG_TERM ||--o{ STUDENT_REGISTERED_COURSE : regid
+    COURSE_EP ||--o{ STUDENT_REGISTERED_COURSE : course_cid
+    STUDENT_REGISTERED_COURSE ||--o{ NTS_SCORES : reg_course_id
+    USER_STUDENT ||--o{ SOFTSKILL_RESULT : student_sid
+    USER_STUDENT ||--o{ ENGLISH_TEST_RESULT : student_sid
+    ENGLISH_TEST_RESULT ||--o{ ENGLISH_TEST_SCORE_DETAILS : test_result_id
+    USER_STUDENT ||--o{ COMP_EXAM_RESULTS : student_sid
+    USER_STUDENT ||--o{ MASTER_STUDENT_SYNC : master_sid</code></pre>
+<h2 id="use-case-draft">Use Case Draft</h2>
+<table class="md-table"><thead><tr><th>Use case</th><th>Actor</th><th>Main outcome</th></tr></thead><tbody><tr><td>Select curriculum</td><td>Admin / Staff</td><td>Opens the context for all curriculum-related pages</td></tr><tr><td>View dashboard</td><td>Admin / Staff</td><td>Sees milepoint summary and student distribution</td></tr><tr><td>Manage curriculum</td><td>Admin / Staff</td><td>Creates or updates curriculum master data</td></tr><tr><td>Manage courses in curriculum</td><td>Admin / Staff</td><td>Saves course assignments and lock state</td></tr><tr><td>Manage students in curriculum</td><td>Admin / Staff</td><td>Adds or removes students from a curriculum</td></tr><tr><td>View student knowledge</td><td>Admin / Staff</td><td>Sees Knowledge score and detail</td></tr><tr><td>View student research</td><td>Admin / Staff</td><td>Sees research task progress and alerts</td></tr><tr><td>View soft skills</td><td>Admin / Staff</td><td>Sees soft skill score and status</td></tr><tr><td>View NTS</td><td>Admin / Staff</td><td>Sees NTS score summary</td></tr><tr><td>Sync duplicate student data</td><td>Admin</td><td>Resolves duplicate identities and propagates master links</td></tr><tr><td>Export report CSV</td><td>Admin / Staff</td><td>Generates a CSV report for offline use</td></tr><tr><td>Recalculate derived scores</td><td>Admin / System job</td><td>Refreshes summary data after source changes</td></tr></tbody></table>
+<h2 id="screen-documentation-template">Screen Documentation Template</h2>
+<p>Use the same structure for every screen:</p>
+<ol class="md-list"><li>Screen name</li><li>File path</li><li>Who can use it</li><li>Purpose</li><li>Inputs / filters</li><li>Buttons and links</li><li>Step-by-step use</li><li>Tables read</li><li>Tables written</li><li>Logs and errors</li><li>Related screens</li></ol>
+<h2 id="table-documentation-template">Table Documentation Template</h2>
+<p>Use the same structure for every table or view:</p>
+<ol class="md-list"><li>Table / view name</li><li>Type: table or view</li><li>Owner layer: Moodle DB or legacy learning DB</li><li>Purpose</li><li>Main columns</li><li>PK / FK / logical relation</li><li>Who reads it</li><li>Who writes it</li><li>Example queries</li><li>Notes / risks</li></ol>
+<h2 id="notes-worth-carrying-into-the-final-manual">Notes Worth Carrying into the Final Manual</h2>
+<ul class="md-list"><li>Many pages still use legacy <code>mysqli</code> and some use <code>PDO</code>; document this as a deliberate compatibility choice for now.</li><li>Keep the main manual focused on active files only.</li><li>Move dated backup copies into an appendix, not the main navigation map.</li><li>The external connection helper should remain the single place that knows how to connect to the learning DB.</li><li>Logs should be described only for meaningful failures, not every routine query.</li><li>Use standard Moodle footer and page lifecycle in the documentation examples.</li></ul>
+<h2 id="suggested-next-step">Suggested Next Step</h2>
+<p>If the next pass is accepted, the cleanest order is:</p>
+<ol class="md-list"><li>Finish the screen-by-screen manual for the active pages only</li><li>Expand the table reference with column-level details</li><li>Draw the final ER and DFD diagrams</li><li>Put backup and historical files into appendix</li></ol>
+      <div class="footnote">Source markdown: newmodule-v-survey-draft.md</div>
+    </article>
+  </div>
+</body>
+</html>
