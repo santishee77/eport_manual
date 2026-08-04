@@ -463,6 +463,41 @@
       white-space: nowrap;
     }
 
+    .section-toggle {
+      margin-left: auto;
+      padding: 0.5rem 0.85rem;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--accent);
+      font: inherit;
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .section-toggle:hover {
+      transform: translateY(-1px);
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .section-toggle:focus-visible {
+      outline: 3px solid rgba(15, 118, 110, 0.28);
+      outline-offset: 2px;
+    }
+
+    .collapsible-collapsed > :not(.section-title):not(.screen-head) {
+      display: none !important;
+    }
+
+    .collapsible-collapsed > .section-title,
+    .collapsible-collapsed > .screen-head {
+      margin-bottom: 0;
+    }
+
     .shot {
       margin: 16px 0 0;
       padding: 18px;
@@ -608,6 +643,31 @@
       display: none !important;
     }
 
+    body.screen-map-focus .hero,
+    body.screen-map-focus .footer,
+    body.screen-map-focus main > .page:not(#screen-map) {
+      display: none !important;
+    }
+
+    body.section-focus .hero,
+    body.section-focus .footer {
+      display: none !important;
+    }
+
+    body.section-focus section.page.card,
+    body.section-focus article.screen.card {
+      display: none !important;
+    }
+
+    body.section-focus section.page.card.focus-visible,
+    body.section-focus article.screen.card.focus-visible {
+      display: block !important;
+    }
+
+    body.section-focus section.page.card.focus-root.focus-child-filter > :not(.focus-visible) {
+      display: none !important;
+    }
+
     body.presentation .hero {
       margin-bottom: 12px;
     }
@@ -660,6 +720,7 @@
       .no-print,
       .toolbar,
       .toc .presentation-hint,
+      .section-toggle,
       .skip-link {
         display: none !important;
       }
@@ -736,11 +797,11 @@
       <aside class="toc card no-print" id="toc">
         <h2>สารบัญ</h2>
         <p>คลิกเพื่อข้ามไปยังแต่ละส่วน, โครงนี้ตั้งใจให้เอาไปใช้ต่อใน Word, PDF, หรือเว็บพรีเซนต์ได้</p>
-        <div class="presentation-hint">กดปุ่ม Presentation Mode เพื่อดูแบบฉายหน้าจอ</div>
+        <div class="presentation-hint">กดปุ่ม Presentation Mode หรือปุ่มซ่อน/แสดงในแต่ละส่วนเพื่อดูแบบฉายหน้าจอ</div>
         <ol>
           <li><a href="#overview">ภาพรวมและวิธีใช้</a></li>
           <li>
-            <details class="toc-details" open>
+            <details class="toc-details">
               <summary>แผนที่หน้าจอ</summary>
               <ul class="toc-sub">
                 <li><a href="#s01">หน้าที่ 1 · หน้าแรก / Dashboard หลัก</a></li>
@@ -2337,6 +2398,11 @@ USER_STUDENT 1 --- N COMP_EXAM_RESULTS</pre>
       const btnPresentation = document.getElementById('btnPresentation');
       const btnPrint = document.getElementById('btnPrint');
       const body = document.body;
+      const tocStateKey = 'newmodule.manual.tocDetailsOpen.v1';
+      let screenMapTocDetails = null;
+      let printRestoreState = null;
+      let suppressTocStateSync = false;
+      let focusedCardId = null;
 
       function setPresentationMode(enabled) {
         body.classList.toggle('presentation', enabled);
@@ -2359,6 +2425,266 @@ USER_STUDENT 1 --- N COMP_EXAM_RESULTS</pre>
           setPresentationMode(false);
         }
       });
+
+      function readStoredTocState() {
+        try {
+          const stored = window.localStorage.getItem(tocStateKey);
+          if (stored === null) {
+            return null;
+          }
+
+          return stored === '1';
+        } catch (error) {
+          return null;
+        }
+      }
+
+      function writeStoredTocState(isOpen) {
+        try {
+          window.localStorage.setItem(tocStateKey, isOpen ? '1' : '0');
+        } catch (error) {
+          // File:// pages can disable storage in some browsers; fail silently.
+        }
+      }
+
+      function clearSectionFocus() {
+        focusedCardId = null;
+        body.classList.remove('section-focus', 'screen-map-focus');
+
+        getCollapsibleSections().forEach((section) => {
+          section.classList.remove('focus-visible', 'focus-root', 'focus-child-filter');
+        });
+      }
+
+      function getCollapsibleSections() {
+        return Array.from(document.querySelectorAll('section.page.card, article.screen.card'));
+      }
+
+      function setCollapsibleState(section, collapsed) {
+        const nextCollapsed = Boolean(collapsed);
+        const button = section._collapsibleToggle || section.querySelector('.section-toggle');
+
+        section.classList.add('collapsible');
+        section.classList.toggle('collapsible-collapsed', nextCollapsed);
+
+        if (button) {
+          button.textContent = nextCollapsed ? 'แสดง' : 'ซ่อน';
+          button.setAttribute('aria-expanded', String(!nextCollapsed));
+          button.title = nextCollapsed ? 'แสดงส่วนนี้' : 'ซ่อนส่วนนี้';
+        }
+      }
+
+      function setupCollapsibleSections() {
+        getCollapsibleSections().forEach((section) => {
+          if (section.dataset.collapsibleReady === '1') {
+            return;
+          }
+
+          const header = section.querySelector('.section-title, .screen-head');
+          if (!header) {
+            return;
+          }
+
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'section-toggle';
+          button.setAttribute('aria-expanded', 'true');
+          button.textContent = 'ซ่อน';
+          button.title = 'ซ่อนส่วนนี้';
+          button.addEventListener('click', () => {
+            setCollapsibleState(section, !section.classList.contains('collapsible-collapsed'));
+          });
+
+          header.appendChild(button);
+          section._collapsibleToggle = button;
+          section.dataset.collapsibleReady = '1';
+          setCollapsibleState(section, false);
+        });
+      }
+
+      function expandAncestorsForTarget(target) {
+        let current = target instanceof Element ? target : null;
+
+        while (current) {
+          const collapsible = current.closest('.collapsible');
+          if (!collapsible) {
+            break;
+          }
+
+          setCollapsibleState(collapsible, false);
+          current = collapsible.parentElement;
+        }
+      }
+
+      function isFocusCard(target) {
+        return target instanceof Element && target.matches('section.page.card, article.screen.card');
+      }
+
+      function findFocusRoot(target) {
+        if (!(target instanceof Element)) {
+          return null;
+        }
+
+        if (target.matches('section.page.card')) {
+          return target;
+        }
+
+        return target.closest('section.page.card') || target;
+      }
+
+      function applySectionFocus(target) {
+        const focusCard = isFocusCard(target) ? target : null;
+        if (!focusCard) {
+          clearSectionFocus();
+          return;
+        }
+
+        clearSectionFocus();
+
+        const focusRoot = findFocusRoot(focusCard) || focusCard;
+        focusedCardId = focusCard.id || null;
+
+        body.classList.add('section-focus');
+        if (focusCard.id === 'screen-map') {
+          body.classList.add('screen-map-focus');
+        }
+
+        focusRoot.classList.add('focus-visible', 'focus-root');
+
+        let current = focusCard;
+        while (current) {
+          current.classList.add('focus-visible');
+          if (current === focusRoot) {
+            break;
+          }
+
+          current = current.parentElement ? current.parentElement.closest('section.page.card, article.screen.card') : null;
+        }
+
+        if (focusCard !== focusRoot) {
+          focusRoot.classList.add('focus-child-filter');
+        } else if (focusCard.matches('section.page.card')) {
+          focusCard.querySelectorAll('section.page.card, article.screen.card').forEach((card) => {
+            card.classList.add('focus-visible');
+          });
+        }
+
+        focusCard.querySelectorAll('section.page.card, article.screen.card').forEach((card) => {
+          card.classList.add('focus-visible');
+        });
+
+        expandAncestorsForTarget(focusCard);
+      }
+
+      function revealFromHash() {
+        const hash = window.location.hash;
+        if (!hash || hash === '#') {
+          clearSectionFocus();
+          return;
+        }
+
+        const targetId = decodeURIComponent(hash.slice(1));
+        const target = document.getElementById(targetId);
+        if (!target) {
+          clearSectionFocus();
+          return;
+        }
+
+        if (isFocusCard(target)) {
+          applySectionFocus(target);
+          return;
+        }
+
+        clearSectionFocus();
+        expandAncestorsForTarget(target);
+      }
+
+      function bindAnchorReveal() {
+        document.addEventListener('click', (event) => {
+          const link = event.target.closest('a[href^="#"]');
+          if (!link) {
+            return;
+          }
+
+          const href = link.getAttribute('href');
+          if (!href || href === '#') {
+            return;
+          }
+
+          const targetId = decodeURIComponent(href.slice(1));
+          const target = document.getElementById(targetId);
+          if (!target) {
+            return;
+          }
+
+          expandAncestorsForTarget(target);
+        });
+
+        window.addEventListener('hashchange', revealFromHash);
+      }
+
+      function bindPrintLifecycle() {
+        window.addEventListener('beforeprint', () => {
+          printRestoreState = {
+            presentationEnabled: body.classList.contains('presentation'),
+            screenMapOpen: Boolean(screenMapTocDetails && screenMapTocDetails.open),
+            focusedCardId,
+            collapsibleStates: getCollapsibleSections().map((section) => [
+              section.id,
+              section.classList.contains('collapsible-collapsed'),
+            ]),
+          };
+
+          if (printRestoreState.presentationEnabled) {
+            setPresentationMode(false);
+          }
+
+          if (screenMapTocDetails && screenMapTocDetails.open) {
+            screenMapTocDetails.open = false;
+          }
+
+          clearSectionFocus();
+          getCollapsibleSections().forEach((section) => setCollapsibleState(section, false));
+        });
+
+        window.addEventListener('afterprint', () => {
+          if (!printRestoreState) {
+            return;
+          }
+
+          const stateById = new Map(printRestoreState.collapsibleStates);
+          getCollapsibleSections().forEach((section) => {
+            if (!section.id) {
+              return;
+            }
+
+            if (stateById.has(section.id)) {
+              setCollapsibleState(section, stateById.get(section.id));
+            }
+          });
+
+          if (screenMapTocDetails) {
+            screenMapTocDetails.open = printRestoreState.screenMapOpen;
+          }
+
+          if (printRestoreState.focusedCardId) {
+            const focusedCard = document.getElementById(printRestoreState.focusedCardId);
+            if (focusedCard) {
+              applySectionFocus(focusedCard);
+            } else {
+              clearSectionFocus();
+            }
+          } else {
+            clearSectionFocus();
+          }
+
+          if (printRestoreState.presentationEnabled) {
+            setPresentationMode(true);
+          }
+
+          printRestoreState = null;
+        });
+      }
 
       function linkDataDictionaryReferences() {
         const targetByName = new Map();
@@ -2390,23 +2716,40 @@ USER_STUDENT 1 --- N COMP_EXAM_RESULTS</pre>
 
       function bindScreenMapTocToggle() {
         const tocDetails = document.querySelector('.toc-details');
-        const tocSummary = tocDetails?.querySelector('summary');
-        const screenMap = document.getElementById('screen-map');
 
-        if (!tocDetails || !tocSummary || !screenMap) {
+        if (!tocDetails) {
           return;
         }
 
-        tocSummary.addEventListener('click', () => {
-          window.requestAnimationFrame(() => {
-            history.replaceState(null, '', '#screen-map');
-            screenMap.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          });
-        });
+        screenMapTocDetails = tocDetails;
+
+        const storedState = readStoredTocState();
+        if (storedState !== null) {
+          suppressTocStateSync = true;
+          tocDetails.open = storedState;
+          suppressTocStateSync = false;
+        } else if (window.location.hash === '#screen-map') {
+          suppressTocStateSync = true;
+          tocDetails.open = true;
+          suppressTocStateSync = false;
+        }
+
+        function syncTocState() {
+          if (!suppressTocStateSync) {
+            writeStoredTocState(tocDetails.open);
+          }
+        }
+
+        tocDetails.addEventListener('toggle', syncTocState);
+        syncTocState();
       }
 
+      setupCollapsibleSections();
+      bindAnchorReveal();
       linkDataDictionaryReferences();
       bindScreenMapTocToggle();
+      bindPrintLifecycle();
+      revealFromHash();
     })();
   </script>
 </body>
