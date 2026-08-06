@@ -274,6 +274,19 @@
       transform: rotate(90deg);
     }
 
+    .toc .toc-details-nested summary::after {
+      content: ">";
+      display: inline-block;
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1;
+      transition: transform 0.15s ease;
+    }
+
+    .toc .toc-details-nested[open] summary::after {
+      transform: rotate(90deg);
+    }
+
     .toc .toc-details summary:hover {
       color: var(--accent-2);
     }
@@ -290,6 +303,29 @@
       color: var(--accent);
       border-left-color: var(--accent);
       text-decoration: none;
+    }
+
+    .toc .toc-details-nested {
+      margin-top: 4px;
+      margin-left: 8px;
+    }
+
+    .toc .toc-sub-nested {
+      margin-top: 6px;
+      margin-left: 10px;
+      padding-left: 10px;
+      border-left: 1px dashed var(--line);
+    }
+
+    .toc .toc-sub-nested a {
+      padding-left: 0.35rem;
+      border-left: 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .toc .toc-sub-nested a:hover {
+      border-left-color: transparent;
     }
 
     .toc small {
@@ -882,7 +918,7 @@
         <ol>
           <li><a href="#overview">ภาพรวมและวิธีใช้</a></li>
           <li>
-            <details class="toc-details">
+            <details class="toc-details" data-toc-key="screen-map">
               <summary>แผนที่หน้าจอ</summary>
               <ul class="toc-sub">
                 <li><a href="#s01">หน้าที่ 1 · หน้าแรก / Dashboard หลัก</a></li>
@@ -904,7 +940,80 @@
           </li>
           <li><a href="#screens">คู่มือหน้าจอหลัก</a></li>
           <li><a href="#technical-reference">Technical Reference</a></li>
-          <li><a href="#use-cases">Use case diagram / Data dictionary / DFD / ER</a></li>
+          <li>
+            <details class="toc-details" data-toc-key="use-cases">
+              <summary>Use case diagram / Data dictionary / DFD / ER</summary>
+              <ul class="toc-sub">
+                <li><a href="#use-case-diagram">Use case diagram</a></li>
+                <li>
+                  <details class="toc-details toc-details-nested" data-toc-key="use-cases-data-dictionary">
+                    <summary>Data dictionary</summary>
+                    <ul class="toc-sub toc-sub-nested">
+                      <li>
+                        <details class="toc-details toc-details-nested" data-toc-key="use-cases-data-dictionary-tables">
+                          <summary>ตารางหลัก (table)</summary>
+                          <ul class="toc-sub toc-sub-nested">
+                            <li><a href="#dd-mdl-newmodule">mdl_newmodule</a></li>
+                            <li><a href="#dd-mdl-a-curset">mdl_a_curset</a></li>
+                            <li><a href="#dd-mdl-a-curset-log">mdl_a_curset_log</a></li>
+                            <li><a href="#dd-mdl-a-tasks">mdl_a_tasks</a></li>
+                            <li><a href="#dd-mdl-course-ep">mdl_course_ep</a></li>
+                            <li><a href="#dd-mdl-cur-course">mdl_cur_course</a></li>
+                            <li><a href="#dd-mdl-user-student">mdl_user_student</a></li>
+                            <li><a href="#dd-mdl-student-registration-term">mdl_student_registration_term</a></li>
+                            <li><a href="#dd-mdl-student-registered-course">mdl_student_registered_course</a></li>
+                            <li><a href="#dd-mdl-student-tasks">mdl_student_tasks</a></li>
+                            <li><a href="#dd-mdl-u-student-in-course">mdl_u_student_in_course</a></li>
+                            <li><a href="#dd-mdl-u-student-in-course-for-registered-course">mdl_u_student_in_course_for_registered_course</a></li>
+                            <li><a href="#dd-mdl-u-education-year">mdl_u_education_year</a></li>
+                            <li><a href="#dd-mdl-u-education-semester-course">mdl_u_education_semester_course</a></li>
+                            <li><a href="#dd-mdl-u-education-year-semester">mdl_u_education_year_semester</a></li>
+                            <li><a href="#dd-mdl-nts-scores">mdl_nts_scores</a></li>
+                            <li><a href="#dd-mdl-nts-research-progress">mdl_nts_research_progress</a></li>
+                            <li><a href="#dd-mdl-student-softskill-result">mdl_student_softskill_result</a></li>
+                            <li><a href="#dd-mdl-student-english-test-result">mdl_student_english_test_result</a></li>
+                            <li><a href="#dd-mdl-student-english-test-score-details">mdl_student_english_test_score_details</a></li>
+                            <li><a href="#dd-mdl-english-test-criteria">mdl_english_test_criteria</a></li>
+                            <li><a href="#dd-mdl-english-test-types">mdl_english_test_types</a></li>
+                            <li><a href="#dd-mdl-comp-exam-results">mdl_comp_exam_results</a></li>
+                            <li><a href="#dd-mdl-master-student-sync">mdl_master_student_sync</a></li>
+                            <li><a href="#dd-mdl-user">mdl_user</a></li>
+                            <li><a href="#dd-mdl-course">mdl_course</a></li>
+                            <li><a href="#dd-mdl-course-categories">mdl_course_categories</a></li>
+                            <li><a href="#dd-mdl-context">mdl_context</a></li>
+                            <li><a href="#dd-mdl-enrol">mdl_enrol</a></li>
+                            <li><a href="#dd-mdl-user-enrolments">mdl_user_enrolments</a></li>
+                            <li><a href="#dd-mdl-role-assignments">mdl_role_assignments</a></li>
+                          </ul>
+                        </details>
+                      </li>
+                      <li>
+                        <details class="toc-details toc-details-nested" data-toc-key="use-cases-data-dictionary-views">
+                          <summary>Views หลัก (view)</summary>
+                          <ul class="toc-sub toc-sub-nested">
+                            <li><a href="#dd-v-grade-values">v_grade_values</a></li>
+                            <li><a href="#dd-v-student-course-effective-grade">v_student_course_effective_grade</a></li>
+                            <li><a href="#dd-v-student-passed-credits">v_student_passed_credits</a></li>
+                            <li><a href="#dd-v-student-p-scores-base">v_student_p_scores_base</a></li>
+                            <li><a href="#dd-v-student-ce-status">v_student_ce_status</a></li>
+                            <li><a href="#dd-v-student-knowledge-scores-final">v_student_knowledge_scores_final</a></li>
+                            <li><a href="#dd-v-student-research-score">v_student_research_score</a></li>
+                            <li><a href="#dd-v-student-nts-score">v_student_nts_score</a></li>
+                            <li><a href="#dd-v-student-softskill-score">v_student_softskill_score</a></li>
+                            <li><a href="#dd-v-student-english-skill-score">v_student_english_skill_score</a></li>
+                            <li><a href="#dd-mdl-milepoint-view">mdl_milepoint_view</a></li>
+                          </ul>
+                        </details>
+                      </li>
+                    </ul>
+                  </details>
+                </li>
+                <li><a href="#dfd-level-0">DFD ระดับ 0</a></li>
+                <li><a href="#dfd-level-1">DFD ระดับ 1</a></li>
+                <li><a href="#er-summary">ER แบบย่อ</a></li>
+              </ul>
+            </details>
+          </li>
           <li><a href="#placeholders">Screenshot placeholders</a></li>
           <li><a href="#troubleshooting">Troubleshooting / Logs</a></li>
           <li><a href="#appendix">Appendix</a></li>
@@ -1116,10 +1225,10 @@
             <section class="panel" style="margin-top:14px">
               <h4>ขั้นตอนการใช้งาน</h4>
               <ol class="compact">
-                <li>เข้า hub ของ curriculum</li>
-                <li>เลือกงานที่ต้องการ เช่น course หรือ student</li>
-                <li>ไปยังหน้าที่เกี่ยวข้องเพื่อแก้ข้อมูล</li>
-                <li>กลับ hub ได้ตลอดเพื่อเปลี่ยนงาน</li>
+                <li>เลือกหลักสูตร</li>
+                <li>เลือกงานที่ต้องการจัดการ เช่น นักศึกษา ข้อมูลรายวิชา โครงสร้างหลักสูตร</li>
+                <li>ตรวจสอบและแก้ข้อมูล</li>
+                <li>เปลี่ยนหลักสูตรได้ตลอด</li>
               </ol>
             </section>
             <div class="two-col" style="margin-top:14px">
@@ -1143,6 +1252,18 @@
               <img src="manual_img/S02.png" alt="หน้าจัดการหลักสูตรของ mod/newmodule แสดงเส้นทางไป student, sync และ course พร้อมกัน" title="{{IMG: หน้าที่ 2 | หน้าจัดการหลักสูตร}}" loading="lazy">
               <figcaption>เส้นทางไป student, sync และ course</figcaption>
             </figure>
+            <div class="grid-2" style="margin-top:14px">
+              <figure class="shot has-image" title="{{IMG: S02S1 | หน้าที่ 2 - จัดการลงทะเบียน}}">
+                <img src="manual_img/S02S1.png" alt="หน้าจัดการลงทะเบียนของ mod/newmodule แสดงส่วนที่ใช้จัดการข้อมูลการลงทะเบียนนักศึกษา" title="{{IMG: S02S1 | หน้าที่ 2 - จัดการลงทะเบียน}}" loading="lazy" onerror="this.hidden=true; this.nextElementSibling.hidden=false;">
+                <div class="placeholder" hidden>วางไฟล์ `manual_img/S02S1.png`</div>
+                <figcaption>หน้าจัดการลงทะเบียน</figcaption>
+              </figure>
+              <figure class="shot has-image" title="{{IMG: S02S2 | หน้าที่ 2 - จัดการนักศึกษา}}">
+                <img src="manual_img/S02S2.png" alt="หน้าจัดการนักศึกษาของ mod/newmodule แสดงส่วนที่ใช้เพิ่ม แก้ไข และตรวจรายชื่อนักศึกษาในหลักสูตร" title="{{IMG: S02S2 | หน้าที่ 2 - จัดการนักศึกษา}}" loading="lazy" onerror="this.hidden=true; this.nextElementSibling.hidden=false;">
+                <div class="placeholder" hidden>วางไฟล์ `manual_img/S02S2.png`</div>
+                <figcaption>หน้าจัดการนักศึกษา</figcaption>
+              </figure>
+            </div>
           </article>
 
           <article class="screen card" id="s03">
@@ -1979,7 +2100,7 @@
             </div>
           </div>
 
-          <div class="panel">
+          <div class="panel" id="use-case-diagram">
             <h4>Use case diagram</h4>
             <p class="small muted">
               แผนภาพสรุป actor หลักกับความสามารถที่ใช้งานจริงใน <code>mod/newmodule</code> ชุด <code>v_</code>
@@ -2010,7 +2131,7 @@
           </div>
 
           <div class="dd-stack" style="margin-top:14px">
-            <div class="panel">
+            <div class="panel" id="data-dictionary-main-tables">
               <h4>Data dictionary: ตารางหลัก</h4>
               <p class="small muted">
                 เก็บเฉพาะ object และ field ที่ใช้งานกับหน้าจอ <code>v_</code> และ view chain หลัก
@@ -2069,7 +2190,7 @@
                 </tbody>
               </table>
             </div>
-            <div class="panel">
+            <div class="panel" id="data-dictionary-main-views">
               <h4>Data dictionary: Views หลัก</h4>
               <p class="small muted">
                 สรุป view ที่ต่อกันเป็น chain สำหรับคำนวณคะแนน และเป็น source ของหน้ารายงาน
@@ -2136,7 +2257,7 @@
           </div>
 
           <div class="two-col" style="margin-top:14px">
-            <div class="panel">
+            <div class="panel" id="dfd-level-0">
               <h4>DFD ระดับ 0</h4>
               <p class="small muted">มองภาพรวมของระบบจากมุมผู้ใช้และแหล่งข้อมูลหลัก</p>
               <pre class="diagram">Admin / Staff
@@ -2150,7 +2271,7 @@ Legacy learning DB   Moodle DB
        v   v
      View / Report / CSV</pre>
             </div>
-            <div class="panel">
+            <div class="panel" id="dfd-level-1">
               <h4>DFD ระดับ 1</h4>
               <p class="small muted">แตกงานออกเป็นกระบวนการย่อยที่เกิดขึ้นบนหน้าจอจริง</p>
               <pre class="diagram">1) Select curriculum  -> load current course context
@@ -2290,7 +2411,7 @@ Legacy learning DB   Moodle DB
           <!-- DATA-DICTIONARY-DETAIL-END -->
 
           <div class="dd-stack" style="margin-top:14px">
-            <div class="panel">
+            <div class="panel" id="er-summary">
               <h4>ER แบบย่อ</h4>
               <p class="small muted">แผนภาพความสัมพันธ์นี้เป็นแบบย่อ ใช้เป็นตัวช่วยอธิบายในรายงาน ไม่ได้ลงรายละเอียดทุก field</p>
               <pre class="diagram">A_CURSET 1 --- N USER_STUDENT
@@ -2376,6 +2497,8 @@ USER_STUDENT 1 --- N COMP_EXAM_RESULTS</pre>
               <h4>Placeholder blocks แบบคัดลอกง่าย</h4>
               <pre class="diagram" title="ชุดตัวอย่าง placeholder สำหรับแปะรูปจริง">[หน้าที่ 1] {{IMG: หน้าที่ 1 | หน้าแรก / Dashboard หลัก}}
 [หน้าที่ 2] {{IMG: หน้าที่ 2 | หน้าจัดการหลักสูตร}}
+[หน้าที่ 2A] {{IMG: S02S1 | หน้าที่ 2 - จัดการลงทะเบียน}}
+[หน้าที่ 2B] {{IMG: S02S2 | หน้าที่ 2 - จัดการนักศึกษา}}
 [หน้าที่ 3] {{IMG: หน้าที่ 3 | จัดการรายวิชาในโครงสร้างหลักสูตร}}
 [หน้าที่ 4] {{IMG: หน้าที่ 4 | จัดการนักศึกษาในหลักสูตร}}
 [หน้าที่ 5] {{IMG: หน้าที่ 5 | แก้ไขข้อมูลนักศึกษา}}</pre>
@@ -2472,8 +2595,57 @@ USER_STUDENT 1 --- N COMP_EXAM_RESULTS</pre>
       const btnPresentation = document.getElementById('btnPresentation');
       const btnPrint = document.getElementById('btnPrint');
       const body = document.body;
-      const tocStateKey = 'newmodule.manual.tocDetailsOpen.v1';
-      let screenMapTocDetails = null;
+      const tocStatePrefix = 'newmodule.manual.tocDetailsOpen';
+      const tocStateVersion = 'v2';
+      const tocDetailsByKey = new Map();
+      const dataDictionaryTableHashes = new Set([
+        '#data-dictionary-main-tables',
+        '#dd-mdl-newmodule',
+        '#dd-mdl-a-curset',
+        '#dd-mdl-a-curset-log',
+        '#dd-mdl-a-tasks',
+        '#dd-mdl-course-ep',
+        '#dd-mdl-cur-course',
+        '#dd-mdl-user-student',
+        '#dd-mdl-student-registration-term',
+        '#dd-mdl-student-registered-course',
+        '#dd-mdl-student-tasks',
+        '#dd-mdl-u-student-in-course',
+        '#dd-mdl-u-student-in-course-for-registered-course',
+        '#dd-mdl-u-education-year',
+        '#dd-mdl-u-education-semester-course',
+        '#dd-mdl-u-education-year-semester',
+        '#dd-mdl-nts-scores',
+        '#dd-mdl-nts-research-progress',
+        '#dd-mdl-student-softskill-result',
+        '#dd-mdl-student-english-test-result',
+        '#dd-mdl-student-english-test-score-details',
+        '#dd-mdl-english-test-criteria',
+        '#dd-mdl-english-test-types',
+        '#dd-mdl-comp-exam-results',
+        '#dd-mdl-master-student-sync',
+        '#dd-mdl-user',
+        '#dd-mdl-course',
+        '#dd-mdl-course-categories',
+        '#dd-mdl-context',
+        '#dd-mdl-enrol',
+        '#dd-mdl-user-enrolments',
+        '#dd-mdl-role-assignments',
+      ]);
+      const dataDictionaryViewHashes = new Set([
+        '#data-dictionary-main-views',
+        '#dd-v-grade-values',
+        '#dd-v-student-course-effective-grade',
+        '#dd-v-student-passed-credits',
+        '#dd-v-student-p-scores-base',
+        '#dd-v-student-ce-status',
+        '#dd-v-student-knowledge-scores-final',
+        '#dd-v-student-research-score',
+        '#dd-v-student-nts-score',
+        '#dd-v-student-softskill-score',
+        '#dd-v-student-english-skill-score',
+        '#dd-mdl-milepoint-view',
+      ]);
       let printRestoreState = null;
       let suppressTocStateSync = false;
       let focusedCardId = null;
@@ -2501,9 +2673,13 @@ USER_STUDENT 1 --- N COMP_EXAM_RESULTS</pre>
         }
       });
 
-      function readStoredTocState() {
+      function tocStateKeyFor(key) {
+        return `${tocStatePrefix}.${key}.${tocStateVersion}`;
+      }
+
+      function readStoredTocState(key) {
         try {
-          const stored = window.localStorage.getItem(tocStateKey);
+          const stored = window.localStorage.getItem(tocStateKeyFor(key));
           if (stored === null) {
             return null;
           }
@@ -2514,12 +2690,55 @@ USER_STUDENT 1 --- N COMP_EXAM_RESULTS</pre>
         }
       }
 
-      function writeStoredTocState(isOpen) {
+      function writeStoredTocState(key, isOpen) {
         try {
-          window.localStorage.setItem(tocStateKey, isOpen ? '1' : '0');
+          window.localStorage.setItem(tocStateKeyFor(key), isOpen ? '1' : '0');
         } catch (error) {
           // File:// pages can disable storage in some browsers; fail silently.
         }
+      }
+
+      function isDataDictionaryTableHash(hash) {
+        return dataDictionaryTableHashes.has(hash);
+      }
+
+      function isDataDictionaryViewHash(hash) {
+        return dataDictionaryViewHashes.has(hash);
+      }
+
+      function shouldOpenTocDetailsForHash(key, hash) {
+        if (key === 'screen-map') {
+          return hash === '#screen-map' || /^#s\d+$/.test(hash);
+        }
+
+        if (key === 'use-cases') {
+          return [
+            '#use-cases',
+            '#use-case-diagram',
+            '#data-dictionary-main-tables',
+            '#data-dictionary-main-views',
+            '#dfd-level-0',
+            '#dfd-level-1',
+            '#er-summary',
+          ].includes(hash) || isDataDictionaryTableHash(hash) || isDataDictionaryViewHash(hash);
+        }
+
+        if (key === 'use-cases-data-dictionary') {
+          return hash === '#data-dictionary-main-tables'
+            || hash === '#data-dictionary-main-views'
+            || isDataDictionaryTableHash(hash)
+            || isDataDictionaryViewHash(hash);
+        }
+
+        if (key === 'use-cases-data-dictionary-tables') {
+          return isDataDictionaryTableHash(hash);
+        }
+
+        if (key === 'use-cases-data-dictionary-views') {
+          return isDataDictionaryViewHash(hash);
+        }
+
+        return false;
       }
 
       function clearSectionFocus() {
@@ -2760,7 +2979,10 @@ USER_STUDENT 1 --- N COMP_EXAM_RESULTS</pre>
         window.addEventListener('beforeprint', () => {
           printRestoreState = {
             presentationEnabled: body.classList.contains('presentation'),
-            screenMapOpen: Boolean(screenMapTocDetails && screenMapTocDetails.open),
+            tocDetailsOpen: Array.from(tocDetailsByKey.entries()).map(([key, details]) => [
+              key,
+              details.open,
+            ]),
             focusedCardId,
             focusedPanelId,
             collapsibleStates: getCollapsibleSections().map((section) => [
@@ -2773,9 +2995,11 @@ USER_STUDENT 1 --- N COMP_EXAM_RESULTS</pre>
             setPresentationMode(false);
           }
 
-          if (screenMapTocDetails && screenMapTocDetails.open) {
-            screenMapTocDetails.open = false;
-          }
+          suppressTocStateSync = true;
+          tocDetailsByKey.forEach((details) => {
+            details.open = false;
+          });
+          suppressTocStateSync = false;
 
           clearSectionFocus();
           getCollapsibleSections().forEach((section) => setCollapsibleState(section, false));
@@ -2797,9 +3021,14 @@ USER_STUDENT 1 --- N COMP_EXAM_RESULTS</pre>
             }
           });
 
-          if (screenMapTocDetails) {
-            screenMapTocDetails.open = printRestoreState.screenMapOpen;
-          }
+          const tocStateByKey = new Map(printRestoreState.tocDetailsOpen);
+          suppressTocStateSync = true;
+          tocDetailsByKey.forEach((details, key) => {
+            if (tocStateByKey.has(key)) {
+              details.open = tocStateByKey.get(key);
+            }
+          });
+          suppressTocStateSync = false;
 
           if (printRestoreState.focusedPanelId) {
             const focusedPanel = document.getElementById(printRestoreState.focusedPanelId);
@@ -2936,41 +3165,47 @@ USER_STUDENT 1 --- N COMP_EXAM_RESULTS</pre>
         });
       }
 
-      function bindScreenMapTocToggle() {
-        const tocDetails = document.querySelector('.toc-details');
-
-        if (!tocDetails) {
-          return;
-        }
-
-        screenMapTocDetails = tocDetails;
-
-        const storedState = readStoredTocState();
-        if (storedState !== null) {
-          suppressTocStateSync = true;
-          tocDetails.open = storedState;
-          suppressTocStateSync = false;
-        } else if (window.location.hash === '#screen-map') {
-          suppressTocStateSync = true;
-          tocDetails.open = true;
-          suppressTocStateSync = false;
-        }
-
-        function syncTocState() {
-          if (!suppressTocStateSync) {
-            writeStoredTocState(tocDetails.open);
+      function bindTocDetailsState() {
+        document.querySelectorAll('.toc-details[data-toc-key]').forEach((tocDetails) => {
+          if (tocDetails.dataset.tocStateReady === '1') {
+            return;
           }
-        }
 
-        tocDetails.addEventListener('toggle', syncTocState);
-        syncTocState();
+          const key = tocDetails.dataset.tocKey;
+          if (!key) {
+            return;
+          }
+
+          tocDetailsByKey.set(key, tocDetails);
+
+          const storedState = readStoredTocState(key);
+          if (storedState !== null) {
+            suppressTocStateSync = true;
+            tocDetails.open = storedState;
+            suppressTocStateSync = false;
+          } else if (shouldOpenTocDetailsForHash(key, window.location.hash)) {
+            suppressTocStateSync = true;
+            tocDetails.open = true;
+            suppressTocStateSync = false;
+          }
+
+          function syncTocState() {
+            if (!suppressTocStateSync) {
+              writeStoredTocState(key, tocDetails.open);
+            }
+          }
+
+          tocDetails.addEventListener('toggle', syncTocState);
+          tocDetails.dataset.tocStateReady = '1';
+          syncTocState();
+        });
       }
 
       setupCollapsibleSections();
       bindAnchorReveal();
       appendRelatedDataDictionaryPanels();
       linkDataDictionaryReferences();
-      bindScreenMapTocToggle();
+      bindTocDetailsState();
       bindPrintLifecycle();
       revealFromHash();
     })();
